@@ -120,3 +120,186 @@ body.menu-open { overflow:hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none !important; } }
+
+
+/* Real archive media — restoration pass 02 */
+.hero-stage-photo {
+  position: relative;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: 480 / 225;
+  margin: 0;
+  align-self: center;
+  background: #101712;
+  overflow: hidden;
+}
+.hero-stage-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(11, 10, 8, .18), transparent 32%),
+    linear-gradient(0deg, rgba(5, 8, 6, .45), transparent 42%);
+  box-shadow: inset 0 0 70px rgba(0,0,0,.38);
+}
+.hero-stage-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-stage-photo figcaption {
+  position: absolute;
+  z-index: 2;
+  left: 22px;
+  right: 22px;
+  bottom: 18px;
+  color: rgba(246,239,223,.74);
+  font: 11px/1.35 var(--serif);
+  letter-spacing: .04em;
+}
+
+.residents-showcase {
+  display: grid;
+  grid-template-columns: 1.4fr .6fr;
+  min-height: 560px;
+  background: #111511;
+}
+.resident-card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+.resident-card-featured {
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
+  min-height: 560px;
+  background: #101914;
+}
+.resident-card-featured > img {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  object-fit: cover;
+  filter: saturate(.88) contrast(1.04);
+}
+.resident-card-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(34px, 5vw, 72px);
+  border-left: 1px solid rgba(239,229,208,.09);
+  background:
+    radial-gradient(circle at 10% 20%, rgba(181,139,79,.10), transparent 28%),
+    #111712;
+}
+.resident-card h3 {
+  margin: 0 0 20px;
+  font: 400 clamp(38px, 4vw, 62px)/.96 var(--serif);
+  letter-spacing: -.035em;
+}
+.resident-card p:not(.eyebrow) {
+  max-width: 420px;
+  margin: 0 0 26px;
+  color: #aea391;
+  font-size: 14px;
+  line-height: 1.72;
+}
+.resident-card-story {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(34px, 5vw, 70px);
+  color: #2a2018;
+  background:
+    radial-gradient(circle at 75% 15%, rgba(255,255,255,.56), transparent 25%),
+    linear-gradient(145deg, #e0cfaf, #b79067);
+}
+.resident-card-story .eyebrow { color: #6f4f2c; }
+.resident-card-story p:not(.eyebrow) { color: #675747; }
+.resident-index {
+  position: absolute;
+  top: 32px;
+  right: 34px;
+  font: 44px/1 var(--serif);
+  color: rgba(77,49,27,.16);
+}
+
+.winter-feature {
+  display: grid;
+  grid-template-columns: .82fr 1.18fr;
+  min-height: 620px;
+  align-items: stretch;
+  background: #07131b;
+}
+.winter-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(46px, 7vw, 100px) max(24px, calc((100vw - var(--content))/2));
+  padding-right: clamp(38px, 6vw, 88px);
+  background:
+    radial-gradient(circle at 30% 40%, rgba(55,92,112,.22), transparent 35%),
+    #08131a;
+}
+.winter-copy h2 {
+  margin: 0 0 25px;
+  font: 400 clamp(48px, 5vw, 76px)/.94 var(--serif);
+  letter-spacing: -.04em;
+}
+.winter-copy > p:not(.eyebrow) {
+  max-width: 470px;
+  margin: 0 0 28px;
+  color: #a5b2b8;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.winter-image {
+  position: relative;
+  margin: 0;
+  min-height: 620px;
+  overflow: hidden;
+}
+.winter-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8,19,26,.56), transparent 24%);
+  pointer-events: none;
+}
+.winter-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 620px;
+  object-fit: cover;
+}
+
+@media (max-width: 980px) {
+  .hero-stage-photo { min-height: 0; aspect-ratio: 16 / 9; }
+  .residents-showcase { grid-template-columns: 1fr; }
+  .resident-card-featured { grid-template-columns: 1fr 1fr; min-height: 500px; }
+  .resident-card-featured > img { min-height: 500px; }
+  .resident-card-story { min-height: 420px; }
+  .winter-feature { grid-template-columns: 1fr; }
+  .winter-copy { padding: 76px 22px; }
+  .winter-image, .winter-image img { min-height: 520px; }
+}
+
+@media (max-width: 620px) {
+  .hero-stage-photo {
+    margin-inline: -20px;
+    border-left: 0;
+    border-right: 0;
+    aspect-ratio: 1.18 / 1;
+  }
+  .hero-stage-photo img { object-position: 58% center; }
+  .hero-stage-photo figcaption { left: 20px; right: 20px; bottom: 15px; font-size: 10px; }
+  .resident-card-featured { grid-template-columns: 1fr; }
+  .resident-card-featured > img { min-height: 360px; aspect-ratio: 4 / 3; }
+  .resident-card-copy { padding: 48px 22px 58px; }
+  .resident-card-story { min-height: 400px; padding: 52px 22px; }
+  .winter-image, .winter-image img { min-height: 390px; }
+  .winter-image img { object-position: 63% center; }
+}
