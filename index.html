@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17130f">
+  <title>Мастерская Веры — жители со своей историей</title>
+  <meta name="description" content="Авторские персонажи и фигурки ручной работы из мастерской Веры.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="Мастерская Веры — на главную">
+      <span class="brand-mark" aria-hidden="true">V</span>
+      <span class="brand-copy"><strong>Мастерская</strong><span>Веры</span></span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Основная навигация">
+      <a href="#residents">Жители</a>
+      <a href="#collections">Мир</a>
+      <a href="#about">О мастерской</a>
+      <a href="#order">Индивидуальный заказ</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="order-link" href="#order">Создать своего</a>
+      <button class="menu-button" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+    <nav aria-label="Мобильная навигация">
+      <a href="#residents">Жители</a>
+      <a href="#collections">Мир мастерской</a>
+      <a href="#about">О мастерской</a>
+      <a href="#order">Индивидуальный заказ</a>
+    </nav>
+    <a class="button button-primary" href="#order">Создать своего жителя</a>
+  </div>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Авторские фигурки ручной работы</p>
+        <h1 id="hero-title">Не просто фигурки.<br><em>Жители с историей.</em></h1>
+        <p class="hero-lead">Маленький мир, где каждый дракон, зверь и сказочный герой создаётся вручную — с характером, именем и собственной легендой.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#residents">Познакомиться с жителями</a>
+          <a class="text-link" href="#about">Заглянуть в мастерскую <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="hero-stage" aria-label="Сцена будущей галереи жителей">
+        <div class="stage-frame"></div>
+        <div class="stage-moon" aria-hidden="true"></div>
+        <div class="stage-tree" aria-hidden="true"></div>
+        <div class="stage-plinth stage-plinth-a"><span>Дракон</span></div>
+        <div class="stage-plinth stage-plinth-b"><span>Лесной дух</span></div>
+        <div class="stage-plinth stage-plinth-c"><span>Хранитель</span></div>
+      </div>
+
+      <div class="hero-meta" aria-label="Особенности мастерской">
+        <span>ручная лепка</span>
+        <span>единственный экземпляр</span>
+        <span>собственная история</span>
+      </div>
+    </section>
+
+    <section class="intro" id="residents">
+      <p class="eyebrow">Жители этого мира</p>
+      <div class="intro-heading">
+        <h2>У каждого — свой характер.</h2>
+        <p>Здесь будут собраны готовые работы и персонажи из найденного архива. Карточки и фотографии добавляются на следующем шаге без изменения этой композиции.</p>
+      </div>
+    </section>
+
+    <section class="placeholder-section" id="collections" aria-label="Будущая коллекция">
+      <div class="placeholder-card"><span>Зимние легенды</span><strong>Отдельная история мира</strong></div>
+      <div class="placeholder-card placeholder-card-light"><span>Готовые работы</span><strong>Жители, которых можно забрать домой</strong></div>
+    </section>
+
+    <section class="about" id="about">
+      <p class="eyebrow">О мастерской</p>
+      <h2>Создано руками.<br>Выбрано сердцем.</h2>
+    </section>
+
+    <section class="order" id="order">
+      <p class="eyebrow">Индивидуальный заказ</p>
+      <h2>Создадим героя,<br>которого ещё не существует.</h2>
+      <a class="button button-primary" href="mailto:hello@example.com">Обсудить идею</a>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
