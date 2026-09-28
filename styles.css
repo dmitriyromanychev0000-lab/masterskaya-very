@@ -272,6 +272,38 @@ body.menu-open { overflow:hidden; }
   .resident-actions .button { width: 100%; }
 }
 
+/* Collection page */
+.collection-intro { padding: calc(var(--header-h) + 64px) max(24px, calc((100vw - var(--content))/2)) 48px; background: var(--paper); }
+.collection-intro--paper { background: var(--paper); }
+.collection-intro--night { background: var(--ink); color: var(--cream); }
+.collection-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); transition: color .18s ease; }
+.collection-back span { color: var(--gold); font-size: 14px; }
+.collection-back:hover { color: var(--forest); }
+.collection-intro--night .collection-back { color: #b9ad97; }
+.collection-intro--night .collection-back:hover { color: var(--gold-light); }
+.collection-head { max-width: 700px; }
+.collection-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.collection-eyebrow .eyebrow { margin: 0; }
+.collection-count { padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.collection-intro--night .collection-count { border-color: var(--line-dark); color: #b9ad97; }
+.collection-intro h1 { margin: 0; font: 400 clamp(40px, 5.6vw, 68px)/1.04 var(--serif); letter-spacing: -.025em; }
+.collection-intro--night h1 { color: var(--gold-light); }
+.collection-lead { max-width: 600px; margin: 20px 0 0; color: #564a37; font-size: 15px; line-height: 1.7; }
+.collection-intro--night .collection-lead { color: #b9ad97; }
+.collection-actions { margin: 30px 0 0; }
+.collection-residents { padding-top: 0; }
+
+.collection-cta-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.collection-cta .button-outline { color: var(--cream); border-color: rgba(246,239,223,.45); }
+@media (hover: hover) { .collection-cta .button-outline:hover { background: rgba(246,239,223,.1); } }
+
+@media (max-width: 620px) {
+  .collection-intro { padding: calc(var(--header-h) + 44px) 20px 36px; }
+  .collection-residents { padding-top: 0; }
+  .collection-actions .button, .collection-cta-actions .button { width: 100%; }
+  .collection-cta-actions { flex-direction: column; align-items: stretch; }
+}
+
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none !important; } }
 
 /* Header interaction polish */
