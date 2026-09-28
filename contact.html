@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6efdf">
+  <title>Контакты — Мастерская Веры</title>
+  <meta name="description" content="Контакты мастерской Веры: написать в Telegram, заказать фигурку, узнать о доставке и сроках изготовления.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="Мастерская Веры — на главную">
+      <span class="brand-mark" aria-hidden="true">V</span>
+      <span class="brand-copy"><strong>Мастерская</strong><span>Веры</span></span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Основная навигация">
+      <a href="index.html">Главная</a>
+      <a href="residents.html">Жители</a>
+      <a href="process.html">Как создаются</a>
+      <a href="about.html">О мастерской</a>
+      <a href="contact.html" aria-current="page">Контакты</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="order-link" href="https://t.me/masterskayaver">Написать Вере</a>
+      <button class="menu-button" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+    <nav aria-label="Мобильная навигация">
+      <a href="index.html">Главная</a>
+      <a href="residents.html">Жители</a>
+      <a href="process.html">Как создаются</a>
+      <a href="about.html">О мастерской</a>
+      <a href="contact.html" aria-current="page">Контакты</a>
+    </nav>
+    <a class="button button-primary" href="https://t.me/masterskayaver">Написать Вере</a>
+  </div>
+
+  <main id="top">
+    <section class="contact-intro" aria-labelledby="contact-title">
+      <p class="eyebrow">Контакты</p>
+      <h1 id="contact-title">Написать Вере</h1>
+      <p class="contact-intro-lead">О готовой работе, будущем Жителе, доставке или сроках — пишите напрямую. Без посредников, без ботов, без очереди.</p>
+    </section>
+
+    <section class="contact-main">
+      <div class="contact-grid">
+        <div class="contact-card contact-card--telegram">
+          <div class="contact-card-icon" aria-hidden="true">✈</div>
+          <h2>Telegram</h2>
+          <p>Самый быстрый способ связи. Пишите напрямую — Вера отвечает лично.</p>
+          <a class="button button-primary" href="https://t.me/masterskayaver">Открыть Telegram</a>
+          <span class="contact-card-handle">@masterskayaver</span>
+        </div>
+
+        <div class="contact-card contact-card--form">
+          <h2>Форма заявки</h2>
+          <p class="contact-form-note">
+            Сайт работает без сервера — форма-заявка на этом шаге не подключена.<br>
+            Но Вера уже в Telegram, и она читает сообщения лично.
+          </p>
+          <form class="contact-form" id="contact-form" onsubmit="return false">
+            <div class="contact-form-row">
+              <label for="contact-name">Имя</label>
+              <input type="text" id="contact-name" name="name" placeholder="Как к вам обращаться" autocomplete="name" required>
+            </div>
+            <div class="contact-form-row">
+              <label for="contact-telegram">Telegram</label>
+              <input type="text" id="contact-telegram" name="telegram" placeholder="@ваш_ник" autocomplete="username">
+            </div>
+            <div class="contact-form-row">
+              <label for="contact-message">Сообщение</label>
+              <textarea id="contact-message" name="message" rows="4" placeholder="Расскажите, кого ищете, что интересует, о какой работе вопрос" required></textarea>
+            </div>
+            <p class="contact-form-notice">
+              <span aria-hidden="true">⚠</span>
+              Форма не отправляет сообщения. Нажмите «Написать Вере» внизу, чтобы отправить заявку через Telegram.
+            </p>
+          </form>
+          <a class="button button-primary" href="https://t.me/masterskayaver">Написать Вере в Telegram</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-details" aria-labelledby="contact-details-title">
+      <h2 id="contact-details-title">О связи</h2>
+      <div class="contact-details-grid">
+        <div class="contact-detail">
+          <h3>Ответ</h3>
+          <p>Вера отвечает лично. Среднее время — несколько часов в течение дня, максимум сутки.</p>
+        </div>
+        <div class="contact-detail">
+          <h3>Языки</h3>
+          <p>Русский. Если пишете на другом — напишите, Вера попробует ответить.</p>
+        </div>
+        <div class="contact-detail">
+          <h3>Чем помочь</h3>
+          <p>О готовой работе, сроках изготовления, доставке, размерах, цене, заказе — всё в одном месте.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-locations" aria-labelledby="contact-locations-title">
+      <h2 id="contact-locations-title">Доставка</h2>
+      <div class="contact-locations-grid">
+        <div class="contact-location">
+          <strong>По России</strong>
+          <p>Отправка транспортными компаниями. Упаковка — вручную: крепкая коробка, надёжная обёртка, лента.</p>
+        </div>
+        <div class="contact-location">
+          <strong>По миру</strong>
+          <p>Напишите — обсудим доставку. Стоимость и сроки зависят от расстояния.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="keeper-cta">
+      <h2>Жители ждут</h2>
+      <p>Свободные уже готовы, будущие рождаются прямо сейчас.</p>
+      <div class="collection-cta-actions">
+        <a class="button button-primary" href="residents.html">Смотреть всех Жителей</a>
+        <a class="button button-outline" href="https://t.me/masterskayaver">Написать Вере</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">V</span>
+      <div>
+        <strong>Мастерская Веры</strong>
+        <p>Авторские фигурки ручной работы. Каждый Житель — в единственном экземпляре.</p>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="Разделы">
+      <p class="eyebrow">Разделы</p>
+      <a href="residents.html">Жители</a>
+      <a href="process.html">Как создаются</a>
+      <a href="about.html">О мастерской</a>
+      <a href="contact.html">Контакты</a>
+    </nav>
+    <div class="footer-contact">
+      <p class="eyebrow">Связь</p>
+      <a href="https://t.me/masterskayaver">Telegram-канал</a>
+      <span>t.me/masterskayaver</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
