@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#17130f">
-  <title>Мастерская Веры — жители со своей историей</title>
-  <meta name="description" content="Авторские персонажи и фигурки ручной работы из мастерской Веры.">
+  <meta name="theme-color" content="#f6efdf">
+  <title>Мастерская Веры — авторские фигурки ручной работы</title>
+  <meta name="description" content="Авторские фигурки ручной работы. Сказки, которые можно взять в руки.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,14 +16,15 @@
     </a>
 
     <nav class="desktop-nav" aria-label="Основная навигация">
-      <a href="#residents">Жители</a>
-      <a href="#collections">Мир</a>
-      <a href="#about">О мастерской</a>
-      <a href="#order">Индивидуальный заказ</a>
+      <a href="index.html" aria-current="page">Главная</a>
+      <a href="residents.html">Жители</a>
+      <a href="process.html">Как создаются</a>
+      <a href="about.html">О мастерской</a>
+      <a href="contact.html">Контакты</a>
     </nav>
 
     <div class="header-actions">
-      <a class="order-link" href="#order">Создать своего</a>
+      <a class="order-link" href="residents.html">Смотреть работы</a>
       <button class="menu-button" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
         <span></span><span></span>
       </button>
@@ -32,89 +33,197 @@
 
   <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
     <nav aria-label="Мобильная навигация">
-      <a href="#residents">Жители</a>
-      <a href="#collections">Мир мастерской</a>
-      <a href="#about">О мастерской</a>
-      <a href="#order">Индивидуальный заказ</a>
+      <a href="index.html" aria-current="page">Главная</a>
+      <a href="residents.html">Жители</a>
+      <a href="process.html">Как создаются</a>
+      <a href="about.html">О мастерской</a>
+      <a href="contact.html">Контакты</a>
     </nav>
-    <a class="button button-primary" href="#order">Создать своего жителя</a>
+    <a class="button button-primary" href="residents.html">Смотреть готовые работы</a>
   </div>
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-glow" aria-hidden="true"></div>
+      <img class="hero-bg" src="assets/home/workshop-hero.webp" alt="" aria-hidden="true">
+      <div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-copy">
         <p class="eyebrow">Авторские фигурки ручной работы</p>
-        <h1 id="hero-title">Не просто фигурки.<br><em>Жители с историей.</em></h1>
-        <p class="hero-lead">Маленький мир, где каждый дракон, зверь и сказочный герой создаётся вручную — с характером, именем и собственной легендой.</p>
+        <h1 id="hero-title">Сказки, которые<br>можно взять в руки</h1>
+        <p class="hero-lead">Вера создаёт каждого Жителя — от идеи до последнего штриха.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#residents">Познакомиться с жителями</a>
-          <a class="text-link" href="#about">Заглянуть в мастерскую <span aria-hidden="true">→</span></a>
+          <a class="button button-primary" href="residents.html">Смотреть готовые работы <span aria-hidden="true">→</span></a>
+          <a class="button button-outline" href="contact.html">Заказать свою фигурку</a>
         </div>
       </div>
+    </section>
 
-      <figure class="hero-stage hero-stage-photo">
-        <img src="assets/home/workshop-hero.webp" alt="Жители Мастерской Веры на рабочем столе" width="480" height="225" fetchpriority="high">
-        <figcaption>Мир мастерской — живые персонажи, созданные вручную</figcaption>
-      </figure>
-
-      <div class="hero-meta" aria-label="Особенности мастерской">
-        <span>ручная лепка</span>
-        <span>единственный экземпляр</span>
-        <span>собственная история</span>
+    <section class="worlds" id="residents" aria-labelledby="worlds-title">
+      <div class="worlds-head">
+        <p class="eyebrow">Миры мастерской</p>
+        <h2 id="worlds-title">Каждый мир — своя история</h2>
+      </div>
+      <div class="worlds-grid">
+        <article class="world-card" data-world="dragons">
+          <img src="assets/residents/green-dragon.webp" alt="Дракон ручной работы — мир «Древние существа»" loading="lazy">
+          <div class="world-card-copy">
+            <h3>Древние существа</h3>
+            <p>Чешуя, крылья и память о временах, которых не застал никто. Мир тех, кто старше сказок.</p>
+            <a class="text-link" href="collection.html?world=dragons">Войти в мир <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="world-card" data-world="winter">
+          <img src="assets/collections/winter-nutcracker.webp" alt="Щелкунчик ручной работы — мир «Зимние легенды»" loading="lazy">
+          <div class="world-card-copy">
+            <h3>Зимние легенды</h3>
+            <p>Синий вечер, снег на еловых лапах и тёплый свет в окне. Мир, где ждут чуда и слышат музыку.</p>
+            <a class="text-link" href="collection.html?world=winter">Войти в мир <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="world-card world-card-soon" data-world="forest">
+          <div class="world-card-copy world-card-copy-soon">
+            <p class="eyebrow">Скоро</p>
+            <h3>Тайны древнего леса</h3>
+            <p>Сумрак между корнями, мох, папоротник и огоньки, которые зажигаются сами.</p>
+          </div>
+        </article>
+        <article class="world-card world-card-soon" data-world="home">
+          <div class="world-card-copy world-card-copy-soon">
+            <p class="eyebrow">Скоро</p>
+            <h3>Домашние легенды</h3>
+            <p>Солнце на деревянном полу, лён и тишина. Не каждая легенда должна рычать.</p>
+          </div>
+        </article>
+        <article class="world-card world-card-soon" data-world="russian">
+          <div class="world-card-copy world-card-copy-soon">
+            <p class="eyebrow">Скоро</p>
+            <h3>Русские сказки</h3>
+            <p>Резной терем, синие цветы по золоту и вязь до самого вечера.</p>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section class="intro" id="residents">
-      <p class="eyebrow">Жители этого мира</p>
-      <div class="intro-heading">
-        <h2>У каждого — свой характер.</h2>
-        <p>Каждый персонаж рождается вручную и получает собственный характер. В восстановленной версии сайта реальные работы снова становятся центром композиции.</p>
-      </div>
-    </section>
-
-    <section class="residents-showcase" id="collections" aria-label="Избранные жители">
-      <article class="resident-card resident-card-featured">
-        <img src="assets/residents/green-dragon.webp" alt="Зелёный дракон ручной работы в лесу" width="420" height="280" loading="lazy">
-        <div class="resident-card-copy">
-          <p class="eyebrow">Житель мастерской</p>
-          <h3>Лесной дракон</h3>
-          <p>Один из ключевых персонажей найденного архива — возвращён в главный визуальный ряд сайта.</p>
-          <a class="text-link" href="#order">История персонажа <span aria-hidden="true">→</span></a>
+    <section class="keepers" id="keepers" aria-labelledby="keepers-title">
+      <div class="keepers-head">
+        <div>
+          <p class="eyebrow">Кто ждёт своего Хранителя</p>
+          <h2 id="keepers-title">Больше, чем декор — это истории, которые остаются</h2>
         </div>
-      </article>
-
-      <article class="resident-card resident-card-story">
-        <span class="resident-index">01</span>
-        <p class="eyebrow">Авторская работа</p>
-        <h3>Не копия.<br>Не тираж.</h3>
-        <p>Форма, фактура и детали создаются вручную. Поэтому два абсолютно одинаковых жителя здесь не появляются.</p>
-      </article>
-    </section>
-
-    <section class="winter-feature" id="winter">
-      <div class="winter-copy">
-        <p class="eyebrow">Отдельная коллекция</p>
-        <h2>Зимние легенды</h2>
-        <p>Снег, фонари и сказочные персонажи из зимней серии. В архиве сохранился отдельный визуальный язык этой коллекции — его восстанавливаем без смешивания с основной страницей.</p>
-        <a class="text-link" href="#order">Посмотреть направление <span aria-hidden="true">→</span></a>
+        <a class="text-link keepers-all" href="residents.html">Смотреть всех Жителей <span aria-hidden="true">→</span></a>
       </div>
-      <figure class="winter-image">
-        <img src="assets/collections/winter-nutcracker.webp" alt="Щелкунчик из зимней коллекции Мастерской Веры" width="420" height="280" loading="lazy">
-      </figure>
+
+      <div class="keepers-world">
+        <h3>Зимние легенды</h3>
+        <p>Щелкунчики, мышиные короли и другие Жители, в которых живут зимние истории, музыка и ожидание чуда.</p>
+
+        <div class="keepers-grid">
+          <article class="keeper-card">
+            <div class="keeper-media">
+              <img src="assets/collections/winter-nutcracker.webp" alt="Щелкунчик ручной работы" loading="lazy">
+              <span class="keeper-tag">Зимние легенды</span>
+            </div>
+            <div class="keeper-copy">
+              <span class="keeper-status keeper-status-available">Можно приобрести · 3000 ₽ · готово: 1</span>
+              <h4>Щелкунчик</h4>
+              <p>Зимняя история с ровной осанкой, мундиром и очень серьёзной задачей — беречь чудо.</p>
+              <div class="keeper-actions">
+                <a class="text-link" href="chronicle.html?resident=nutcracker">Открыть Хронику</a>
+                <a class="button button-primary button-small" href="contact.html">Написать Вере</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="keeper-card">
+            <div class="keeper-media">
+              <img src="assets/residents/green-dragon.webp" alt="Мышиный Король ручной работы" loading="lazy">
+              <span class="keeper-tag">Зимние легенды</span>
+            </div>
+            <div class="keeper-copy">
+              <span class="keeper-status keeper-status-available">Можно приобрести · 4500 ₽ · готово: 4</span>
+              <h4>Мышиный Король</h4>
+              <p>Корона, мундир и трое внимательных голов — королевство в ладони.</p>
+              <div class="keeper-actions">
+                <a class="text-link" href="chronicle.html?resident=mouse-king">Открыть Хронику</a>
+                <a class="button button-primary button-small" href="contact.html">Написать Вере</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="keeper-card">
+            <div class="keeper-media keeper-media-soon">
+              <span class="keeper-tag">Зимние легенды</span>
+            </div>
+            <div class="keeper-copy">
+              <span class="keeper-status keeper-status-progress">В работе</span>
+              <h4>Мари (девочка с Щелкунчиком)</h4>
+              <p>Тихая зимняя сцена: девочка прижимает к себе Щелкунчика, будто уже знает, чем закончится сказка.</p>
+              <div class="keeper-actions">
+                <a class="text-link" href="chronicle.html?resident=mari">Открыть Хронику</a>
+                <a class="button button-outline button-small" href="contact.html">Следить за работой</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="keeper-card">
+            <div class="keeper-media keeper-media-soon">
+              <span class="keeper-tag">Зимние легенды</span>
+            </div>
+            <div class="keeper-copy">
+              <span class="keeper-status keeper-status-progress">В работе</span>
+              <h4>Мышиная Королева</h4>
+              <p>Три взгляда, чёрно-фиолетовое платье и корона — всё в ней говорит без спешки.</p>
+              <div class="keeper-actions">
+                <a class="text-link" href="chronicle.html?resident=mouse-queen">Открыть Хронику</a>
+                <a class="button button-outline button-small" href="contact.html">Следить за работой</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="about" id="about">
+    <section class="about-teaser" id="about">
       <p class="eyebrow">О мастерской</p>
-      <h2>Создано руками.<br>Выбрано сердцем.</h2>
+      <h2>Там, где форма<br>становится характером</h2>
+      <p class="about-lead">Вера лепит и расписывает фантазийных Жителей вручную — от первого каркаса до финального взгляда. 17 Жителей уже рождены и описаны в Хрониках, 5 Миров, у каждого свой воздух.</p>
+      <a class="text-link" href="about.html">Читать про мастерскую <span aria-hidden="true">→</span></a>
     </section>
 
-    <section class="order" id="order">
-      <p class="eyebrow">Индивидуальный заказ</p>
-      <h2>Создадим героя,<br>которого ещё не существует.</h2>
-      <a class="button button-primary" href="mailto:hello@example.com">Обсудить идею</a>
+    <section class="keeper-cta">
+      <h2>Найти своего Жителя</h2>
+      <p>Возможно, он уже ждёт вас в Мастерской.</p>
+      <a class="button button-primary" href="contact.html">Написать Вере</a>
+    </section>
+
+    <section class="order" id="contacts">
+      <p class="eyebrow">Связь с мастерской</p>
+      <h2>Написать Вере</h2>
+      <p class="order-lead">О готовой работе, будущем Жителе или доставке — без посредников.</p>
+      <a class="button button-primary" href="https://t.me/masterskayaver">Открыть Telegram</a>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">V</span>
+      <div>
+        <strong>Мастерская Веры</strong>
+        <p>Авторские фигурки ручной работы. Каждый Житель — в единственном экземпляре.</p>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="Разделы">
+      <p class="eyebrow">Разделы</p>
+      <a href="residents.html">Жители</a>
+      <a href="process.html">Как создаются</a>
+      <a href="about.html">О мастерской</a>
+      <a href="contact.html">Контакты</a>
+    </nav>
+    <div class="footer-contact">
+      <p class="eyebrow">Связь</p>
+      <a href="https://t.me/masterskayaver">Telegram-канал</a>
+      <span>t.me/masterskayaver</span>
+    </div>
+  </footer>
 
   <script src="app.js"></script>
 </body>
