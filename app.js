@@ -103,22 +103,22 @@ const setDynamicPageMeta = ({ title, description, url, indexable = true }) => {
 };
 
 const RESIDENT_MEDIA = {
-  'nutcracker': { group: 1, pos: 0 },
-  'mari': { group: 1, pos: 1 },
-  'mouse-queen': { group: 1, pos: 2 },
-  'mouse-king': { group: 1, pos: 3 },
-  'forest-dragon': { group: 2, pos: 0 },
-  'mushrooms': { group: 2, pos: 1 },
-  'azimondias': { group: 2, pos: 2 },
-  'baby-dragon': { group: 2, pos: 3 },
-  'soul-regan': { group: 3, pos: 0 },
-  'gorynych-2': { group: 3, pos: 1 },
-  'gorynych': { group: 3, pos: 2 },
-  'sirin': { group: 3, pos: 3 },
-  'mermaid': { group: 4, pos: 0 },
-  'humpbacked-horse': { group: 4, pos: 1 },
-  'hen': { group: 4, pos: 2 },
-  'rocking-horse': { group: 4, pos: 3 },
+  'nutcracker': { direct: 'assets/residents/peaceful/nutcracker.webp' },
+  'mari': { direct: 'assets/residents/peaceful/mari.webp' },
+  'mouse-queen': { direct: 'assets/residents/peaceful/mouse-queen.webp' },
+  'mouse-king': { direct: 'assets/residents/peaceful/mouse-king.webp' },
+  'forest-dragon': { direct: 'assets/residents/peaceful/forest-dragon.webp' },
+  'mushrooms': { direct: 'assets/residents/peaceful/mushrooms.webp' },
+  'azimondias': { direct: 'assets/residents/peaceful/azimondias.webp' },
+  'baby-dragon': { direct: 'assets/residents/peaceful/baby-dragon.webp' },
+  'soul-regan': { direct: 'assets/residents/peaceful/soul-regan.webp' },
+  'gorynych-2': { direct: 'assets/residents/peaceful/gorynych-2.webp' },
+  'gorynych': { direct: 'assets/residents/peaceful/gorynych.webp' },
+  'sirin': { direct: 'assets/residents/peaceful/sirin.webp' },
+  'mermaid': { direct: 'assets/residents/peaceful/mermaid.webp' },
+  'humpbacked-horse': { direct: 'assets/residents/peaceful/humpbacked-horse.webp' },
+  'hen': { direct: 'assets/residents/peaceful/hen.webp' },
+  'rocking-horse': { direct: 'assets/residents/peaceful/rocking-horse.webp' },
   'puss-in-boots': { direct: 'assets/process/05-compare-side.jpg' }
 };
 
