@@ -1438,7 +1438,11 @@ h1, h2, h3, h4 {
 .contact-detail h3,
 .contact-locations h2,
 .faq h2,
-.keeper-cta h2 {
+.keeper-cta h2,
+.worlds-head h2,
+.res-world-head h2,
+.resident-copy h3,
+.chronicle-section-head h2 {
   font-weight: 500;
   letter-spacing: -.04em;
 }
