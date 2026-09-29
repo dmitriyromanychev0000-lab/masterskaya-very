@@ -342,6 +342,9 @@ body.menu-open { overflow:hidden; }
 .chronicle-hero .collection-back { margin-bottom: 30px; }
 .chronicle-world { color: var(--gold-light); border-color: rgba(216,185,121,.4); }
 .chronicle-world:hover { color: var(--cream); }
+@media (max-width: 620px) {
+  .chronicle-world { min-height: 44px; display: inline-flex; align-items: center; padding-top: 0; padding-bottom: 0; }
+}
 
 .chronicle-badges { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; margin-top: 26px; }
 .chronicle-badges .resident-status { margin-bottom: 0; }
