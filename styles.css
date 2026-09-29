@@ -1816,3 +1816,32 @@ h1, h2, h3, h4 {
   .site-footer { padding:48px 20px 54px; }
   .footer-brand { padding-bottom:20px; border-bottom:1px solid rgba(232,201,143,.16); }
 }
+
+
+/* Archive pass 1 — screenshot corrections */
+.menu-button { position:relative; }
+.menu-button span {
+  position:absolute;
+  left:10px;
+  width:24px;
+  height:1px;
+  margin:0;
+  transform-origin:center;
+}
+.menu-button span:first-child { top:17px; }
+.menu-button span:last-child { top:26px; }
+.menu-button[aria-expanded="true"] span:first-child,
+.menu-button[aria-expanded="true"] span:last-child { top:22px; }
+.menu-button[aria-expanded="true"] span:first-child { transform:rotate(45deg); }
+.menu-button[aria-expanded="true"] span:last-child { transform:rotate(-45deg); }
+
+.keeper-media {
+  min-width:0;
+  width:100%;
+  aspect-ratio:auto;
+}
+@media (max-width:620px) {
+  .keeper-media { aspect-ratio:auto; }
+  .keeper-summary > div { min-width:0; }
+  .keeper-summary h3 { overflow-wrap:anywhere; }
+}
