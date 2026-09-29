@@ -463,6 +463,16 @@ main[data-collection-root][data-world] .collection-cta { background: rgba(10,8,6
 @media (hover: hover) { .collection-cta .button-outline:hover { background: rgba(246,239,223,.1); } }
 
 @media (max-width: 620px) {
+  main[data-collection-root][data-world] {
+    background-size: 100% auto;
+    background-position: center top;
+  }
+  main[data-collection-root][data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
+  main[data-collection-root][data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
+  main[data-collection-root][data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
+  main[data-collection-root][data-world="russian"] { background-image: url("assets/worlds/russian-mobile.webp"); }
+  main[data-collection-root][data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
+
   .collection-intro { padding: calc(var(--header-h) + 30px) 20px 24px; }
   .collection-back { min-height: 44px; margin: -10px 0 14px -8px; padding: 0 8px; }
   .collection-eyebrow { margin-bottom:12px; }
