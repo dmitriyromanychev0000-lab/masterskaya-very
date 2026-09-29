@@ -78,79 +78,50 @@ body.menu-open { overflow:hidden; }
 /* Hero */
 .hero {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(300px,.82fr) minmax(0,1.5fr);
-  gap: clamp(34px,5vw,72px);
+  isolation: isolate;
+  display: flex;
   align-items: center;
   min-height: 680px;
-  padding: calc(var(--header-h) + 44px) max(24px, calc((100vw - var(--content))/2)) 54px;
+  padding: calc(var(--header-h) + 46px) max(24px, calc((100vw - var(--content))/2)) 56px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 15% 20%, rgba(183,138,79,.09), transparent 28%),
-    var(--paper-light);
-  border-bottom: 1px solid var(--line);
+    linear-gradient(90deg, rgba(12,8,6,.93) 0%, rgba(12,8,6,.76) 31%, rgba(12,8,6,.2) 58%, rgba(12,8,6,.04) 100%),
+    url("assets/home/hero-workshop-desktop.webp") center center / cover no-repeat;
+  color: var(--cream);
+  border-bottom: 1px solid rgba(232,201,143,.32);
 }
-.hero-copy { max-width: 560px; color: var(--ink); }
-.hero .eyebrow { color: var(--gold-ink); }
-.hero h1 { margin:0; font:400 clamp(46px,5.5vw,72px)/.98 var(--serif); letter-spacing:-.035em; }
-.hero-lead { max-width:500px; margin:22px 0 0; color:#564a37; font:15px/1.7 var(--sans); }
-.hero-actions { display:flex; align-items:center; gap:14px; margin-top:30px; flex-wrap:wrap; }
-.hero .button-outline { color: var(--ink); border-color: rgba(38,26,21,.34); }
-.hero-proof {
-  margin: 24px 0 0;
-  padding-left: 28px;
-  position: relative;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.55;
-}
-.hero-proof::before {
-  content:"";
-  position:absolute;
-  left:0;
-  top:50%;
-  width:18px;
-  height:1px;
-  background:var(--gold);
-}
-.hero-gallery {
-  display:grid;
-  grid-template-columns:minmax(0,1.9fr) minmax(150px,.88fr);
-  gap:10px;
-  min-width:0;
-}
-.hero-side { display:grid; grid-template-rows:1fr 1fr; gap:10px; min-width:0; }
-.hero-shot {
-  position:relative;
-  display:block;
-  min-width:0;
-  overflow:hidden;
-  border:1px solid rgba(183,138,79,.48);
-  border-radius:5px;
-  background:var(--forest-deep);
-  box-shadow:0 20px 44px rgba(38,26,21,.13);
-}
-.hero-shot-main { min-height:500px; }
-.hero-side .hero-shot { min-height:245px; }
-.hero-shot .resident-photo { transition: transform .5s ease; }
-.hero-shot::after {
+.hero::after {
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(0deg,rgba(10,8,6,.46),transparent 38%);
+  z-index:-1;
   pointer-events:none;
+  background: linear-gradient(0deg, rgba(9,6,4,.24), transparent 30%);
 }
-.hero-shot-caption {
-  position:absolute;
-  z-index:2;
-  left:16px;
-  bottom:14px;
-  color:var(--cream);
-  font:400 18px/1.1 var(--serif);
-  text-shadow:0 2px 10px rgba(0,0,0,.45);
+.hero-copy { position:relative; z-index:1; max-width:620px; color:var(--cream); }
+.hero .eyebrow { color:var(--gold-light); }
+.hero h1 {
+  margin:0;
+  max-width:620px;
+  font:500 clamp(48px,5.6vw,76px)/.96 var(--serif);
+  letter-spacing:-.045em;
+  text-shadow:0 3px 24px rgba(0,0,0,.35);
 }
-@media (hover:hover) {
-  .hero-shot:hover .resident-photo { transform:scale(1.025); }
+.hero-lead {
+  max-width:470px;
+  margin:22px 0 0;
+  color:#e2d8c6;
+  font:15px/1.65 var(--sans);
+  text-shadow:0 2px 12px rgba(0,0,0,.45);
+}
+.hero-actions { display:flex; align-items:center; gap:12px; margin-top:28px; flex-wrap:wrap; }
+.hero .button-outline { color:var(--cream); border-color:rgba(232,201,143,.72); background:rgba(8,6,4,.16); }
+.hero-proof {
+  margin:18px 0 0;
+  color:#c7baa5;
+  font-size:10.5px;
+  line-height:1.45;
+  letter-spacing:.02em;
 }
 
 /* Worlds grid */
@@ -395,22 +366,19 @@ body.menu-open { overflow:hidden; }
   .site-footer { grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 18px; }
   .footer-brand { grid-column: 1 / -1; }
   .hero {
-    grid-template-columns:1fr;
-    gap:28px;
-    min-height:0;
-    padding: calc(var(--header-h) + 34px) 20px 42px;
+    align-items:flex-start;
+    min-height:760px;
+    padding: calc(var(--header-h) + 30px) 20px 36px;
+    background:
+      linear-gradient(180deg, rgba(10,7,5,.9) 0%, rgba(10,7,5,.62) 27%, rgba(10,7,5,.08) 50%, rgba(10,7,5,.16) 100%),
+      url("assets/home/hero-workshop-mobile.webp") center top / cover no-repeat;
   }
   .hero-copy { max-width:none; text-align:left; }
-  .hero h1 { font-size: clamp(42px,12vw,56px); }
-  .hero-lead { margin-top:16px; font-size:14px; }
-  .hero-actions { flex-direction: column; align-items: stretch; margin-top:24px; }
-  .hero-proof { margin-top:18px; }
-  .hero-gallery { grid-template-columns:1fr; gap:8px; }
-  .hero-shot-main { min-height:0; aspect-ratio:4/3; }
-  .hero-side { grid-template-columns:1fr 1fr; grid-template-rows:none; gap:8px; }
-  .hero-side .hero-shot { min-height:0; aspect-ratio:4/3; }
-  .hero-shot-caption { left:12px; bottom:10px; font-size:15px; }
-  .button { width: 100%; }
+  .hero h1 { max-width:340px; font-size:clamp(42px,12.2vw,56px); }
+  .hero-lead { max-width:340px; margin-top:14px; font-size:13.5px; line-height:1.55; }
+  .hero-actions { flex-direction:column; align-items:stretch; max-width:360px; margin-top:20px; }
+  .hero-proof { max-width:330px; margin-top:14px; font-size:9.5px; }
+  .button { width:100%; }
 }
 
 /* Residents page */
