@@ -337,7 +337,7 @@ body.menu-open { overflow:hidden; }
   min-width:0;
   padding:18px 16px;
 }
-.keeper-summary h4 {
+.keeper-summary h3 {
   margin:0 0 4px;
   font:500 clamp(21px,2vw,27px)/1.05 var(--serif);
   letter-spacing:-.02em;
@@ -580,7 +580,7 @@ body.menu-open { overflow:hidden; }
   .keeper-card-link { display:grid; grid-template-columns:104px minmax(0,1fr); min-height:104px; }
   .keeper-media { aspect-ratio:1/1; height:100%; }
   .keeper-summary { padding:11px 12px; }
-  .keeper-summary h4 { font-size:20px; }
+  .keeper-summary h3 { font-size:20px; }
   .keeper-summary p { font-size:15px; }
   .keeper-arrow { width:36px; height:36px; }
   .keepers-mobile-all { display:flex; margin-top:14px; }
