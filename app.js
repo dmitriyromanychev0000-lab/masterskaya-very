@@ -217,6 +217,16 @@ const syncAboutStats = () => {
 
 syncAboutStats();
 
+const syncResidentsAvailable = () => {
+  const node = document.querySelector('[data-residents-available]');
+  if (!node) return;
+
+  const residents = Object.values(COLLECTION_WORLDS).flatMap((world) => world.residents);
+  node.textContent = String(residents.filter((resident) => resident.status === 'available').length);
+};
+
+syncResidentsAvailable();
+
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[char]));
