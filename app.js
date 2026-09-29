@@ -612,7 +612,7 @@ const renderChronicle = (slug, resident) => {
     <section class="chronicle-section chronicle-story">
       <div class="chronicle-story-layout">
         <div class="chronicle-story-copy">
-          <p class="eyebrow">Хроника</p>
+          <h2 class="eyebrow">Хроника</h2>
           <p class="chronicle-text">${escapeHtml(resident.story)}</p>
         </div>
 
