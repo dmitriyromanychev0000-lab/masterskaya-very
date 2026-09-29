@@ -1,0 +1,173 @@
+name: One-off mobile visual QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/mobile-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/mobile-qa-server.log 2>&1 &
+          for i in {1..20}; do
+            if curl -fsS http://127.0.0.1:4173/index.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/mobile-qa-server.log
+          exit 1
+
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Capture and audit mobile pages
+        run: |
+          cat > /tmp/mobile-qa.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+
+          const base = 'http://127.0.0.1:4173/';
+          const widths = [320, 360, 390, 430];
+          const routes = [
+            ['home', 'index.html'],
+            ['residents', 'residents.html'],
+            ['world-russian', 'collection.html?world=russian'],
+            ['chronicle-mari', 'chronicle.html?resident=mari'],
+            ['about', 'about.html'],
+            ['process', 'process.html'],
+            ['contact', 'contact.html'],
+            ['not-found', '404.html']
+          ];
+
+          fs.mkdirSync('qa/mobile', { recursive: true });
+          const browser = await chromium.launch({ headless: true });
+          const report = [];
+
+          for (const width of widths) {
+            for (const [name, route] of routes) {
+              const context = await browser.newContext({
+                viewport: { width, height: 900 },
+                deviceScaleFactor: 1,
+                isMobile: true,
+                hasTouch: true
+              });
+              const page = await context.newPage();
+              const consoleErrors = [];
+              const pageErrors = [];
+
+              page.on('console', (msg) => {
+                if (msg.type() === 'error') consoleErrors.push(msg.text());
+              });
+              page.on('pageerror', (err) => pageErrors.push(String(err)));
+
+              await page.goto(base + route, { waitUntil: 'networkidle' });
+              await page.evaluate(async () => {
+                if (document.fonts?.ready) await document.fonts.ready;
+              });
+              await page.screenshot({
+                path: `qa/mobile/${name}-${width}.png`,
+                fullPage: true
+              });
+
+              const audit = await page.evaluate(() => {
+                const visible = (el) => {
+                  const style = getComputedStyle(el);
+                  const rect = el.getBoundingClientRect();
+                  return style.display !== 'none' &&
+                    style.visibility !== 'hidden' &&
+                    rect.width > 0 && rect.height > 0;
+                };
+
+                const overflowElements = [...document.querySelectorAll('body *')]
+                  .filter(visible)
+                  .map((el) => {
+                    const r = el.getBoundingClientRect();
+                    return {
+                      tag: el.tagName.toLowerCase(),
+                      cls: typeof el.className === 'string' ? el.className : '',
+                      text: (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80),
+                      left: Math.round(r.left),
+                      right: Math.round(r.right),
+                      width: Math.round(r.width)
+                    };
+                  })
+                  .filter((r) => r.left < -1 || r.right > window.innerWidth + 1)
+                  .slice(0, 30);
+
+                const smallTargets = [...document.querySelectorAll('a, button, summary, [role="button"]')]
+                  .filter(visible)
+                  .map((el) => {
+                    const r = el.getBoundingClientRect();
+                    return {
+                      tag: el.tagName.toLowerCase(),
+                      cls: typeof el.className === 'string' ? el.className : '',
+                      text: (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80),
+                      width: Math.round(r.width),
+                      height: Math.round(r.height)
+                    };
+                  })
+                  .filter((r) => r.width < 44 || r.height < 44)
+                  .slice(0, 50);
+
+                return {
+                  viewport: window.innerWidth,
+                  scrollWidth: document.documentElement.scrollWidth,
+                  bodyScrollWidth: document.body.scrollWidth,
+                  overflowElements,
+                  smallTargets,
+                  bodyFont: getComputedStyle(document.body).fontFamily,
+                  h1Font: document.querySelector('h1') ? getComputedStyle(document.querySelector('h1')).fontFamily : null
+                };
+              });
+
+              report.push({
+                name,
+                route,
+                width,
+                ...audit,
+                consoleErrors,
+                pageErrors
+              });
+              await context.close();
+            }
+          }
+
+          await browser.close();
+          fs.writeFileSync('qa/mobile/report.json', JSON.stringify(report, null, 2));
+
+          const summary = {
+            states: report.length,
+            horizontalOverflowStates: report.filter((x) => x.scrollWidth > x.viewport || x.bodyScrollWidth > x.viewport).length,
+            statesWithOverflowElements: report.filter((x) => x.overflowElements.length).length,
+            statesWithSmallTargets: report.filter((x) => x.smallTargets.length).length,
+            consoleErrorStates: report.filter((x) => x.consoleErrors.length || x.pageErrors.length).length
+          };
+          console.log(JSON.stringify(summary, null, 2));
+          EOF
+          node /tmp/mobile-qa.mjs
+
+      - name: Upload mobile QA artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-qa
+          path: qa/mobile
+          retention-days: 1
