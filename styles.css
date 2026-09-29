@@ -442,7 +442,6 @@ body.menu-open { overflow:hidden; }
 .about-facts li { display:flex; flex-direction:column; gap:4px; }
 .about-facts strong { font-family:var(--serif); font-size:16px; }
 .about-facts span { font-size:11.5px; color:var(--muted); line-height:1.4; }
-.about-stats { margin-bottom:80px; }
 .about-stats h3, .about-principles h3 { margin:0 0 28px; font:400 clamp(26px,3vw,36px)/1.1 var(--serif); }
 .about-stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
 .about-stats-grid > div { padding:22px; border-radius:4px; background:var(--night); color:var(--cream); }
@@ -1174,7 +1173,7 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
 .about-principle h3 { margin: 0 0 12px; font: 400 22px/1.2 var(--serif); color: var(--cream); }
 .about-principle p { margin: 0; color: #b9ad97; font-size: 13.5px; line-height: 1.7; }
 
-.about-facts { padding: 84px max(24px, calc((100vw - var(--content))/2)); background: var(--paper-deep); }
+.about-materials { padding: 84px max(24px, calc((100vw - var(--content))/2)); background: var(--paper-deep); }
 .about-facts-head { max-width: 640px; margin-bottom: 36px; }
 .about-facts-head h2 { margin: 0; font: 400 clamp(28px, 3.4vw, 44px)/1.1 var(--serif); letter-spacing: -.02em; }
 .about-facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -1266,8 +1265,8 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
 @media (max-width: 620px) {
   .about-intro, .process-intro, .contact-intro { padding-left: 20px; padding-right: 20px; }
   .about-intro, .process-intro, .contact-intro { padding: calc(var(--header-h) + 54px) 20px 40px; }
-  .about-story, .process-steps-head, .about-stats, .about-principles, .about-facts, .process-fact, .contact-details, .contact-locations { padding-left: 20px; padding-right: 20px; }
-  .about-story, .process-steps-head, .about-stats, .about-principles, .about-facts, .process-fact, .contact-details, .contact-locations { padding: 60px 20px; }
+  .about-story, .process-steps-head, .about-stats, .about-principles, .about-materials, .process-fact, .contact-details, .contact-locations { padding-left: 20px; padding-right: 20px; }
+  .about-story, .process-steps-head, .about-stats, .about-principles, .about-materials, .process-fact, .contact-details, .contact-locations { padding: 60px 20px; }
   .process-step { padding: 48px 20px; }
   .contact-grid { padding-left: 20px; padding-right: 20px; }
   .about-stats-grid { grid-template-columns: 1fr; }
@@ -1305,7 +1304,7 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
     font-size: 14px;
   }
 
-  .about-story, .about-stats, .about-principles, .about-facts,
+  .about-story, .about-stats, .about-principles, .about-materials,
   .process-steps-head, .process-fact, .contact-details, .contact-locations {
     padding: 48px 20px;
   }
