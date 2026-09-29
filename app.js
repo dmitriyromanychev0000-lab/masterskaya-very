@@ -80,6 +80,8 @@ const setMetaValue = (selector, attribute, value, createTag = 'meta') => {
       } else if (selector.includes('name=')) {
         node.setAttribute('name', selector.match(/name="([^"]+)"/)?.[1] || '');
       }
+    } else if (createTag === 'link' && selector.includes('rel=')) {
+      node.setAttribute('rel', selector.match(/rel="([^"]+)"/)?.[1] || '');
     }
     document.head.appendChild(node);
   }
