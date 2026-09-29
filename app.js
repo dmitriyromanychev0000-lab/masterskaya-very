@@ -267,6 +267,7 @@ const initCollection = () => {
   const world = slug ? COLLECTION_WORLDS[slug] : null;
 
   if (!world) {
+    root.removeAttribute('data-world');
     setDynamicPageMeta({
       title: 'Мир не найден — Мастерская Веры',
       description: 'Такого Мира мастерской пока нет.',
@@ -277,6 +278,7 @@ const initCollection = () => {
     return;
   }
 
+  root.dataset.world = slug;
   const countLabel = `${world.residents.length} ${residentsWord(world.residents.length)}`;
   setDynamicPageMeta({
     title: `${world.title} — Мастерская Веры`,

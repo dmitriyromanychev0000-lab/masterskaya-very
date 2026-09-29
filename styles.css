@@ -99,7 +99,12 @@ body.menu-open { overflow:hidden; }
 .worlds-head { max-width: 640px; margin-bottom: 48px; }
 .worlds-head h2 { margin: 0; font: 400 clamp(32px,4vw,52px)/1.08 var(--serif); letter-spacing: -.02em; }
 .worlds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.world-card { position: relative; border-radius: 4px; overflow: hidden; min-height: 340px; background: var(--ink-soft); }
+.world-card { position: relative; border-radius: 4px; overflow: hidden; min-height: 340px; background: var(--ink-soft); background-size: cover; background-position: center; }
+.world-card[data-world="winter"] { background-image: url("assets/worlds/winter-desktop.webp"); }
+.world-card[data-world="forest"] { background-image: url("assets/worlds/forest-desktop.webp"); }
+.world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-desktop.webp"); }
+.world-card[data-world="russian"] { background-image: url("assets/worlds/russian-desktop.webp"); }
+.world-card[data-world="home"] { background-image: url("assets/worlds/home-desktop.webp"); }
 .world-card img,
 .world-card > .world-card-photo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .82; transition: transform .4s ease, opacity .4s ease; }
 .world-card img { object-fit: cover; }
@@ -283,6 +288,28 @@ body.menu-open { overflow:hidden; }
 }
 
 /* Collection page */
+main[data-collection-root][data-world] {
+  background-color: #100d0b;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% 100%;
+  color: var(--cream);
+}
+main[data-collection-root][data-world="winter"] { background-image: url("assets/worlds/winter-desktop.webp"); }
+main[data-collection-root][data-world="forest"] { background-image: url("assets/worlds/forest-desktop.webp"); }
+main[data-collection-root][data-world="dragons"] { background-image: url("assets/worlds/dragons-desktop.webp"); }
+main[data-collection-root][data-world="russian"] { background-image: url("assets/worlds/russian-desktop.webp"); }
+main[data-collection-root][data-world="home"] { background-image: url("assets/worlds/home-desktop.webp"); }
+
+main[data-collection-root][data-world] .collection-intro,
+main[data-collection-root][data-world] .collection-residents { background: transparent; }
+main[data-collection-root][data-world] .collection-intro { color: var(--cream); }
+main[data-collection-root][data-world] .collection-intro h1 { color: var(--cream); }
+main[data-collection-root][data-world] .collection-lead,
+main[data-collection-root][data-world] .collection-back { color: #d7cbb9; }
+main[data-collection-root][data-world] .collection-count { color: var(--gold-light); border-color: rgba(232,201,143,.45); }
+main[data-collection-root][data-world] .collection-cta { background: rgba(10,8,6,.72); }
+
 .collection-intro { padding: calc(var(--header-h) + 64px) max(24px, calc((100vw - var(--content))/2)) 48px; background: var(--paper); }
 .collection-intro--paper { background: var(--paper); }
 .collection-intro--night { background: var(--ink); color: var(--cream); }
@@ -675,3 +702,17 @@ body.menu-open { overflow:hidden; }
 }
 
 .chronicle-figure-wide .chronicle-frame { aspect-ratio: 16 / 9; }
+
+@media (max-width: 620px) {
+  .world-card[data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
+  .world-card[data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
+  .world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
+  .world-card[data-world="russian"] { background-image: url("assets/worlds/russian-mobile.webp"); }
+  .world-card[data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
+
+  main[data-collection-root][data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
+  main[data-collection-root][data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
+  main[data-collection-root][data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
+  main[data-collection-root][data-world="russian"] { background-image: url("assets/worlds/russian-mobile.webp"); }
+  main[data-collection-root][data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
+}
