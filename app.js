@@ -45,22 +45,22 @@ syncHeader();
 window.addEventListener('scroll', syncHeader, { passive: true });
 
 const RESIDENT_MEDIA = {
-  'azimondias': { group: 1, pos: 0 },
-  'baby-dragon': { group: 1, pos: 1 },
-  'forest-dragon': { group: 1, pos: 2 },
-  'gorynych-2': { group: 1, pos: 3 },
-  'gorynych': { group: 2, pos: 0 },
-  'hen': { group: 2, pos: 1 },
-  'humpbacked-horse': { group: 2, pos: 2 },
-  'mari': { group: 2, pos: 3 },
-  'mermaid': { group: 3, pos: 0 },
-  'mouse-king': { group: 3, pos: 1 },
-  'mouse-queen': { group: 3, pos: 2 },
-  'mushrooms': { group: 3, pos: 3 },
-  'nutcracker': { group: 4, pos: 0 },
-  'rocking-horse': { group: 4, pos: 1 },
-  'sirin': { group: 4, pos: 2 },
-  'soul-regan': { group: 4, pos: 3 },
+  'nutcracker': { group: 1, pos: 0 },
+  'mari': { group: 1, pos: 1 },
+  'mouse-queen': { group: 1, pos: 2 },
+  'mouse-king': { group: 1, pos: 3 },
+  'forest-dragon': { group: 2, pos: 0 },
+  'mushrooms': { group: 2, pos: 1 },
+  'azimondias': { group: 2, pos: 2 },
+  'baby-dragon': { group: 2, pos: 3 },
+  'soul-regan': { group: 3, pos: 0 },
+  'gorynych-2': { group: 3, pos: 1 },
+  'gorynych': { group: 3, pos: 2 },
+  'sirin': { group: 3, pos: 3 },
+  'mermaid': { group: 4, pos: 0 },
+  'humpbacked-horse': { group: 4, pos: 1 },
+  'hen': { group: 4, pos: 2 },
+  'rocking-horse': { group: 4, pos: 3 },
   'puss-in-boots': { direct: 'assets/process/05-compare-side.jpg' }
 };
 
