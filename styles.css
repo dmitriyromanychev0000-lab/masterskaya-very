@@ -98,22 +98,47 @@ body.menu-open { overflow:hidden; }
 .worlds { padding: 100px max(24px, calc((100vw - var(--content))/2)); background: var(--paper); }
 .worlds-head { max-width: 640px; margin-bottom: 48px; }
 .worlds-head h2 { margin: 0; font: 400 clamp(32px,4vw,52px)/1.08 var(--serif); letter-spacing: -.02em; }
-.worlds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.world-card { position: relative; border-radius: 4px; overflow: hidden; min-height: 340px; background: var(--ink-soft); background-size: cover; background-position: center; }
-.world-card[data-world="winter"] { background-image: url("assets/worlds/winter-desktop.webp"); }
-.world-card[data-world="forest"] { background-image: url("assets/worlds/forest-desktop.webp"); }
-.world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-desktop.webp"); }
-.world-card[data-world="russian"] { background-image: url("assets/worlds/russian-desktop.webp"); }
-.world-card[data-world="home"] { background-image: url("assets/worlds/home-desktop.webp"); }
-.world-card img,
-.world-card > .world-card-photo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .82; transition: transform .4s ease, opacity .4s ease; }
-.world-card img { object-fit: cover; }
-.world-card::after { content:""; position:absolute; inset:0; background: linear-gradient(0deg, rgba(10,8,6,.88), rgba(10,8,6,.15) 60%); }
-.world-card-copy { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; min-height: 340px; padding: 28px; color: var(--cream); }
-.world-card-copy h3 { margin: 0 0 10px; font: 400 26px/1.1 var(--serif); }
-.world-card-copy p { margin: 0 0 14px; max-width: 320px; color: #c9beac; font-size: 13px; line-height: 1.6; }
-.world-card-copy .text-link { color: var(--cream); }
-@media (hover:hover) { .world-card:hover img, .world-card:hover > .world-card-photo { transform: scale(1.05); opacity: .95; } }
+.worlds-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.world-card {
+  position: relative;
+  min-width: 0;
+  min-height: 310px;
+  overflow: hidden;
+  border: 1px solid rgba(183,138,79,.72);
+  border-radius: 5px;
+  background-color: #17120e;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 14px 30px rgba(23,19,15,.14);
+}
+.world-card[data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
+.world-card[data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
+.world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
+.world-card[data-world="russian"] { background-image: url("assets/worlds/russian-mobile.webp"); }
+.world-card[data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
+.world-card::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(0deg, rgba(10,8,6,.94) 0%, rgba(10,8,6,.56) 48%, rgba(10,8,6,.12) 78%);
+}
+.world-card-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 310px;
+  padding: 22px 18px;
+  color: var(--cream);
+}
+.world-card-copy h3 { margin: 0 0 8px; font: 400 22px/1.06 var(--serif); }
+.world-card-copy p { margin: 0 0 12px; color: #d3c6b0; font-size: 11.5px; line-height: 1.45; }
+.world-card-copy .text-link { color: var(--cream); font-size: 10px; }
+@media (hover:hover) {
+  .world-card { transition: transform .22s ease, box-shadow .22s ease; }
+  .world-card:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(23,19,15,.22); }
+}
 
 /* Keepers (Кто ждёт своего Хранителя) */
 .keepers { padding: 100px max(24px, calc((100vw - var(--content))/2)); background: var(--ink); color: var(--cream); }
@@ -704,12 +729,6 @@ main[data-collection-root][data-world] .collection-cta { background: rgba(10,8,6
 .chronicle-figure-wide .chronicle-frame { aspect-ratio: 16 / 9; }
 
 @media (max-width: 620px) {
-  .world-card[data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
-  .world-card[data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
-  .world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
-  .world-card[data-world="russian"] { background-image: url("assets/worlds/russian-mobile.webp"); }
-  .world-card[data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
-
   main[data-collection-root][data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
   main[data-collection-root][data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
   main[data-collection-root][data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
