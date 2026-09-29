@@ -428,9 +428,24 @@ body.menu-open { overflow:hidden; }
 .faq-item p { margin: 14px 0 0; color: #b9ad97; font-size: 13.5px; line-height: 1.7; }
 
 /* Keeper CTA band */
-.keeper-cta { padding: 90px max(24px, calc((100vw - var(--content))/2)); text-align: center; background: linear-gradient(160deg, var(--forest), var(--forest-deep)); color: var(--cream); }
-.keeper-cta h2 { margin: 0 0 12px; font: 400 clamp(32px,4vw,52px)/1.1 var(--serif); }
-.keeper-cta p { margin: 0 0 28px; color: #cfd9d1; }
+.keeper-cta {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding:90px max(24px,calc((100vw - var(--content))/2));
+  text-align:center;
+  background:#120d0b url("assets/home/keeper-cta-bg.webp") center/cover no-repeat;
+  color:var(--cream);
+}
+.keeper-cta::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:rgba(10,8,6,.34);
+}
+.keeper-cta h2 { margin:0 0 12px; font:400 clamp(32px,4vw,52px)/1.1 var(--serif); text-shadow:0 2px 18px rgba(0,0,0,.5); }
+.keeper-cta p { margin:0 0 28px; color:#eadfca; text-shadow:0 1px 12px rgba(0,0,0,.5); }
 .keeper-cta .button-outline { color: var(--cream); border-color: rgba(246,239,223,.45); }
 @media (hover:hover) { .keeper-cta .button-outline:hover { background: rgba(246,239,223,.08); } }
 
