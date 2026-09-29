@@ -267,7 +267,7 @@ const renderCollectionCta = () => `
 
 const renderCollectionNotFound = () => `
     <section class="collection-intro collection-intro--paper collection-notfound">
-      <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
+      <a class="collection-back" href="index.html#residents"><span aria-hidden="true">←</span> К Мирам на главной</a>
       <div class="collection-head">
         <div class="collection-eyebrow">
           <p class="eyebrow">Мир не найден</p>
@@ -308,7 +308,7 @@ const initCollection = () => {
 
   root.innerHTML = `
     <section class="collection-intro collection-intro--${world.tone}">
-      <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
+      <a class="collection-back" href="index.html#residents"><span aria-hidden="true">←</span> К Мирам на главной</a>
 
       <div class="collection-hero-grid">
         <div class="collection-head">
@@ -480,7 +480,7 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
       ${residentPhotoMarkup(slug, resident.name, 'chronicle-hero-bg', true)}
       <div class="chronicle-hero-scrim" aria-hidden="true"></div>
       <div class="chronicle-hero-inner">
-        <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
+        <a class="collection-back" href="index.html#residents"><span aria-hidden="true">←</span> К Мирам на главной</a>
         <div class="collection-eyebrow">
           <p class="eyebrow">Хроника Жителя</p>
           <a class="collection-count chronicle-world" href="collection.html?world=${escapeHtml(resident.world)}">${escapeHtml(worldTitle)}</a>
@@ -552,7 +552,7 @@ const renderChronicleNext = (slug, resident) => {
 
 const renderChronicleNotFound = () => `
     <section class="collection-intro collection-intro--paper collection-notfound">
-      <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
+      <a class="collection-back" href="index.html#residents"><span aria-hidden="true">←</span> К Мирам на главной</a>
       <div class="collection-head">
         <div class="collection-eyebrow">
           <p class="eyebrow">Житель не найден</p>
