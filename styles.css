@@ -544,6 +544,20 @@ body.menu-open { overflow:hidden; }
 }
 
 
+/* Remaining mobile touch targets */
+@media (max-width: 620px) {
+  .brand { min-height: 44px; }
+  .world-card-copy .text-link,
+  .keepers-all,
+  .footer-nav a,
+  .footer-contact a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .keepers-all { width: fit-content; }
+}
+
 /* Final mobile density pass: About / Process / Contact */
 @media (max-width: 620px) {
   .about-intro, .process-intro, .contact-intro {
