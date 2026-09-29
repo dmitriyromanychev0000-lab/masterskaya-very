@@ -64,30 +64,20 @@
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-shell">
-        <div class="hero-copy">
-          <p class="eyebrow">Ручная лепка · Авторская роспись</p>
-          <h1 id="hero-title">Создано руками.<br>Выбрано сердцем.</h1>
-          <p class="hero-lead">Уникальные фигурки Веры — с именем, характером и собственной историей.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="residents.html">Найти своего Жителя <span aria-hidden="true">→</span></a>
-            <a class="hero-order-link" href="https://t.me/masterskayaver">Обсудить заказ</a>
-          </div>
-          <p class="hero-handmade"><span aria-hidden="true">⌁</span> Каждая работа создаётся и расписывается вручную</p>
-        </div>
+      <picture class="hero-scene" aria-hidden="true">
+        <source media="(max-width: 620px)" srcset="assets/home/hero-residents-mobile.webp">
+        <img class="hero-bg" src="assets/home/hero-residents-desktop.webp" alt="" fetchpriority="high" width="1832" height="859">
+      </picture>
+      <div class="hero-scrim" aria-hidden="true"></div>
 
-        <div class="hero-showcase" aria-label="Жители мастерской">
-          <a class="hero-showcase-main" href="chronicle.html?resident=forest-dragon" aria-label="Лесной дракон — открыть Хронику">
-            <span class="resident-photo resident-photo-g2 resident-photo-p0" aria-hidden="true"></span>
-            <span class="hero-photo-note">Больше чем фигурка.<br>Это живая история.</span>
-          </a>
-          <a class="hero-showcase-small hero-showcase-small--winter" href="chronicle.html?resident=nutcracker" aria-label="Щелкунчик — открыть Хронику">
-            <span class="resident-photo resident-photo-g1 resident-photo-p0" aria-hidden="true"></span>
-          </a>
-          <a class="hero-showcase-small hero-showcase-small--russian" href="chronicle.html?resident=gorynych" aria-label="Змей Горыныч — открыть Хронику">
-            <span class="resident-photo resident-photo-g3 resident-photo-p2" aria-hidden="true"></span>
-          </a>
+      <div class="hero-copy">
+        <h1 id="hero-title">Не просто фигурки.<br>Жители с историей.</h1>
+        <p class="hero-lead">Вера создаёт каждого вручную — от каркаса до последнего мазка.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="residents.html">Смотреть готовые работы <span aria-hidden="true">→</span></a>
+          <a class="button button-outline" href="https://t.me/masterskayaver">Заказать своего</a>
         </div>
+        <p class="hero-handmade">Ручная лепка <span aria-hidden="true">·</span> Авторская роспись <span aria-hidden="true">·</span> Без точных копий</p>
       </div>
     </section>
 
