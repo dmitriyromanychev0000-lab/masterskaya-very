@@ -241,33 +241,6 @@ const residentsWord = (count) => {
   return 'Жителей';
 };
 
-const renderResidentCard = (resident, index) => {
-  const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
-  const isArchive = resident.status === 'archive';
-  const price = resident.price || 'Цена по запросу';
-  const stock = resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : '';
-  const contactButton = status.button
-    ? `<a class="button button-${status.button} button-small" href="https://t.me/masterskayaver">Написать Вере</a>`
-    : '';
-
-  return `
-        <article class="resident-card${isArchive ? ' resident-card-archive' : ''}">
-          <div class="resident-media">
-            ${residentPhotoMarkup(resident.chronicle, resident.name)}
-            ${isArchive ? '<span class="resident-archive-tag">В Хрониках</span>' : ''}
-          </div>
-          <div class="resident-copy">
-            <span class="resident-status ${status.modifier}">${status.label}</span>
-            <h3>${escapeHtml(resident.name)}</h3>
-            <p class="resident-meta"><span class="resident-price">${escapeHtml(price)}</span>${stock}</p>
-            <div class="resident-actions">
-              <a class="text-link" href="chronicle.html?resident=${escapeHtml(resident.chronicle)}">Открыть Хронику</a>
-              ${contactButton}
-            </div>
-          </div>
-        </article>`;
-};
-
 const renderWorldResidentRow = (resident) => {
   const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
   const isArchive = resident.status === 'archive';
