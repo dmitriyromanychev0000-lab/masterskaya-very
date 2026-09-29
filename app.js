@@ -311,7 +311,7 @@ const CHRONICLE_RESIDENTS = {
     name: 'Азимондиас',
     world: 'dragons',
     status: 'archive',
-    story: 'Первый Житель, который уехал к своему Хранителю. Повторить его нельзя — то, что уже нашло дом, не лепится заново.'
+    story: 'Первый Житель, который уехал к своему Хранителю. Этот экземпляр уже дома и остаётся в Хрониках мастерской.'
   },
   'baby-dragon': {
     name: 'Малыш-дракон',
@@ -391,7 +391,7 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
   const isArchive = resident.status === 'archive';
 
   const action = isArchive
-    ? '<p class="chronicle-archive-note">Нашёл своего Хранителя — повторить нельзя</p>'
+    ? '<p class="chronicle-archive-note">Этот экземпляр уже нашёл своего Хранителя</p>'
     : `<div class="chronicle-actions" data-chronicle-action>
           <a class="button button-${status.button || 'primary'}" href="https://t.me/masterskayaver">Написать Вере</a>
         </div>`;
