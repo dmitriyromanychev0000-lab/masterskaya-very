@@ -289,7 +289,23 @@ body.menu-open { overflow:hidden; }
   letter-spacing:-.035em;
 }
 .keepers-all { color:var(--ink); }
+.keepers-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 116px;
+  gap:28px;
+  align-items:stretch;
+}
 .keepers-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.keepers-note {
+  display:flex;
+  align-items:center;
+  padding-left:20px;
+  border-left:1px solid rgba(122,93,52,.34);
+  color:var(--gold-ink);
+  font:500 14px/1.38 var(--serif);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
 .keeper-card {
   min-width:0;
   overflow:hidden;
@@ -546,6 +562,8 @@ body.menu-open { overflow:hidden; }
   .desktop-nav,.order-link { display:none; }
   .menu-button { display:block; }
   .worlds-grid { grid-template-columns: repeat(2, 1fr); }
+  .keepers-layout { display:block; }
+  .keepers-note { display:none; }
   .keepers-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
   .about-facts, .about-stats-grid, .about-principles-grid { grid-template-columns: repeat(2,1fr); }
