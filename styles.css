@@ -217,25 +217,67 @@ body.menu-open { overflow:hidden; }
   .world-card:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(23,19,15,.22); }
 }
 
-/* Keepers (Кто ждёт своего Хранителя) */
-.keepers { padding: 100px max(24px, calc((100vw - var(--content))/2)); background: var(--night); color: var(--cream); }
-.keepers-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; padding-bottom: 32px; border-bottom: 1px solid var(--line-dark); margin-bottom: 40px; }
-.keepers-head h2 { margin: 0; max-width: 560px; font: 400 clamp(28px,3.4vw,44px)/1.15 var(--serif); letter-spacing: -.015em; }
-.keepers-all { color: var(--cream); }
-.keepers-world h3 { margin: 0 0 10px; font: 400 clamp(26px,3vw,36px)/1.1 var(--serif); color: var(--gold-light); }
-.keepers-world > p { margin: 0 0 32px; max-width: 620px; color: #b9ad97; font-size: 14px; line-height: 1.7; }
-.keepers-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
-.keeper-card { background: var(--paper); color: var(--ink); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
-.keeper-media { position: relative; aspect-ratio: 4/3; background: var(--forest-deep); }
-.keeper-media img { width: 100%; height: 100%; object-fit: cover; }
-.keeper-tag { position: absolute; left: 12px; top: 12px; padding: 5px 10px; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); background: rgba(10,8,6,.5); border-radius: 2px; }
-.keeper-copy { padding: 18px; display: flex; flex-direction: column; flex: 1; }
-.keeper-status { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 4px 10px; border-radius: 999px; font-size: 10px; letter-spacing: .04em; }
-.keeper-status-available { color: #1c4a34; background: #cfe6d6; }
-.keeper-status-progress { color: #7a5a1c; background: #f0dfb0; }
-.keeper-copy h4 { margin: 0 0 8px; font: 400 22px/1.15 var(--serif); }
-.keeper-copy p { margin: 0 0 16px; color: var(--muted); font-size: 12.5px; line-height: 1.6; flex: 1; }
-.keeper-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+/* Featured residents */
+.keepers {
+  padding: 88px max(24px, calc((100vw - var(--content))/2)) 96px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.keepers-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:24px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+.keepers-head .eyebrow { margin-bottom:9px; }
+.keepers-head h2 {
+  margin:0;
+  max-width:560px;
+  font:500 clamp(34px,4vw,52px)/1.04 var(--serif);
+  letter-spacing:-.035em;
+}
+.keepers-all { color:var(--ink); }
+.keepers-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.keeper-card {
+  min-width:0;
+  overflow:hidden;
+  border:1px solid rgba(183,138,79,.48);
+  border-radius:4px;
+  background:var(--paper-light);
+  box-shadow:0 12px 30px rgba(38,26,21,.06);
+}
+.keeper-card-link { display:block; height:100%; }
+.keeper-media { position:relative; aspect-ratio:3 / 2; overflow:hidden; background:var(--night); }
+.keeper-summary {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 18px 17px;
+}
+.keeper-summary h4 {
+  margin:0 0 4px;
+  font:500 clamp(21px,2vw,27px)/1.05 var(--serif);
+  letter-spacing:-.02em;
+}
+.keeper-summary p { margin:0; color:var(--ink); font:500 18px/1.1 var(--serif); }
+.keeper-arrow {
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  width:38px;
+  height:38px;
+  border:1px solid rgba(122,93,52,.72);
+  border-radius:50%;
+  color:var(--gold-ink);
+  font-size:17px;
+}
+@media (hover:hover) {
+  .keeper-card { transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .keeper-card:hover { transform:translateY(-3px); border-color:rgba(122,93,52,.75); box-shadow:0 18px 36px rgba(38,26,21,.11); }
+}
 
 /* Process teaser */
 .process-teaser {
@@ -444,7 +486,11 @@ body.menu-open { overflow:hidden; }
   .about-teaser-facts li { grid-template-columns:40px minmax(0,1fr); padding:0 0 14px; border-bottom:1px solid var(--line); }
   .about-teaser-facts li:last-child { padding-bottom:0; border-bottom:0; }
   .worlds-head { margin-bottom: 32px; }
-  .keepers-head { margin-bottom: 30px; padding-bottom: 24px; }
+  .keepers { padding-top:58px; padding-bottom:62px; }
+  .keepers-head { margin-bottom: 24px; }
+  .keeper-summary { padding:14px 15px 15px; }
+  .keeper-summary h4 { font-size:22px; }
+  .keeper-summary p { font-size:17px; }
   .world-card[data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
   .world-card[data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
   .world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
@@ -452,9 +498,6 @@ body.menu-open { overflow:hidden; }
   .world-card[data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
   .worlds-grid, .keepers-grid { grid-template-columns: 1fr; gap: 14px; }
   .world-card, .world-card-copy { min-height: 310px; }
-  .keeper-copy { padding: 16px; }
-  .keeper-actions { flex-direction: column; align-items: stretch; gap: 6px; }
-  .keeper-actions .text-link { min-height: 44px; align-items: center; }
   .about-facts, .about-stats-grid, .about-principles-grid { grid-template-columns: 1fr; }
   .site-footer { grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 18px; }
   .footer-brand { grid-column: 1 / -1; }
