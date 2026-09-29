@@ -236,6 +236,25 @@ const renderResidentCard = (resident, index) => {
         </article>`;
 };
 
+const renderWorldResidentRow = (resident) => {
+  const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
+  const price = resident.price || 'Цена по запросу';
+  const stock = resident.stock ? ` · ${escapeHtml(resident.stock)}` : '';
+
+  return `
+        <a class="world-resident-row" href="chronicle.html?resident=${escapeHtml(resident.chronicle)}">
+          <span class="world-resident-thumb">
+            ${residentPhotoMarkup(resident.chronicle, resident.name, 'world-resident-photo')}
+          </span>
+          <span class="world-resident-copy">
+            <strong>${escapeHtml(resident.name)}</strong>
+            <span class="world-resident-meta">${escapeHtml(status.label)} · ${escapeHtml(price)}${stock}</span>
+          </span>
+          <span class="world-resident-arrow" aria-hidden="true">→</span>
+        </a>`;
+};
+
+
 const renderCollectionCta = () => `
     <section class="keeper-cta collection-cta">
       <h2>Понравился кто-то из этого Мира?</h2>
@@ -285,6 +304,8 @@ const initCollection = () => {
     description: world.description,
     url: SITE_BASE_URL + `collection.html?world=${encodeURIComponent(slug)}`
   });
+  const featured = world.residents[0];
+
   root.innerHTML = `
     <section class="collection-intro collection-intro--${world.tone}">
       <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
@@ -296,11 +317,21 @@ const initCollection = () => {
         <h1>${escapeHtml(world.title)}</h1>
         <p class="collection-lead">${escapeHtml(world.description)}</p>
       </div>
+
+      <a class="world-feature" href="chronicle.html?resident=${escapeHtml(featured.chronicle)}" aria-label="Открыть Хронику: ${escapeHtml(featured.name)}">
+        ${residentPhotoMarkup(featured.chronicle, featured.name, 'world-feature-photo')}
+      </a>
+
+      <a class="world-jump" href="#world-residents">К Жителям Мира <span aria-hidden="true">↓</span></a>
     </section>
 
-    <section class="res-world res-world--${world.tone} collection-residents">
-      <div class="resident-grid">
-${world.residents.map(renderResidentCard).join('')}
+    <section class="collection-world-residents" id="world-residents">
+      <div class="collection-world-residents-head">
+        <p class="eyebrow">Все Жители этого Мира</p>
+        <h2>${escapeHtml(world.title)}</h2>
+      </div>
+      <div class="world-resident-list">
+${world.residents.map(renderWorldResidentRow).join('')}
       </div>
     </section>
 
