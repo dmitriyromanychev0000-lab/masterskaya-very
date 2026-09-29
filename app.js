@@ -309,18 +309,21 @@ const initCollection = () => {
   root.innerHTML = `
     <section class="collection-intro collection-intro--${world.tone}">
       <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
-      <div class="collection-head">
-        <div class="collection-eyebrow">
-          <p class="eyebrow">Мир мастерской</p>
-          <span class="collection-count">${countLabel}</span>
-        </div>
-        <h1>${escapeHtml(world.title)}</h1>
-        <p class="collection-lead">${escapeHtml(world.description)}</p>
-      </div>
 
-      <a class="world-feature" href="chronicle.html?resident=${escapeHtml(featured.chronicle)}" aria-label="Открыть Хронику: ${escapeHtml(featured.name)}">
-        ${residentPhotoMarkup(featured.chronicle, featured.name, 'world-feature-photo')}
-      </a>
+      <div class="collection-hero-grid">
+        <div class="collection-head">
+          <div class="collection-eyebrow">
+            <p class="eyebrow">Мир мастерской</p>
+            <span class="collection-count">${countLabel}</span>
+          </div>
+          <h1>${escapeHtml(world.title)}</h1>
+          <p class="collection-lead">${escapeHtml(world.description)}</p>
+        </div>
+
+        <a class="world-feature" href="chronicle.html?resident=${escapeHtml(featured.chronicle)}" aria-label="Открыть Хронику: ${escapeHtml(featured.name)}">
+          ${residentPhotoMarkup(featured.chronicle, featured.name, 'world-feature-photo')}
+        </a>
+      </div>
 
       <a class="world-jump" href="#world-residents">К Жителям Мира <span aria-hidden="true">↓</span></a>
     </section>
