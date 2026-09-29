@@ -84,9 +84,9 @@ const COLLECTION_WORLDS = {
     tone: 'night',
     residents: [
       { name: 'Щелкунчик', status: 'available', price: '3000 ₽', stock: 'готово: 1', chronicle: 'nutcracker' },
-      { name: 'Мышиный Король', status: 'available', price: '4500 ₽', stock: 'готово: 4', chronicle: 'mouse-king' },
       { name: 'Мари (девочка с Щелкунчиком)', status: 'progress', chronicle: 'mari' },
-      { name: 'Мышиная Королева', status: 'progress', chronicle: 'mouse-queen' }
+      { name: 'Мышиная Королева', status: 'progress', chronicle: 'mouse-queen' },
+      { name: 'Мышиный Король', status: 'available', price: '4500 ₽', stock: 'готово: 4', chronicle: 'mouse-king' }
     ]
   },
   forest: {
@@ -103,9 +103,9 @@ const COLLECTION_WORLDS = {
     description: 'Чешуя, крылья и память о временах, которых не застал никто. Мир тех, кто старше сказок.',
     tone: 'paper',
     residents: [
+      { name: 'Азимондиас', status: 'archive', chronicle: 'azimondias' },
       { name: 'Малыш-дракон', status: 'progress', chronicle: 'baby-dragon' },
-      { name: 'Соул Реган', status: 'progress', chronicle: 'soul-regan' },
-      { name: 'Азимондиас', status: 'archive', chronicle: 'azimondias' }
+      { name: 'Соул Реган', status: 'progress', chronicle: 'soul-regan' }
     ]
   },
   russian: {
@@ -114,10 +114,10 @@ const COLLECTION_WORLDS = {
     tone: 'night',
     residents: [
       { name: 'Змей Горыныч II', status: 'available', price: '6500 ₽', chronicle: 'gorynych-2' },
-      { name: 'Птица Сирин', status: 'available', price: '3500 ₽', chronicle: 'sirin' },
-      { name: 'Конёк-Горбунок', status: 'available', price: '4000 ₽', stock: 'готово: 2', chronicle: 'humpbacked-horse' },
       { name: 'Змей Горыныч', status: 'progress', chronicle: 'gorynych' },
-      { name: 'Русалка', status: 'progress', price: '3500 ₽', stock: 'предзаказ', chronicle: 'mermaid' }
+      { name: 'Птица Сирин', status: 'available', price: '3500 ₽', chronicle: 'sirin' },
+      { name: 'Русалка', status: 'progress', price: '3500 ₽', stock: 'предзаказ', chronicle: 'mermaid' },
+      { name: 'Конёк-Горбунок', status: 'available', price: '4000 ₽', stock: 'готово: 2', chronicle: 'humpbacked-horse' }
     ]
   },
   home: {
