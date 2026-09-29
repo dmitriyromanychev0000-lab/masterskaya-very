@@ -65,8 +65,8 @@ img { max-width: 100%; }
 .order-link { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 15px; border:1px solid var(--forest); border-radius:2px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color: var(--paper); background: var(--forest); }
 .menu-button { display:none; width:44px; height:44px; border:0; background:transparent; color:var(--ink); padding:12px 9px; }
 .menu-button span { display:block; width:24px; height:1px; margin:6px auto; background:currentColor; transition:transform .2s ease; }
-.menu-button[aria-expanded="true"] span:first-child { transform: translateY(6.5px) rotate(45deg); }
-.menu-button[aria-expanded="true"] span:last-child { transform: translateY(-6.5px) rotate(-45deg); }
+.menu-button[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+.menu-button[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
 
 .mobile-menu { position:fixed; z-index:45; inset:var(--header-h) 0 0; overflow-y:auto; overscroll-behavior:contain; padding:28px 22px max(28px, env(safe-area-inset-bottom)); background: var(--night); color: var(--paper-light); }
 .mobile-menu nav { display:grid; gap:4px; margin-bottom:28px; }
@@ -1745,7 +1745,7 @@ h1, h2, h3, h4 {
   .mobile-menu nav a:focus-visible { padding-left:2px; }
 
   .hero { padding:calc(var(--header-h) + 28px) 18px 30px; }
-  .hero-shell { gap:24px; }
+  .hero-shell { grid-template-columns:1fr; gap:24px; }
   .hero-copy { padding:0; }
   .hero h1 { font-size:clamp(46px,13.4vw,60px); line-height:.91; }
   .hero-lead { margin-top:17px; font-size:14.5px; }
