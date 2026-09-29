@@ -888,9 +888,9 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
 .world-resident-thumb .resident-photo { background-size:400% auto; background-position-y:center; }
 .world-resident-thumb .resident-photo-direct { background-size:cover; background-position:center; }
 .world-resident-copy { min-width:0; }
-.world-resident-copy strong {
+.world-resident-copy h3 {
   display:block;
-  margin-bottom:6px;
+  margin:0 0 6px;
   overflow:hidden;
   font:500 clamp(20px,2.2vw,26px)/1.08 var(--serif);
   color:var(--cream);
@@ -953,9 +953,9 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
     min-height:88px;
     padding:8px 0;
   }
-  .world-resident-copy strong {
+  .world-resident-copy h3 {
     display:-webkit-box;
-    margin-bottom:4px;
+    margin:0 0 4px;
     overflow:hidden;
     font-size:20px;
     white-space:normal;

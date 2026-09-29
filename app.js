@@ -268,7 +268,7 @@ const renderWorldResidentRow = (resident) => {
             ${residentPhotoMarkup(resident.chronicle, resident.name, 'world-resident-photo')}
           </span>
           <span class="world-resident-copy">
-            <strong>${escapeHtml(resident.name)}</strong>
+            <h3>${escapeHtml(resident.name)}</h3>
             <span class="world-resident-meta">${escapeHtml(status.label)} · ${escapeHtml(price)}${stock}</span>
           </span>
           <span class="world-resident-arrow" aria-hidden="true">→</span>
