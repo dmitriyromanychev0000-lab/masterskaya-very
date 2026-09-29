@@ -544,6 +544,67 @@ body.menu-open { overflow:hidden; }
 }
 
 
+/* Final mobile density pass: About / Process / Contact */
+@media (max-width: 620px) {
+  .about-intro, .process-intro, .contact-intro {
+    padding: calc(var(--header-h) + 38px) 20px 32px;
+  }
+  .about-intro h1, .process-intro h1, .contact-intro h1 {
+    font-size: clamp(38px, 12vw, 48px);
+  }
+  .about-intro-lead, .process-intro-lead, .contact-intro-lead {
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .about-story, .about-stats, .about-principles, .about-facts,
+  .process-steps-head, .process-fact, .contact-details, .contact-locations {
+    padding: 48px 20px;
+  }
+  .about-story-grid { gap: 24px; }
+  .about-story-frame, .process-step-frame { aspect-ratio: 3 / 2; }
+  .about-story-text { font-size: 14px; line-height: 1.68; }
+
+  .about-stats-head, .about-principles-head, .about-facts-head {
+    margin-bottom: 24px;
+  }
+  .about-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .about-stats-grid > div { padding: 16px; }
+  .about-stats-grid strong { font-size: 32px; }
+  .about-principles-grid, .about-facts-grid,
+  .contact-details-grid, .contact-locations-grid { gap: 12px; }
+  .about-principle { padding: 20px; }
+  .about-fact-item, .contact-detail, .contact-location { padding: 18px; }
+
+  .faq { padding: 48px 20px; }
+  .faq h2 { margin-bottom: 24px; }
+  .faq-list { gap: 8px; }
+  .faq-item { padding: 10px 16px; }
+  .faq-item summary { min-height: 44px; line-height: 1.35; }
+
+  .process-steps-head { padding-bottom: 30px; }
+  .process-step { padding: 40px 20px; }
+  .process-step-grid { gap: 18px; }
+  .process-step-grid--reverse .process-step-figure { order: -1; }
+  .process-step-number { margin-bottom: 10px; }
+  .process-step-copy h3 { margin-bottom: 10px; }
+
+  .contact-grid { gap: 12px; padding: 0 20px 48px; }
+  .contact-card { padding: 20px; }
+  .contact-card-icon { width: 44px; height: 44px; margin-bottom: 16px; }
+  .contact-card--form .contact-form-note { margin-bottom: 18px; }
+  .contact-brief { gap: 8px; margin-bottom: 20px; }
+  .contact-brief li { grid-template-columns: 28px 1fr; gap: 10px; padding: 12px; }
+  .contact-details h2, .contact-locations h2 { margin-bottom: 24px; }
+
+  .keeper-cta { padding-top: 48px; padding-bottom: 48px; }
+  .site-footer { padding: 44px 20px; gap: 24px; }
+}
+
+
 /* Real resident archive photos — 17 residents */
 .resident-media,
 .keeper-media,
