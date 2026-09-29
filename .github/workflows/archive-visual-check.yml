@@ -1,5 +1,5 @@
 name: One-off archive visual check
-# pass-2
+# pass-3
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
             const ctx = await browser.newContext({viewport:{width,height:900},isMobile:true,hasTouch:true});
             const page = await ctx.newPage();
             await page.goto('http://127.0.0.1:4173/index.html',{waitUntil:'networkidle'});
-            await page.evaluate(async()=>{ if(document.fonts?.ready) await document.fonts.ready; const sleep=(ms)=>new Promise(r=>setTimeout(r,ms)); for(let y=0;y<document.documentElement.scrollHeight;y+=700){scrollTo(0,y);await sleep(70);}scrollTo(0,0);await sleep(150);});
+            await page.evaluate(async()=>{ document.documentElement.style.scrollBehavior='auto'; if(document.fonts?.ready) await document.fonts.ready; const sleep=(ms)=>new Promise(r=>setTimeout(r,ms)); for(let y=0;y<document.documentElement.scrollHeight;y+=700){scrollTo(0,y);await sleep(70);}scrollTo(0,0);await sleep(220);});
             await page.screenshot({path:`qa/archive/home-${width}.png`,fullPage:true});
             await page.locator('[data-menu-button]').click();
             await page.screenshot({path:`qa/archive/menu-${width}.png`,fullPage:false});
