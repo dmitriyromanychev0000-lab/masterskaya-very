@@ -1478,6 +1478,27 @@ h1, h2, h3, h4 {
   font-weight: 500;
   letter-spacing: -.04em;
 }
+
+/* Secondary pages: keep the approved display weight even where older font shorthands set 400. */
+.about-intro h1,
+.about-story-copy h2,
+.about-stats-head h2,
+.about-principles-head h2,
+.about-principle h3,
+.about-facts-head h2,
+.process-intro h1,
+.process-steps-head h2,
+.process-step-copy h3,
+.process-fact-inner h2,
+.contact-intro h1,
+.contact-card--telegram h2,
+.contact-card--form h2,
+.contact-details h2,
+.contact-detail h3,
+.contact-locations h2 {
+  font-weight: 500;
+  letter-spacing: -.04em;
+}
 .worlds .eyebrow,
 .keepers .eyebrow,
 .faq .eyebrow,
