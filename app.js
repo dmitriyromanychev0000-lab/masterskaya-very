@@ -259,8 +259,12 @@ const renderResidentCard = (resident, index) => {
 
 const renderWorldResidentRow = (resident) => {
   const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
+  const isArchive = resident.status === 'archive';
   const price = resident.price || 'Цена по запросу';
   const stock = resident.stock ? ` · ${escapeHtml(resident.stock)}` : '';
+  const meta = isArchive
+    ? escapeHtml(status.label)
+    : `${escapeHtml(status.label)} · ${escapeHtml(price)}${stock}`;
 
   return `
         <a class="world-resident-row" href="chronicle.html?resident=${escapeHtml(resident.chronicle)}">
@@ -269,7 +273,7 @@ const renderWorldResidentRow = (resident) => {
           </span>
           <span class="world-resident-copy">
             <h3>${escapeHtml(resident.name)}</h3>
-            <span class="world-resident-meta">${escapeHtml(status.label)} · ${escapeHtml(price)}${stock}</span>
+            <span class="world-resident-meta">${meta}</span>
           </span>
           <span class="world-resident-arrow" aria-hidden="true">→</span>
         </a>`;
@@ -486,9 +490,10 @@ const CHRONICLE_RESIDENTS = {
 
 const renderChronicleHero = (resident, slug, worldTitle) => {
   const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
-  const price = resident.price || 'Цена по запросу';
-  const stock = resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : '';
   const isArchive = resident.status === 'archive';
+  const price = isArchive ? '' : resident.price || 'Цена по запросу';
+  const stock = !isArchive && resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : '';
+  const priceMarkup = price ? `<span class="chronicle-price">${escapeHtml(price)}${stock}</span>` : '';
 
   const action = isArchive
     ? '<p class="chronicle-archive-note">Этот экземпляр уже нашёл своего Хранителя</p>'
@@ -508,7 +513,7 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
           <h1>${escapeHtml(resident.name)}</h1>
           <div class="chronicle-badges">
             <span class="resident-status ${status.modifier}">${status.label}</span>
-            <span class="chronicle-price">${escapeHtml(price)}${stock}</span>
+            ${priceMarkup}
           </div>
           ${action}
         </div>
