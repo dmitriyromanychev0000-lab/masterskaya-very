@@ -82,6 +82,14 @@ jobs:
               await page.goto(base + route, { waitUntil: 'networkidle' });
               await page.evaluate(async () => {
                 if (document.fonts?.ready) await document.fonts.ready;
+                const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+                const step = Math.max(500, Math.floor(window.innerHeight * 0.8));
+                for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+                  window.scrollTo(0, y);
+                  await sleep(90);
+                }
+                window.scrollTo(0, 0);
+                await sleep(180);
               });
               await page.screenshot({
                 path: `qa/mobile/${name}-${width}.png`,
