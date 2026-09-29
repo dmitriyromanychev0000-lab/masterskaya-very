@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dmitriyromanychev0000-lab.github.io/masterskaya-very/sitemap.xml

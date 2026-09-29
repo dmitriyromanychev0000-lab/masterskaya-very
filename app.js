@@ -68,6 +68,38 @@ const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY 
 syncHeader();
 window.addEventListener('scroll', syncHeader, { passive: true });
 
+const SITE_BASE_URL = 'https://dmitriyromanychev0000-lab.github.io/masterskaya-very/';
+
+const setMetaValue = (selector, attribute, value, createTag = 'meta') => {
+  let node = document.head.querySelector(selector);
+  if (!node) {
+    node = document.createElement(createTag);
+    if (createTag === 'meta') {
+      if (selector.includes('property=')) {
+        node.setAttribute('property', selector.match(/property="([^"]+)"/)?.[1] || '');
+      } else if (selector.includes('name=')) {
+        node.setAttribute('name', selector.match(/name="([^"]+)"/)?.[1] || '');
+      }
+    }
+    document.head.appendChild(node);
+  }
+  node.setAttribute(attribute, value);
+};
+
+const setDynamicPageMeta = ({ title, description, url, indexable = true }) => {
+  document.title = title;
+  setMetaValue('meta[name="description"]', 'content', description);
+  setMetaValue('meta[name="robots"]', 'content', indexable ? 'index,follow' : 'noindex,follow');
+  setMetaValue('meta[property="og:title"]', 'content', title);
+  setMetaValue('meta[property="og:description"]', 'content', description);
+  setMetaValue('meta[property="og:url"]', 'content', url);
+  setMetaValue('meta[name="twitter:title"]', 'content', title);
+  setMetaValue('meta[name="twitter:description"]', 'content', description);
+  setMetaValue('link[rel="canonical"]', 'href', url, 'link');
+  const canonical = document.head.querySelector('link[rel="canonical"]');
+  canonical?.setAttribute('rel', 'canonical');
+};
+
 const RESIDENT_MEDIA = {
   'nutcracker': { group: 1, pos: 0 },
   'mari': { group: 1, pos: 1 },
@@ -233,13 +265,22 @@ const initCollection = () => {
   const world = slug ? COLLECTION_WORLDS[slug] : null;
 
   if (!world) {
-    document.title = 'Мир не найден — Мастерская Веры';
+    setDynamicPageMeta({
+      title: 'Мир не найден — Мастерская Веры',
+      description: 'Такого Мира мастерской пока нет.',
+      url: SITE_BASE_URL + 'collection.html',
+      indexable: false
+    });
     root.innerHTML = renderCollectionNotFound();
     return;
   }
 
   const countLabel = `${world.residents.length} ${residentsWord(world.residents.length)}`;
-  document.title = `${world.title} — Мастерская Веры`;
+  setDynamicPageMeta({
+    title: `${world.title} — Мастерская Веры`,
+    description: world.description,
+    url: SITE_BASE_URL + `collection.html?world=${encodeURIComponent(slug)}`
+  });
   root.innerHTML = `
     <section class="collection-intro collection-intro--${world.tone}">
       <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
@@ -559,12 +600,21 @@ const initChronicle = () => {
   const resident = slug ? CHRONICLE_RESIDENTS[slug] : null;
 
   if (!resident) {
-    document.title = 'Житель не найден — Мастерская Веры';
+    setDynamicPageMeta({
+      title: 'Житель не найден — Мастерская Веры',
+      description: 'Такого Жителя в Хрониках мастерской пока нет.',
+      url: SITE_BASE_URL + 'chronicle.html',
+      indexable: false
+    });
     root.innerHTML = renderChronicleNotFound();
     return;
   }
 
-  document.title = `${resident.name} — Мастерская Веры`;
+  setDynamicPageMeta({
+    title: `${resident.name} — Мастерская Веры`,
+    description: resident.story,
+    url: SITE_BASE_URL + `chronicle.html?resident=${encodeURIComponent(slug)}`
+  });
   root.innerHTML = renderChronicle(slug, resident);
   initChronicleSticky();
 };
