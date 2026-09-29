@@ -526,3 +526,49 @@ body.menu-open { overflow:hidden; }
   .contact-form-row input,
   .contact-form-row textarea { font-size: 16px; }
 }
+
+
+/* Real resident archive photos — 17 residents */
+.resident-media,
+.keeper-media,
+.chronicle-frame { aspect-ratio: 3 / 2; }
+
+.resident-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 400% auto;
+  background-position-y: center;
+  background-color: var(--forest-deep);
+}
+
+.resident-photo-g1 { background-image: url("assets/residents/residents-g1.webp"); }
+.resident-photo-g2 { background-image: url("assets/residents/residents-g2.webp"); }
+.resident-photo-g3 { background-image: url("assets/residents/residents-g3.webp"); }
+.resident-photo-g4 { background-image: url("assets/residents/residents-g4.webp"); }
+.resident-photo-p0 { background-position-x: 0%; }
+.resident-photo-p1 { background-position-x: 33.333333%; }
+.resident-photo-p2 { background-position-x: 66.666667%; }
+.resident-photo-p3 { background-position-x: 100%; }
+
+.resident-photo-direct {
+  background-size: cover;
+  background-position: center;
+}
+
+.chronicle-hero-bg {
+  width: auto;
+  height: auto;
+  background-size: 400% auto;
+  background-position-y: center;
+}
+
+.chronicle-frame .resident-photo {
+  background-size: 400% auto;
+  background-position-y: center;
+}
+
+.chronicle-figure-wide .chronicle-frame { aspect-ratio: 16 / 9; }

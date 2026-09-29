@@ -44,11 +44,38 @@ const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY 
 syncHeader();
 window.addEventListener('scroll', syncHeader, { passive: true });
 
-const COLLECTION_IMAGES = [
-  'assets/collections/winter-nutcracker.webp',
-  'assets/residents/green-dragon.webp',
-  'assets/home/workshop-hero.webp'
-];
+const RESIDENT_MEDIA = {
+  'azimondias': { group: 1, pos: 0 },
+  'baby-dragon': { group: 1, pos: 1 },
+  'forest-dragon': { group: 1, pos: 2 },
+  'gorynych-2': { group: 1, pos: 3 },
+  'gorynych': { group: 2, pos: 0 },
+  'hen': { group: 2, pos: 1 },
+  'humpbacked-horse': { group: 2, pos: 2 },
+  'mari': { group: 2, pos: 3 },
+  'mermaid': { group: 3, pos: 0 },
+  'mouse-king': { group: 3, pos: 1 },
+  'mouse-queen': { group: 3, pos: 2 },
+  'mushrooms': { group: 3, pos: 3 },
+  'nutcracker': { group: 4, pos: 0 },
+  'rocking-horse': { group: 4, pos: 1 },
+  'sirin': { group: 4, pos: 2 },
+  'soul-regan': { group: 4, pos: 3 },
+  'puss-in-boots': { direct: 'assets/process/05-compare-side.jpg' }
+};
+
+const residentPhotoMarkup = (slug, name, extraClass = '', decorative = false) => {
+  const media = RESIDENT_MEDIA[slug];
+  if (!media) return '';
+  const classes = media.direct
+    ? `resident-photo resident-photo-direct ${extraClass}`
+    : `resident-photo resident-photo-g${media.group} resident-photo-p${media.pos} ${extraClass}`;
+  const style = media.direct ? ` style="background-image:url('${media.direct}')"` : '';
+  const accessibility = decorative
+    ? 'aria-hidden="true"'
+    : `role="img" aria-label="${escapeHtml(name)} — фигурка ручной работы"`;
+  return `<span class="${classes.trim()}" ${accessibility}${style}></span>`;
+};
 
 const COLLECTION_WORLDS = {
   winter: {
@@ -126,7 +153,6 @@ const residentsWord = (count) => {
 
 const renderResidentCard = (resident, index) => {
   const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
-  const image = COLLECTION_IMAGES[index % COLLECTION_IMAGES.length];
   const isArchive = resident.status === 'archive';
   const price = resident.price || 'Цена по запросу';
   const stock = resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : '';
@@ -137,7 +163,7 @@ const renderResidentCard = (resident, index) => {
   return `
         <article class="resident-card${isArchive ? ' resident-card-archive' : ''}">
           <div class="resident-media">
-            <img src="${image}" alt="${escapeHtml(resident.name)} — фигурка ручной работы" loading="lazy">
+            ${residentPhotoMarkup(resident.chronicle, resident.name)}
             ${isArchive ? '<span class="resident-archive-tag">В Хрониках</span>' : ''}
           </div>
           <div class="resident-copy">
@@ -334,7 +360,7 @@ const CHRONICLE_RESIDENTS = {
   }
 };
 
-const renderChronicleHero = (resident, image, worldTitle) => {
+const renderChronicleHero = (resident, slug, worldTitle) => {
   const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
   const price = resident.price || 'Цена по запросу';
   const stock = resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : '';
@@ -348,7 +374,7 @@ const renderChronicleHero = (resident, image, worldTitle) => {
 
   return `
     <section class="collection-intro collection-intro--night chronicle-hero">
-      <img class="chronicle-hero-bg" src="${image}" alt="" aria-hidden="true">
+      ${residentPhotoMarkup(slug, resident.name, 'chronicle-hero-bg', true)}
       <div class="chronicle-hero-scrim" aria-hidden="true"></div>
       <div class="chronicle-hero-inner">
         <a class="collection-back" href="residents.html"><span aria-hidden="true">←</span> Все Жители</a>
@@ -407,9 +433,6 @@ const renderChronicleNotFound = () => `
     </section>`;
 
 const renderChronicle = (slug, resident) => {
-  const index = Object.keys(CHRONICLE_RESIDENTS).indexOf(slug);
-  const image = COLLECTION_IMAGES[index % COLLECTION_IMAGES.length];
-  const imageAlt = COLLECTION_IMAGES[(index + 1) % COLLECTION_IMAGES.length];
   const world = COLLECTION_WORLDS[resident.world];
   const worldTitle = world ? world.title : 'Мир мастерской';
   const isArchive = resident.status === 'archive';
@@ -426,7 +449,7 @@ const renderChronicle = (slug, resident) => {
     </div>`;
 
   return `
-    ${renderChronicleHero(resident, image, worldTitle)}
+    ${renderChronicleHero(resident, slug, worldTitle)}
 
     <section class="chronicle-section chronicle-story">
       <div class="chronicle-story-grid">
@@ -436,7 +459,7 @@ const renderChronicle = (slug, resident) => {
         </div>
         <figure class="chronicle-figure">
           <div class="chronicle-frame">
-            <img src="${image}" alt="${escapeHtml(resident.name)} — фигурка ручной работы" loading="lazy">
+            ${residentPhotoMarkup(slug, resident.name, 'chronicle-photo')}
           </div>
         </figure>
       </div>
@@ -449,9 +472,9 @@ const renderChronicle = (slug, resident) => {
       </div>
       <figure class="chronicle-figure chronicle-figure-wide">
         <div class="chronicle-frame">
-          <img src="${imageAlt}" alt="${escapeHtml(resident.name)} — крупный план" loading="lazy">
+          ${residentPhotoMarkup(slug, resident.name, 'chronicle-photo')}
         </div>
-        <figcaption class="chronicle-caption">Пока один ракурс — больше добавим позже</figcaption>
+        <figcaption class="chronicle-caption">Текущий ракурс из архива — дополнительные фото добавим позже</figcaption>
       </figure>
     </section>
 
@@ -507,3 +530,25 @@ const initChronicle = () => {
 };
 
 initChronicle();
+
+const RESIDENT_SLUG_BY_NAME = Object.fromEntries(
+  Object.entries(CHRONICLE_RESIDENTS).map(([slug, resident]) => [resident.name, slug])
+);
+
+const hydrateStaticResidentMedia = () => {
+  document.querySelectorAll('.resident-card, .keeper-card').forEach((card) => {
+    const heading = card.querySelector('h3, h4');
+    const media = card.querySelector('.resident-media, .keeper-media');
+    if (!heading || !media) return;
+
+    const name = heading.textContent.trim();
+    const slug = RESIDENT_SLUG_BY_NAME[name];
+    if (!slug) return;
+
+    media.querySelectorAll('img, .resident-photo').forEach((node) => node.remove());
+    media.insertAdjacentHTML('afterbegin', residentPhotoMarkup(slug, name));
+    media.classList.remove('keeper-media-soon');
+  });
+};
+
+hydrateStaticResidentMedia();
