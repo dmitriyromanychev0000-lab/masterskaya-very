@@ -40,7 +40,8 @@ jobs:
 
       - name: Capture and audit mobile pages
         run: |
-          cat > /tmp/mobile-qa.mjs <<'EOF'
+          mkdir -p qa
+          cat > qa/mobile-qa.mjs <<'EOF'
           import { chromium } from 'playwright';
           import fs from 'node:fs';
 
@@ -162,7 +163,7 @@ jobs:
           };
           console.log(JSON.stringify(summary, null, 2));
           EOF
-          node /tmp/mobile-qa.mjs
+          node qa/mobile-qa.mjs
 
       - name: Upload mobile QA artifact
         if: always()
