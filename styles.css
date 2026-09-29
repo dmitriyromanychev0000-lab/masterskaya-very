@@ -630,14 +630,6 @@ body.menu-open { overflow:hidden; }
 
   .worlds { padding: 56px 20px; }
   .keepers, .faq, .keeper-cta { padding: 60px 20px; }
-  .process-teaser { padding:54px 20px; }
-  .process-teaser-head { align-items:flex-start; margin-bottom:22px; }
-  .process-teaser-head .text-link { min-height:44px; display:flex; align-items:center; }
-  .process-teaser-grid { grid-template-columns:1fr; gap:12px; }
-  .process-teaser-step { display:grid; grid-template-columns:116px minmax(0,1fr); }
-  .process-teaser-step figure { aspect-ratio:1/1; }
-  .process-teaser-step > div { padding:14px; }
-  .process-teaser-step h3 { font-size:21px; }
   .about-teaser { padding:54px 20px; }
   .about-teaser-layout { grid-template-columns:1fr; gap:32px; }
   .about-teaser-head h2 { font-size:clamp(38px,11.5vw,50px); }
