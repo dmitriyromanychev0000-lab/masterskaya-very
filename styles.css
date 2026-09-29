@@ -46,10 +46,13 @@ img { max-width: 100%; }
 .order-link { padding:10px 15px; border:1px solid var(--forest); border-radius:2px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color: var(--forest); background: var(--forest); color: var(--paper); }
 .menu-button { display:none; width:44px; height:44px; border:0; background:transparent; color:var(--ink); padding:12px 9px; }
 .menu-button span { display:block; width:24px; height:1px; margin:6px auto; background:currentColor; transition:transform .2s ease; }
+.menu-button[aria-expanded="true"] span:first-child { transform: translateY(6.5px) rotate(45deg); }
+.menu-button[aria-expanded="true"] span:last-child { transform: translateY(-6.5px) rotate(-45deg); }
 
-.mobile-menu { position:fixed; z-index:45; inset:var(--header-h) 0 0; padding:28px 22px; background: var(--ink); color: var(--paper); }
+.mobile-menu { position:fixed; z-index:45; inset:var(--header-h) 0 0; overflow-y:auto; overscroll-behavior:contain; padding:28px 22px max(28px, env(safe-area-inset-bottom)); background: var(--ink); color: var(--paper); }
 .mobile-menu nav { display:grid; gap:4px; margin-bottom:28px; }
-.mobile-menu nav a { padding:15px 2px; border-bottom:1px solid var(--line-dark); font:28px/1.08 var(--serif); }
+.mobile-menu nav a { min-height:56px; display:flex; align-items:center; padding:10px 2px; border-bottom:1px solid var(--line-dark); font:28px/1.08 var(--serif); }
+.mobile-menu nav a[aria-current="page"] { color: var(--gold-light); }
 body.menu-open { overflow:hidden; }
 
 .eyebrow { margin:0 0 14px; font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color: var(--gold); }
@@ -547,6 +550,7 @@ body.menu-open { overflow:hidden; }
 /* Remaining mobile touch targets */
 @media (max-width: 620px) {
   .brand { min-height: 44px; }
+  .button-small { min-height: 44px; }
   .world-card-copy .text-link,
   .keepers-all,
   .footer-nav a,
