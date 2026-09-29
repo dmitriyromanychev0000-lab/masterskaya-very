@@ -392,12 +392,39 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
     </section>`;
 };
 
-const renderChronicleNext = (resident) => {
+const renderChronicleNeighbors = (slug, resident) => {
+  const residents = COLLECTION_WORLDS[resident.world]?.residents || [];
+  const index = residents.findIndex((item) => item.chronicle === slug);
+  if (index < 0 || residents.length < 2) return '';
+
+  const previous = residents[(index - 1 + residents.length) % residents.length];
+  const next = residents[(index + 1) % residents.length];
+  const links = previous.chronicle === next.chronicle
+    ? [{ resident: next, direction: 'next', label: 'Следующий Житель' }]
+    : [
+        { resident: previous, direction: 'previous', label: 'Предыдущий Житель' },
+        { resident: next, direction: 'next', label: 'Следующий Житель' }
+      ];
+
+  return `
+    <nav class="chronicle-neighbors" aria-label="Другие Жители этого Мира">
+      ${links.map(({ resident: item, direction, label }) => `
+        <a class="chronicle-neighbor chronicle-neighbor--${direction}" href="chronicle.html?resident=${escapeHtml(item.chronicle)}">
+          <span>${direction === 'previous' ? '← ' : ''}${label}${direction === 'next' ? ' →' : ''}</span>
+          <strong>${escapeHtml(item.name)}</strong>
+        </a>`).join('')}
+    </nav>`;
+};
+
+const renderChronicleNext = (slug, resident) => {
+  const neighbors = renderChronicleNeighbors(slug, resident);
+
   if (resident.status === 'archive') {
     return `
     <section class="keeper-cta chronicle-next">
       <h2>Что дальше</h2>
       <p>Этот Житель уже нашёл дом. Может, среди свободных есть тот, кто ждёт вас</p>
+      ${neighbors}
       <div class="chronicle-next-actions">
         <a class="button button-primary" href="residents.html">Смотреть свободных Жителей</a>
       </div>
@@ -412,6 +439,7 @@ const renderChronicleNext = (resident) => {
     <section class="keeper-cta chronicle-next">
       <h2>Что дальше</h2>
       <p>${text}</p>
+      ${neighbors}
       <div class="chronicle-next-actions">
         <a class="button button-primary" href="contact.html">Написать Вере</a>
         <a class="button button-outline" href="residents.html">Все Жители</a>
@@ -465,7 +493,7 @@ const renderChronicle = (slug, resident) => {
       </div>
     </section>
 
-    ${renderChronicleNext(resident)}
+    ${renderChronicleNext(slug, resident)}
     ${sticky}`;
 };
 
@@ -531,9 +559,9 @@ const hydrateStaticResidentMedia = () => {
 
     const name = heading.textContent.trim();
     const slug = RESIDENT_SLUG_BY_NAME[name];
-    if (!slug) return;
+    if (!slug || media.querySelector('.resident-photo')) return;
 
-    media.querySelectorAll('img, .resident-photo').forEach((node) => node.remove());
+    media.querySelectorAll('img').forEach((node) => node.remove());
     media.insertAdjacentHTML('afterbegin', residentPhotoMarkup(slug, name));
   });
 };
