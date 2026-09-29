@@ -2084,7 +2084,7 @@ h1, h2, h3, h4 {
   .resident-actions { margin-top:auto; }
   .resident-actions .button { display:none; }
   .resident-actions .text-link {
-    min-height:40px;
+    min-height:44px;
     font-size:10px;
   }
 }
