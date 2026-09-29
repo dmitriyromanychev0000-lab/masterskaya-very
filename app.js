@@ -535,7 +535,6 @@ const hydrateStaticResidentMedia = () => {
 
     media.querySelectorAll('img, .resident-photo').forEach((node) => node.remove());
     media.insertAdjacentHTML('afterbegin', residentPhotoMarkup(slug, name));
-    media.classList.remove('keeper-media-soon');
   });
 };
 

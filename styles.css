@@ -105,10 +105,6 @@ body.menu-open { overflow:hidden; }
 .world-card-copy h3 { margin: 0 0 10px; font: 400 26px/1.1 var(--serif); }
 .world-card-copy p { margin: 0 0 14px; max-width: 320px; color: #c9beac; font-size: 13px; line-height: 1.6; }
 .world-card-copy .text-link { color: var(--cream); }
-.world-card-soon { background: var(--paper-deep); }
-.world-card-soon::after { display: none; }
-.world-card-copy-soon { position: static; color: var(--ink); justify-content: center; text-align: center; align-items: center; }
-.world-card-copy-soon p { color: var(--muted); max-width: none; }
 @media (hover:hover) { .world-card:hover img, .world-card:hover > .world-card-photo { transform: scale(1.05); opacity: .95; } }
 
 /* Keepers (Кто ждёт своего Хранителя) */
@@ -122,7 +118,6 @@ body.menu-open { overflow:hidden; }
 .keeper-card { background: var(--paper); color: var(--ink); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
 .keeper-media { position: relative; aspect-ratio: 4/3; background: var(--forest-deep); }
 .keeper-media img { width: 100%; height: 100%; object-fit: cover; }
-.keeper-media-soon { background: linear-gradient(160deg, var(--forest), var(--forest-deep)); }
 .keeper-tag { position: absolute; left: 12px; top: 12px; padding: 5px 10px; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); background: rgba(10,8,6,.5); border-radius: 2px; }
 .keeper-copy { padding: 18px; display: flex; flex-direction: column; flex: 1; }
 .keeper-status { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 4px 10px; border-radius: 999px; font-size: 10px; letter-spacing: .04em; }
