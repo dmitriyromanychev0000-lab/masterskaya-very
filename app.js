@@ -583,13 +583,36 @@ const renderChronicle = (slug, resident) => {
       </div>
     </div>`;
 
+  const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
+
   return `
     ${renderChronicleHero(resident, slug, worldTitle)}
 
     <section class="chronicle-section chronicle-story">
-      <div class="chronicle-story-copy chronicle-story-copy--solo">
-        <p class="eyebrow">Хроника</p>
-        <p class="chronicle-text">${escapeHtml(resident.story)}</p>
+      <div class="chronicle-story-layout">
+        <div class="chronicle-story-copy">
+          <p class="eyebrow">Хроника</p>
+          <p class="chronicle-text">${escapeHtml(resident.story)}</p>
+        </div>
+
+        <dl class="chronicle-facts">
+          <div>
+            <dt>Мир</dt>
+            <dd><a href="collection.html?world=${escapeHtml(resident.world)}">${escapeHtml(worldTitle)}</a></dd>
+          </div>
+          <div>
+            <dt>Статус</dt>
+            <dd>${escapeHtml(status.label)}</dd>
+          </div>
+          <div>
+            <dt>Материалы</dt>
+            <dd>Полимерная глина, акриловая роспись</dd>
+          </div>
+          <div>
+            <dt>Работа</dt>
+            <dd>Ручная лепка и роспись</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
