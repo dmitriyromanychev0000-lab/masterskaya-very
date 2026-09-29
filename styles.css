@@ -555,6 +555,7 @@ body.menu-open { overflow:hidden; }
   .brand { min-height: 44px; }
   .button-small { min-height: 44px; }
   .world-card-copy .text-link,
+  .about-teaser .text-link,
   .keepers-all,
   .footer-nav a,
   .footer-contact a {
