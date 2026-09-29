@@ -1845,3 +1845,246 @@ h1, h2, h3, h4 {
   .keeper-summary > div { min-width:0; }
   .keeper-summary h3 { overflow-wrap:anywhere; }
 }
+
+
+/* ===== Residents archive restoration — pass 1 ===== */
+.residents-intro {
+  position:relative;
+  padding-top:calc(var(--header-h) + 68px);
+  padding-bottom:44px;
+  border-bottom:1px solid rgba(183,138,79,.34);
+  background:
+    radial-gradient(circle at 92% 16%,rgba(183,138,79,.13),transparent 28%),
+    linear-gradient(180deg,#fbf4e7 0%,#f0e3cd 100%);
+}
+.residents-intro::before {
+  content:"";
+  position:absolute;
+  left:-105px;
+  top:150px;
+  width:220px;
+  height:220px;
+  border:1px solid rgba(122,93,52,.16);
+  border-radius:50% 14% 50% 14%;
+  transform:rotate(22deg);
+  pointer-events:none;
+}
+.residents-intro h1 { font-size:clamp(54px,6.2vw,82px); }
+.residents-intro-visual {
+  border-color:rgba(183,138,79,.76);
+  border-radius:9px;
+  box-shadow:0 26px 58px rgba(48,32,20,.18);
+}
+.residents-intro-note { font-size:24px; }
+.residents-filter-row {
+  margin-top:38px;
+  padding-top:24px;
+  border-top-color:rgba(122,93,52,.28);
+}
+.chip {
+  border-color:rgba(122,93,52,.38);
+  background:rgba(251,244,231,.58);
+}
+.chip.is-active {
+  background:var(--forest);
+  border-color:var(--forest);
+}
+
+/* Each archive band belongs visibly to its World. */
+.res-world {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding-top:76px;
+  padding-bottom:86px;
+  border-top:1px solid rgba(232,201,143,.28);
+  border-bottom:1px solid rgba(232,201,143,.18);
+  background-color:var(--night);
+  background-repeat:repeat-y;
+  background-position:center top;
+  background-size:100% auto;
+  color:var(--cream);
+}
+.res-world::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:rgba(8,6,5,.30);
+  pointer-events:none;
+}
+.res-world[data-world="winter"] { background-image:url("assets/worlds/winter-desktop.webp"); }
+.res-world[data-world="forest"] { background-image:url("assets/worlds/forest-desktop.webp"); }
+.res-world[data-world="dragons"] { background-image:url("assets/worlds/dragons-desktop.webp"); }
+.res-world[data-world="russian"] { background-image:url("assets/worlds/russian-desktop.webp"); }
+.res-world[data-world="home"] { background-image:url("assets/worlds/home-desktop.webp"); }
+.res-world-head {
+  position:relative;
+  max-width:780px;
+  margin-bottom:34px;
+  padding:0 0 26px;
+  border-bottom:1px solid rgba(232,201,143,.34);
+}
+.res-world-head::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  width:120px;
+  height:2px;
+  background:var(--gold-light);
+}
+.res-world-head .eyebrow { color:var(--gold-light); }
+.res-world-head h2,
+.res-world--night .res-world-head h2 {
+  margin-bottom:12px;
+  color:var(--cream);
+  font-size:clamp(34px,4vw,52px);
+  letter-spacing:-.04em;
+}
+.res-world-head p,
+.res-world--night .res-world-head p {
+  color:#ded1bf;
+}
+.res-world-link,
+.res-world--night .res-world-link {
+  color:var(--gold-light);
+  border-color:rgba(232,201,143,.42);
+}
+
+/* Museum / showcase cards from the archived Residents screen. */
+.resident-grid {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+.resident-card,
+.res-world--night .resident-card {
+  overflow:hidden;
+  border:1px solid rgba(232,201,143,.62);
+  border-radius:10px;
+  background:var(--paper-light);
+  color:var(--ink);
+  box-shadow:0 22px 46px rgba(0,0,0,.24);
+}
+.resident-media {
+  position:relative;
+  aspect-ratio:4/3;
+  min-height:0;
+}
+.resident-media::before {
+  position:absolute;
+  z-index:3;
+  left:16px;
+  right:16px;
+  bottom:13px;
+  color:#fff8e9;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  text-shadow:0 2px 10px rgba(0,0,0,.86);
+}
+.resident-media::after {
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:45% 0 0;
+  background:linear-gradient(180deg,transparent,rgba(7,5,4,.68));
+  pointer-events:none;
+}
+.resident-card-archive .resident-media::after {
+  background:linear-gradient(180deg,rgba(10,8,6,.08),rgba(10,8,6,.72));
+}
+.res-world[data-world="winter"] .resident-media::before { content:"Зимние легенды"; }
+.res-world[data-world="forest"] .resident-media::before { content:"Тайны древнего леса"; }
+.res-world[data-world="dragons"] .resident-media::before { content:"Древние существа"; }
+.res-world[data-world="russian"] .resident-media::before { content:"Русские сказки"; }
+.res-world[data-world="home"] .resident-media::before { content:"Домашние легенды"; }
+.resident-archive-tag { z-index:4; }
+.resident-copy { padding:18px 18px 20px; }
+.resident-copy h3 {
+  margin-bottom:8px;
+  font:500 25px/1.05 var(--serif);
+  letter-spacing:-.025em;
+}
+.resident-status {
+  margin-bottom:11px;
+  padding:5px 11px;
+  font-size:10px;
+}
+.resident-price { font-size:18px; }
+.resident-actions { padding-top:4px; }
+.resident-actions .text-link { color:var(--gold-ink); }
+
+@media (max-width:980px) {
+  .resident-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+
+@media (max-width:620px) {
+  .residents-intro {
+    padding:calc(var(--header-h) + 34px) 18px 30px;
+  }
+  .residents-intro h1 { font-size:clamp(43px,12vw,54px); }
+  .residents-intro-visual { aspect-ratio:4/3; }
+  .residents-filter-row { margin-top:26px; }
+  .filters { margin:0 -18px; padding:0 18px; }
+
+  .res-world {
+    padding:54px 18px 60px;
+    background-size:auto 760px;
+  }
+  .res-world[data-world="winter"] { background-image:url("assets/worlds/winter-mobile.webp"); }
+  .res-world[data-world="forest"] { background-image:url("assets/worlds/forest-mobile.webp"); }
+  .res-world[data-world="dragons"] { background-image:url("assets/worlds/dragons-mobile.webp"); }
+  .res-world[data-world="russian"] { background-image:url("assets/worlds/russian-mobile.webp"); }
+  .res-world[data-world="home"] { background-image:url("assets/worlds/home-mobile.webp"); }
+
+  .res-world-head { margin-bottom:24px; padding-bottom:20px; }
+  .res-world-head h2,
+  .res-world--night .res-world-head h2 { font-size:clamp(34px,10.6vw,44px); }
+  .res-world-head p { font-size:12.5px; line-height:1.58; }
+
+  .resident-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+  .resident-card {
+    display:flex;
+    min-width:0;
+    min-height:0;
+    flex-direction:column;
+  }
+  .resident-media {
+    width:100%;
+    min-height:0;
+    aspect-ratio:4/3;
+  }
+  .resident-media::before {
+    left:9px;
+    right:8px;
+    bottom:8px;
+    font-size:7.5px;
+    letter-spacing:.10em;
+  }
+  .resident-copy { padding:11px 10px 12px; }
+  .resident-status {
+    max-width:100%;
+    margin-bottom:7px;
+    padding:4px 7px;
+    font-size:8px;
+    line-height:1.18;
+  }
+  .resident-copy h3 {
+    margin-bottom:5px;
+    font-size:18px;
+    line-height:1.06;
+  }
+  .resident-meta { margin-bottom:5px; font-size:10.5px; line-height:1.35; }
+  .resident-price { font-size:15px; }
+  .resident-actions { margin-top:auto; }
+  .resident-actions .button { display:none; }
+  .resident-actions .text-link {
+    min-height:40px;
+    font-size:10px;
+  }
+}
