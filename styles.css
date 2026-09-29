@@ -111,11 +111,11 @@ body.menu-open { overflow:hidden; }
   background-position: center;
   box-shadow: 0 14px 30px rgba(23,19,15,.14);
 }
-.world-card[data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
-.world-card[data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
-.world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
-.world-card[data-world="russian"] { background-image: url("assets/worlds/russian-mobile.webp"); }
-.world-card[data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
+.world-card[data-world="winter"] { background-image: url("assets/worlds/winter-desktop.webp"); }
+.world-card[data-world="forest"] { background-image: url("assets/worlds/forest-desktop.webp"); }
+.world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-desktop.webp"); }
+.world-card[data-world="russian"] { background-image: url("assets/worlds/russian-desktop.webp"); }
+.world-card[data-world="home"] { background-image: url("assets/worlds/home-desktop.webp"); }
 .world-card::after {
   content:"";
   position:absolute;
@@ -235,6 +235,11 @@ body.menu-open { overflow:hidden; }
   .worlds, .keepers, .about-teaser, .faq, .keeper-cta { padding: 60px 20px; }
   .worlds-head { margin-bottom: 32px; }
   .keepers-head { margin-bottom: 30px; padding-bottom: 24px; }
+  .world-card[data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
+  .world-card[data-world="forest"] { background-image: url("assets/worlds/forest-mobile.webp"); }
+  .world-card[data-world="dragons"] { background-image: url("assets/worlds/dragons-mobile.webp"); }
+  .world-card[data-world="russian"] { background-image: url("assets/worlds/russian-mobile.webp"); }
+  .world-card[data-world="home"] { background-image: url("assets/worlds/home-mobile.webp"); }
   .worlds-grid, .keepers-grid { grid-template-columns: 1fr; gap: 14px; }
   .trust-strip { grid-template-columns: repeat(2,minmax(0,1fr)); padding-left:20px; padding-right:20px; }
   .trust-strip > div { padding:18px 10px; }
