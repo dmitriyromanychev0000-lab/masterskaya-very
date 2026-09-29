@@ -552,3 +552,59 @@ const hydrateStaticResidentMedia = () => {
 };
 
 hydrateStaticResidentMedia();
+
+const RESIDENT_FILTER_CLASS = {
+  'Все': null,
+  'Можно приобрести': 'resident-status-available',
+  'В работе': 'resident-status-progress',
+  'Нашёл Хранителя': 'resident-status-archive'
+};
+
+const initResidentFilters = () => {
+  const filters = document.querySelector('.filters');
+  if (!filters) return;
+
+  const buttons = [...filters.querySelectorAll('.chip')];
+  const worlds = [...document.querySelectorAll('.res-world')];
+
+  const applyFilter = (statusClass) => {
+    worlds.forEach((world) => {
+      const cards = [...world.querySelectorAll('.resident-card')];
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const status = card.querySelector('.resident-status');
+        const visible = !statusClass || status?.classList.contains(statusClass);
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      world.hidden = visibleCount === 0;
+
+      const count = world.querySelector('.res-world-head .eyebrow');
+      if (count) {
+        const shown = statusClass ? visibleCount : cards.length;
+        count.textContent = `${shown} ${residentsWord(shown)}`;
+      }
+    });
+  };
+
+  buttons.forEach((button, index) => {
+    button.setAttribute('aria-pressed', String(index === 0));
+
+    button.addEventListener('click', () => {
+      const label = button.textContent.trim();
+      const statusClass = RESIDENT_FILTER_CLASS[label] ?? null;
+
+      buttons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+
+      applyFilter(statusClass);
+    });
+  });
+};
+
+initResidentFilters();
