@@ -196,6 +196,27 @@ const COLLECTION_STATUS = {
   archive: { label: 'Нашёл Хранителя', modifier: 'resident-status-archive', button: null }
 };
 
+const syncAboutStats = () => {
+  const statNodes = document.querySelectorAll('[data-about-stat]');
+  if (!statNodes.length) return;
+
+  const worlds = Object.values(COLLECTION_WORLDS);
+  const residents = worlds.flatMap((world) => world.residents);
+  const values = {
+    residents: residents.length,
+    worlds: worlds.length,
+    available: residents.filter((resident) => resident.status === 'available').length,
+    archive: residents.filter((resident) => resident.status === 'archive').length
+  };
+
+  statNodes.forEach((node) => {
+    const key = node.dataset.aboutStat;
+    if (Object.hasOwn(values, key)) node.textContent = String(values[key]);
+  });
+};
+
+syncAboutStats();
+
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[char]));
