@@ -477,20 +477,24 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
 
   return `
     <section class="collection-intro collection-intro--night chronicle-hero">
-      ${residentPhotoMarkup(slug, resident.name, 'chronicle-hero-bg', true)}
-      <div class="chronicle-hero-scrim" aria-hidden="true"></div>
-      <div class="chronicle-hero-inner">
-        <a class="collection-back" href="index.html#worlds"><span aria-hidden="true">←</span> К Мирам на главной</a>
-        <div class="collection-eyebrow">
-          <p class="eyebrow">Хроника Жителя</p>
-          <a class="collection-count chronicle-world" href="collection.html?world=${escapeHtml(resident.world)}">${escapeHtml(worldTitle)}</a>
+      <div class="chronicle-hero-shell">
+        <div class="chronicle-hero-inner">
+          <a class="collection-back" href="index.html#worlds"><span aria-hidden="true">←</span> К Мирам на главной</a>
+          <div class="collection-eyebrow">
+            <p class="eyebrow">Хроника Жителя</p>
+            <a class="collection-count chronicle-world" href="collection.html?world=${escapeHtml(resident.world)}">${escapeHtml(worldTitle)}</a>
+          </div>
+          <h1>${escapeHtml(resident.name)}</h1>
+          <div class="chronicle-badges">
+            <span class="resident-status ${status.modifier}">${status.label}</span>
+            <span class="chronicle-price">${escapeHtml(price)}${stock}</span>
+          </div>
+          ${action}
         </div>
-        <h1>${escapeHtml(resident.name)}</h1>
-        <div class="chronicle-badges">
-          <span class="resident-status ${status.modifier}">${status.label}</span>
-          <span class="chronicle-price">${escapeHtml(price)}${stock}</span>
+
+        <div class="chronicle-hero-visual">
+          ${residentPhotoMarkup(slug, resident.name, 'chronicle-hero-photo')}
         </div>
-        ${action}
       </div>
     </section>`;
 };
@@ -583,16 +587,9 @@ const renderChronicle = (slug, resident) => {
     ${renderChronicleHero(resident, slug, worldTitle)}
 
     <section class="chronicle-section chronicle-story">
-      <div class="chronicle-story-grid">
-        <div class="chronicle-story-copy">
-          <p class="eyebrow">Хроника</p>
-          <p class="chronicle-text">${escapeHtml(resident.story)}</p>
-        </div>
-        <figure class="chronicle-figure">
-          <div class="chronicle-frame">
-            ${residentPhotoMarkup(slug, resident.name, 'chronicle-photo')}
-          </div>
-        </figure>
+      <div class="chronicle-story-copy chronicle-story-copy--solo">
+        <p class="eyebrow">Хроника</p>
+        <p class="chronicle-text">${escapeHtml(resident.story)}</p>
       </div>
     </section>
 
