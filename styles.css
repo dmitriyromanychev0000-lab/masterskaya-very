@@ -37,11 +37,23 @@ img { max-width: 100%; }
   backdrop-filter: blur(18px); transition: background .2s ease, box-shadow .2s ease;
 }
 .site-header.is-scrolled { background: rgba(246, 239, 223, .98); box-shadow: 0 10px 35px rgba(23,19,15,.08); }
-.brand { display: inline-flex; align-items: center; gap: 10px; width: fit-content; }
-.brand-mark { display:grid; place-items:center; width:32px; height:38px; border:1px solid rgba(181,139,79,.65); border-radius:50% 50% 45% 45%; font:700 19px/1 var(--serif); color:var(--forest); background: var(--paper-deep); }
-.brand-copy { display:flex; flex-direction:column; font-family:var(--serif); line-height:.95; letter-spacing:.01em; color: var(--ink); }
-.brand-copy strong { font-size:14px; font-weight:400; }
-.brand-copy span { font-size:18px; }
+.brand { display:inline-flex; align-items:center; gap:10px; width:fit-content; }
+.brand-mark {
+  display:block;
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  overflow:hidden;
+  border:1px solid rgba(183,138,79,.72);
+  border-radius:5px;
+  background:#0f1b16 url("assets/residents/green-dragon.webp") center/cover no-repeat;
+  color:transparent;
+  font-size:0;
+  box-shadow:inset 0 0 0 1px rgba(251,244,231,.12);
+}
+.brand-copy { display:flex; flex-direction:column; font-family:var(--serif); line-height:.88; letter-spacing:.01em; color:var(--ink); }
+.brand-copy strong { font-size:16px; font-weight:400; }
+.brand-copy span { font-size:22px; }
 .desktop-nav { display:flex; justify-content:center; gap:clamp(18px,3vw,40px); font-size:12px; color:#4a4030; }
 .desktop-nav a { transition:color .18s ease; }
 .desktop-nav a:hover { color: var(--forest); }
