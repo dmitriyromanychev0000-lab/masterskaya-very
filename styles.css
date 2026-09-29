@@ -289,23 +289,35 @@ body.menu-open { overflow:hidden; }
   letter-spacing:-.035em;
 }
 .keepers-all { color:var(--ink); }
-.keepers-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.keepers-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
 .keeper-card {
   min-width:0;
   overflow:hidden;
-  border:1px solid rgba(183,138,79,.48);
-  border-radius:4px;
+  border:1px solid rgba(183,138,79,.34);
+  border-radius:8px;
   background:var(--paper-light);
-  box-shadow:0 12px 30px rgba(38,26,21,.06);
+  box-shadow:0 10px 24px rgba(38,26,21,.055);
 }
-.keeper-card-link { display:block; height:100%; }
-.keeper-media { position:relative; aspect-ratio:3 / 2; overflow:hidden; background:var(--night); }
+.keeper-card-link {
+  display:grid;
+  grid-template-columns:minmax(120px,42%) minmax(0,1fr);
+  min-height:154px;
+  height:100%;
+}
+.keeper-media {
+  position:relative;
+  min-height:154px;
+  aspect-ratio:auto;
+  overflow:hidden;
+  background:var(--night);
+}
 .keeper-summary {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:16px;
-  padding:16px 18px 17px;
+  gap:14px;
+  min-width:0;
+  padding:18px 16px;
 }
 .keeper-summary h4 {
   margin:0 0 4px;
