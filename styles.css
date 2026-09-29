@@ -448,7 +448,6 @@ body.menu-open { overflow:hidden; }
 .about-stats-grid strong { display:block; margin-bottom:6px; font:400 40px/1 var(--serif); color:var(--gold-light); }
 .about-stats-grid span { font-size:12px; color:#beb29c; line-height:1.4; }
 .about-principles-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-.about-principles-grid > div { padding:24px; border-radius:4px; background:var(--paper); }
 .about-principles-grid span { font-family:var(--serif); font-size:13px; color:var(--gold); }
 .about-principles-grid h4 { margin:10px 0; font:400 19px/1.25 var(--serif); }
 .about-principles-grid p { margin:0; color:#564a37; font-size:13px; line-height:1.65; }
