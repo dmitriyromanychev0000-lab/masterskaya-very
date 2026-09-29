@@ -983,7 +983,13 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
 .mobile-menu nav a { transition: color .18s ease, padding-left .18s ease; }
 .mobile-menu nav a:hover, .mobile-menu nav a:focus-visible { color: var(--gold-light); padding-left: 6px; }
 .menu-button:focus-visible, .order-link:focus-visible, .desktop-nav a:focus-visible,
-.button:focus-visible, .text-link:focus-visible, .mobile-menu a:focus-visible {
+.button:focus-visible, .text-link:focus-visible, .mobile-menu a:focus-visible,
+.brand:focus-visible, .hero-order-link:focus-visible,
+.hero-showcase-main:focus-visible, .hero-showcase-small:focus-visible,
+.keeper-card-link:focus-visible, .residents-intro-visual:focus-visible,
+.collection-back:focus-visible, .world-feature:focus-visible, .world-jump:focus-visible,
+.world-resident-row:focus-visible, .chronicle-world:focus-visible,
+.chronicle-neighbor:focus-visible, .faq-item summary:focus-visible {
   outline: 2px solid var(--gold); outline-offset: 4px;
 }
 
