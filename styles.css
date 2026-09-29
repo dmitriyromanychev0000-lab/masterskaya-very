@@ -571,4 +571,11 @@ body.menu-open { overflow:hidden; }
   background-position-y: center;
 }
 
+/* Direct resident photos are not sprite sheets. Keep their normal crop in Chronicles. */
+.chronicle-hero-bg.resident-photo-direct,
+.chronicle-frame .resident-photo-direct {
+  background-size: cover;
+  background-position: center;
+}
+
 .chronicle-figure-wide .chronicle-frame { aspect-ratio: 16 / 9; }
