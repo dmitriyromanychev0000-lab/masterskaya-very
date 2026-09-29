@@ -715,7 +715,7 @@ html.menu-open, body.menu-open { overflow:hidden; overscroll-behavior:none; }
 .resident-status-archive { color: #4a4030; background: #ddd6c8; }
 .resident-copy h3 { margin: 0 0 8px; font: 400 21px/1.18 var(--serif); }
 .resident-meta { margin: 0 0 16px; color: var(--muted); font-size: 12.5px; }
-.resident-price { font-family: var(--serif); font-size: 15px; color: var(--ink); }
+.resident-price { font-family: var(--serif); font-size: 15px; color: var(--ink); white-space: nowrap; }
 .resident-stock::before { content: " · "; color: var(--muted); }
 .resident-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: auto; }
 
@@ -1081,7 +1081,7 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
   font-size:12.5px;
   line-height:1.5;
 }
-.chronicle-facts a { color:var(--cream); }
+.chronicle-facts a { display:inline-flex; align-items:center; min-height:44px; color:var(--cream); }
 .chronicle-figure { margin:0; }
 .chronicle-frame { position:relative; overflow:hidden; border-radius:4px; aspect-ratio:4/3; background:var(--forest-deep); box-shadow:0 26px 54px rgba(23,19,15,.16); }
 .chronicle-frame img { width:100%; height:100%; object-fit:cover; }

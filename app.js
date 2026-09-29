@@ -232,6 +232,8 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => (
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[char]));
 
+const formatPrice = (value = '') => escapeHtml(value).replace(/ (?=₽)/g, '&nbsp;');
+
 const residentsWord = (count) => {
   const mod100 = count % 100;
   const mod10 = count % 10;
@@ -248,7 +250,7 @@ const renderWorldResidentRow = (resident) => {
   const stock = resident.stock ? ` · ${escapeHtml(resident.stock)}` : '';
   const meta = isArchive
     ? escapeHtml(status.label)
-    : `${escapeHtml(status.label)} · ${escapeHtml(price)}${stock}`;
+    : `${escapeHtml(status.label)} · ${formatPrice(price)}${stock}`;
 
   return `
         <a class="world-resident-row" href="chronicle.html?resident=${escapeHtml(resident.chronicle)}">
@@ -477,7 +479,7 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
   const isArchive = resident.status === 'archive';
   const price = isArchive ? '' : resident.price || 'Цена по запросу';
   const stock = !isArchive && resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : '';
-  const priceMarkup = price ? `<span class="chronicle-price">${escapeHtml(price)}${stock}</span>` : '';
+  const priceMarkup = price ? `<span class="chronicle-price">${formatPrice(price)}${stock}</span>` : '';
 
   const action = isArchive
     ? '<p class="chronicle-archive-note">Этот экземпляр уже нашёл своего Хранителя</p>'
@@ -587,7 +589,7 @@ const renderChronicle = (slug, resident) => {
       <div class="chronicle-sticky-inner">
         <div class="chronicle-sticky-copy">
           <span class="chronicle-sticky-name">${escapeHtml(resident.name)}</span>
-          <span class="chronicle-sticky-price">${escapeHtml(resident.price || 'Цена по запросу')}</span>
+          <span class="chronicle-sticky-price">${formatPrice(resident.price || 'Цена по запросу')}</span>
         </div>
         <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
       </div>
