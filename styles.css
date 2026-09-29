@@ -95,21 +95,26 @@ body.menu-open { overflow:hidden; }
 .hero .button-outline { color: var(--cream); border-color: rgba(246,239,223,.45); }
 
 /* Worlds grid */
-.worlds { padding: 100px max(24px, calc((100vw - var(--content))/2)); background: var(--paper); }
-.worlds-head { max-width: 640px; margin-bottom: 48px; }
-.worlds-head h2 { margin: 0; font: 400 clamp(32px,4vw,52px)/1.08 var(--serif); letter-spacing: -.02em; }
+.worlds {
+  padding: 90px max(24px, calc((100vw - var(--content))/2));
+  background: linear-gradient(180deg, #15100d 0%, #0f0c0a 100%);
+  color: var(--cream);
+}
+.worlds-head { max-width: 760px; margin-bottom: 38px; }
+.worlds-head .eyebrow { color: var(--gold-light); }
+.worlds-head h2 { margin: 0; font: 400 clamp(32px,4vw,52px)/1.08 var(--serif); letter-spacing: -.02em; color: var(--cream); }
 .worlds-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .world-card {
   position: relative;
   min-width: 0;
   min-height: 310px;
   overflow: hidden;
-  border: 1px solid rgba(183,138,79,.72);
+  border: 1px solid rgba(232,201,143,.72);
   border-radius: 5px;
   background-color: #17120e;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 14px 30px rgba(23,19,15,.14);
+  box-shadow: 0 18px 36px rgba(0,0,0,.22);
 }
 .world-card[data-world="winter"] { background-image: url("assets/worlds/winter-desktop.webp"); }
 .world-card[data-world="forest"] { background-image: url("assets/worlds/forest-desktop.webp"); }
@@ -232,7 +237,8 @@ body.menu-open { overflow:hidden; }
 }
 
 @media (max-width: 620px) {
-  .worlds, .keepers, .about-teaser, .faq, .keeper-cta { padding: 60px 20px; }
+  .worlds { padding: 56px 20px; }
+  .keepers, .about-teaser, .faq, .keeper-cta { padding: 60px 20px; }
   .worlds-head { margin-bottom: 32px; }
   .keepers-head { margin-bottom: 30px; padding-bottom: 24px; }
   .world-card[data-world="winter"] { background-image: url("assets/worlds/winter-mobile.webp"); }
