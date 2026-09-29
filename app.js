@@ -407,7 +407,7 @@ const renderChronicleNeighbors = (slug, resident) => {
       ];
 
   return `
-    <nav class="chronicle-neighbors" aria-label="Другие Жители этого Мира">
+    <nav class="chronicle-neighbors${links.length === 1 ? ' chronicle-neighbors--single' : ''}" aria-label="Другие Жители этого Мира">
       ${links.map(({ resident: item, direction, label }) => `
         <a class="chronicle-neighbor chronicle-neighbor--${direction}" href="chronicle.html?resident=${escapeHtml(item.chronicle)}">
           <span>${direction === 'previous' ? '← ' : ''}${label}${direction === 'next' ? ' →' : ''}</span>
