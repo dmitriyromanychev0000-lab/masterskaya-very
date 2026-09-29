@@ -157,7 +157,7 @@ const renderResidentCard = (resident, index) => {
   const price = resident.price || 'Цена по запросу';
   const stock = resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : '';
   const contactButton = status.button
-    ? `<a class="button button-${status.button} button-small" href="contact.html">Написать Вере</a>`
+    ? `<a class="button button-${status.button} button-small" href="https://t.me/masterskayaver">Написать Вере</a>`
     : '';
 
   return `
@@ -183,7 +183,7 @@ const renderCollectionCta = () => `
       <h2>Понравился кто-то из этого Мира?</h2>
       <p>Напишите Вере — она расскажет о размере, сроках и стоимости.</p>
       <div class="collection-cta-actions">
-        <a class="button button-primary" href="contact.html">Написать Вере</a>
+        <a class="button button-primary" href="https://t.me/masterskayaver">Написать Вере</a>
         <a class="button button-outline" href="residents.html">Смотреть всех Жителей</a>
       </div>
     </section>`;
@@ -369,7 +369,7 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
   const action = isArchive
     ? '<p class="chronicle-archive-note">Нашёл своего Хранителя — повторить нельзя</p>'
     : `<div class="chronicle-actions" data-chronicle-action>
-          <a class="button button-${status.button || 'primary'}" href="contact.html">Написать Вере</a>
+          <a class="button button-${status.button || 'primary'}" href="https://t.me/masterskayaver">Написать Вере</a>
         </div>`;
 
   return `
@@ -441,7 +441,7 @@ const renderChronicleNext = (slug, resident) => {
       <p>${text}</p>
       ${neighbors}
       <div class="chronicle-next-actions">
-        <a class="button button-primary" href="contact.html">Написать Вере</a>
+        <a class="button button-primary" href="https://t.me/masterskayaver">Написать Вере</a>
         <a class="button button-outline" href="residents.html">Все Жители</a>
       </div>
     </section>`;
@@ -472,7 +472,7 @@ const renderChronicle = (slug, resident) => {
           <span class="chronicle-sticky-name">${escapeHtml(resident.name)}</span>
           <span class="chronicle-sticky-price">${escapeHtml(resident.price || 'Цена по запросу')}</span>
         </div>
-        <a class="button button-primary button-small" href="contact.html">Написать Вере</a>
+        <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
       </div>
     </div>`;
 
