@@ -465,19 +465,6 @@ const renderChronicle = (slug, resident) => {
       </div>
     </section>
 
-    <section class="chronicle-section chronicle-gallery">
-      <div class="chronicle-section-head">
-        <p class="eyebrow">Рассмотреть ближе</p>
-        <h2>Детали, которые открываются рядом</h2>
-      </div>
-      <figure class="chronicle-figure chronicle-figure-wide">
-        <div class="chronicle-frame">
-          ${residentPhotoMarkup(slug, resident.name, 'chronicle-photo')}
-        </div>
-        <figcaption class="chronicle-caption">Текущий ракурс из архива — дополнительные фото добавим позже</figcaption>
-      </figure>
-    </section>
-
     ${renderChronicleNext(resident)}
     ${sticky}`;
 };
@@ -485,30 +472,31 @@ const renderChronicle = (slug, resident) => {
 const initChronicleSticky = () => {
   const heroAction = document.querySelector('[data-chronicle-action]');
   const sticky = document.querySelector('[data-chronicle-sticky]');
+  const nextAction = document.querySelector('.chronicle-next');
   if (!heroAction || !sticky) return;
 
-  let lastY = window.scrollY;
-  let actionOutOfView = false;
+  let heroActionOutOfView = false;
+  let nextActionInView = false;
 
-  const setVisible = (visible) => {
-    sticky.classList.toggle('is-visible', visible);
+  const sync = () => {
+    sticky.classList.toggle('is-visible', heroActionOutOfView && !nextActionInView);
   };
 
-  const observer = new IntersectionObserver(([entry]) => {
-    actionOutOfView = !entry.isIntersecting;
-    if (!actionOutOfView) setVisible(false);
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    heroActionOutOfView = !entry.isIntersecting;
+    sync();
   }, { threshold: 0 });
 
-  observer.observe(heroAction);
+  heroObserver.observe(heroAction);
 
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    const goingDown = y > lastY;
-    lastY = y;
+  if (nextAction) {
+    const nextObserver = new IntersectionObserver(([entry]) => {
+      nextActionInView = entry.isIntersecting;
+      sync();
+    }, { threshold: 0 });
 
-    if (!actionOutOfView) return;
-    setVisible(goingDown);
-  }, { passive: true });
+    nextObserver.observe(nextAction);
+  }
 };
 
 const initChronicle = () => {
