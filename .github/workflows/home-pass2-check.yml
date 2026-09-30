@@ -43,7 +43,7 @@ jobs:
               worlds:[...document.querySelectorAll('.world-card')].map(e=>({w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height)})),
               worldsGrid:getComputedStyle(document.querySelector('.worlds-grid')).display,
               heroImages:[...document.querySelectorAll('.hero-resident-image')].map(i=>({src:i.getAttribute('src'),complete:i.complete,naturalWidth:i.naturalWidth})),
-              small:[...document.querySelectorAll('a,button')].filter(e=>{const r=e.getBoundingClientRect(),cs=getComputedStyle(e);return mobile&&cs.display!=='none'&&r.width>0&&r.height>0&&(r.width<44||r.height<44)}).map(e=>({text:e.textContent.trim().replace(/\s+/g,' ').slice(0,45),w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height)}))
+              small:[...document.querySelectorAll('a,button')].filter(e=>{const r=e.getBoundingClientRect(),cs=getComputedStyle(e);return innerWidth<700&&cs.display!=='none'&&r.width>0&&r.height>0&&(r.width<44||r.height<44)}).map(e=>({text:e.textContent.trim().replace(/\s+/g,' ').slice(0,45),w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height)}))
             }));
             report.push({width,...m,errors,failed});
             await ctx.close();
