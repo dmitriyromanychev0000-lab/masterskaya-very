@@ -1,0 +1,71 @@
+name: One-off chronicle archive check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/chronicle-visual-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS 'http://127.0.0.1:4173/chronicle.html?resident=nutcracker' >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Capture chronicles
+        run: |
+          mkdir -p qa/chronicle
+          cat > qa/chronicle/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const cases=[
+            ['nutcracker',320],['mari',320],['forest-dragon',320],['azimondias',320],
+            ['gorynych-2',320],['hen',320],['nutcracker',1440],['gorynych-2',1440]
+          ];
+          const report=[];
+          for(const [resident,width] of cases){
+            const mobile=width<700;
+            const ctx=await browser.newContext({viewport:{width,height:mobile?900:1000},isMobile:mobile,hasTouch:mobile});
+            const page=await ctx.newPage();
+            const errors=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            await page.goto(`http://127.0.0.1:4173/chronicle.html?resident=${resident}`,{waitUntil:'networkidle'});
+            await page.evaluate(async()=>{document.documentElement.style.scrollBehavior='auto';if(document.fonts?.ready)await document.fonts.ready;const sleep=ms=>new Promise(r=>setTimeout(r,ms));for(let y=0;y<document.documentElement.scrollHeight;y+=700){scrollTo(0,y);await sleep(60)}scrollTo(0,0);await sleep(180)});
+            await page.screenshot({path:`qa/chronicle/${resident}-${width}.png`,fullPage:true});
+            const metrics=await page.evaluate(()=>({
+              viewport:innerWidth,
+              scrollWidth:document.documentElement.scrollWidth,
+              title:document.querySelector('.chronicle-hero h1')?.textContent?.trim(),
+              world:document.querySelector('[data-chronicle-root]')?.dataset?.world,
+              small:[...document.querySelectorAll('a,button')].filter(e=>{const r=e.getBoundingClientRect(),cs=getComputedStyle(e);return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>0&&r.height>0&&(r.width<44||r.height<44)}).map(e=>({text:e.textContent.trim().replace(/\s+/g,' ').slice(0,50),w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height)}))
+            }));
+            report.push({resident,width,...metrics,errors});
+            await ctx.close();
+          }
+          await browser.close();
+          fs.writeFileSync('qa/chronicle/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          EOF
+          node qa/chronicle/check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chronicle-visual-check
+          path: qa/chronicle
+          retention-days: 1
