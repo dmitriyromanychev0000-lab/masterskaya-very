@@ -1,0 +1,95 @@
+name: One-off atmosphere check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/atmosphere-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS 'http://127.0.0.1:4173/collection.html?world=winter' >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify atmosphere
+        run: |
+          mkdir -p qa/atmosphere
+          cat > qa/atmosphere/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+
+          const browser = await chromium.launch({ headless: true });
+          const report = [];
+
+          for (const world of ['winter','forest','dragons']) {
+            const context = await browser.newContext({ viewport: { width: 430, height: 900 } });
+            const page = await context.newPage();
+            await page.addInitScript(() => {
+              window.__clearCount = 0;
+              const original = CanvasRenderingContext2D.prototype.clearRect;
+              CanvasRenderingContext2D.prototype.clearRect = function (...args) {
+                window.__clearCount += 1;
+                return original.apply(this, args);
+              };
+            });
+            const pageErrors = [];
+            page.on('pageerror', e => pageErrors.push(String(e)));
+            await page.goto(`http://127.0.0.1:4173/collection.html?world=${world}`, { waitUntil: 'networkidle' });
+            await page.evaluate(() => { window.__clearCount = 0; });
+            await page.waitForTimeout(1000);
+            const metrics = await page.evaluate(() => {
+              const canvas = document.querySelector('.world-atmosphere');
+              return {
+                effect: canvas?.dataset.effect || null,
+                hidden: canvas ? canvas.hidden : null,
+                drawCount1s: window.__clearCount,
+                canvasCount: document.querySelectorAll('.world-atmosphere').length,
+                scrollWidth: document.documentElement.scrollWidth,
+                viewport: innerWidth
+              };
+            });
+            report.push({ world, ...metrics, pageErrors });
+            await context.close();
+          }
+
+          {
+            const context = await browser.newContext({
+              viewport: { width: 430, height: 900 },
+              reducedMotion: 'reduce'
+            });
+            const page = await context.newPage();
+            await page.goto('http://127.0.0.1:4173/collection.html?world=winter', { waitUntil: 'networkidle' });
+            report.push({
+              world: 'winter-reduced-motion',
+              canvasCount: await page.locator('.world-atmosphere').count()
+            });
+            await context.close();
+          }
+
+          await browser.close();
+          fs.writeFileSync('qa/atmosphere/report.json', JSON.stringify(report, null, 2));
+          console.log(JSON.stringify(report, null, 2));
+          EOF
+          node qa/atmosphere/check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atmosphere-check
+          path: qa/atmosphere
+          retention-days: 1
