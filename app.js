@@ -178,7 +178,7 @@ const COLLECTION_WORLDS = {
       { name: 'Змей Горыныч II', status: 'available', price: '6500 ₽', chronicle: 'gorynych-2' },
       { name: 'Змей Горыныч', status: 'progress', chronicle: 'gorynych' },
       { name: 'Птица Сирин', status: 'available', price: '3500 ₽', chronicle: 'sirin' },
-      { name: 'Русалка', status: 'progress', price: '3500 ₽', stock: 'предзаказ', chronicle: 'mermaid' },
+      { name: 'Русалка', status: 'progress', chronicle: 'mermaid' },
       { name: 'Конёк-Горбунок', status: 'available', price: '4000 ₽', stock: 'готово: 2', chronicle: 'humpbacked-horse' }
     ]
   },
@@ -236,6 +236,51 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => (
 }[char]));
 
 const formatPrice = (value = '') => escapeHtml(value).replace(/ (?=₽)/g, '&nbsp;');
+
+const parseSchemaPrice = (value = '') => {
+  const match = String(value).replace(/\s/g, '').match(/\d+(?:[.,]\d+)?/);
+  return match ? match[0].replace(',', '.') : null;
+};
+
+const setStructuredData = (key, payload) => {
+  let node = document.head.querySelector(`script[data-schema="${key}"]`);
+  if (!node) {
+    node = document.createElement('script');
+    node.type = 'application/ld+json';
+    node.dataset.schema = key;
+    document.head.appendChild(node);
+  }
+  node.textContent = JSON.stringify(payload);
+};
+
+const clearStructuredData = (key) => {
+  document.head.querySelector(`script[data-schema="${key}"]`)?.remove();
+};
+
+const schemaImageForResident = (slug) => {
+  const media = RESIDENT_MEDIA[slug];
+  return media?.direct ? SITE_BASE_URL + media.direct : null;
+};
+
+const initResidentsStructuredData = () => {
+  if (!document.querySelector('.residents-intro')) return;
+
+  const residents = Object.values(COLLECTION_WORLDS).flatMap((world) => world.residents);
+  setStructuredData('residents', {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Жители Мастерской Веры',
+    numberOfItems: residents.length,
+    itemListElement: residents.map((resident, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: resident.name,
+      url: SITE_BASE_URL + `chronicle.html?resident=${encodeURIComponent(resident.chronicle)}`
+    }))
+  });
+};
+
+initResidentsStructuredData();
 
 const residentsWord = (count) => {
   const mod100 = count % 100;
@@ -447,8 +492,6 @@ const CHRONICLE_RESIDENTS = {
     name: 'Русалка',
     world: 'russian',
     status: 'progress',
-    price: '3500 ₽',
-    stock: 'предзаказ',
     story: 'Русалка из русских сказок — ждёт своего часа, чтобы показаться во всей красе.'
   },
   'humpbacked-horse': {
@@ -679,6 +722,7 @@ const initChronicle = () => {
 
   if (!resident) {
     root.removeAttribute('data-world');
+    clearStructuredData('product');
     setDynamicPageMeta({
       title: 'Житель не найден — Мастерская Веры',
       description: 'Такого Жителя в Хрониках мастерской пока нет.',
@@ -696,6 +740,46 @@ const initChronicle = () => {
     description: resident.story,
     url: SITE_BASE_URL + `chronicle.html?resident=${encodeURIComponent(slug)}`
   });
+
+  const world = COLLECTION_WORLDS[resident.world];
+  const productUrl = SITE_BASE_URL + `chronicle.html?resident=${encodeURIComponent(slug)}`;
+  const product = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: resident.name,
+    description: resident.story,
+    url: productUrl,
+    category: world?.title || 'Жители Мастерской Веры',
+    brand: { '@type': 'Brand', name: 'Мастерская Веры' },
+    manufacturer: {
+      '@type': 'Organization',
+      name: 'Мастерская Веры',
+      url: SITE_BASE_URL
+    }
+  };
+
+  const productImage = schemaImageForResident(slug);
+  if (productImage) product.image = productImage;
+
+  if (resident.status === 'available' && resident.price) {
+    const numericPrice = parseSchemaPrice(resident.price);
+    if (numericPrice) {
+      product.offers = {
+        '@type': 'Offer',
+        url: productUrl,
+        priceCurrency: 'RUB',
+        price: numericPrice,
+        availability: 'https://schema.org/InStock',
+        seller: {
+          '@type': 'Organization',
+          name: 'Мастерская Веры',
+          url: SITE_BASE_URL
+        }
+      };
+    }
+  }
+
+  setStructuredData('product', product);
   root.innerHTML = renderChronicle(slug, resident);
   initChronicleSticky();
 };
