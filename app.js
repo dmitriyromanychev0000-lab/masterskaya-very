@@ -333,6 +333,10 @@ const initCollection = () => {
 
         <a class="world-feature" href="chronicle.html?resident=${escapeHtml(featured.chronicle)}" aria-label="Открыть Хронику: ${escapeHtml(featured.name)}">
           ${residentPhotoMarkup(featured.chronicle, featured.name, 'world-feature-photo')}
+          <span class="world-feature-caption">
+            <span class="world-feature-kicker">Житель этого Мира</span>
+            <strong>${escapeHtml(featured.name)}</strong>
+          </span>
         </a>
       </div>
 
