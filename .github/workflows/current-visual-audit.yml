@@ -1,0 +1,92 @@
+name: One-off current visual audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/current-visual-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:4173/index.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Capture current pages
+        run: |
+          mkdir -p qa/current
+          cat > qa/current/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const pages=[
+            ['home','index.html'],
+            ['residents','residents.html'],
+            ['world-winter','collection.html?world=winter'],
+            ['world-russian','collection.html?world=russian'],
+            ['chronicle-horse','chronicle.html?resident=humpbacked-horse'],
+            ['chronicle-nutcracker','chronicle.html?resident=nutcracker'],
+            ['about','about.html'],
+            ['process','process.html'],
+            ['contact','contact.html'],
+            ['create','create.html']
+          ];
+          const widths=[320,430,1440];
+          const report=[];
+          for(const [name,path] of pages){
+            for(const width of widths){
+              const mobile=width<700;
+              const ctx=await browser.newContext({viewport:{width,height:mobile?900:1000},isMobile:mobile,hasTouch:mobile});
+              const page=await ctx.newPage();
+              const errors=[],consoleErrors=[],failed=[];
+              page.on('pageerror',e=>errors.push(String(e)));
+              page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+              page.on('requestfailed',r=>failed.push(r.url()));
+              await page.goto('http://127.0.0.1:4173/'+path,{waitUntil:'networkidle'});
+              await page.evaluate(async()=>{
+                document.documentElement.style.scrollBehavior='auto';
+                if(document.fonts?.ready) await document.fonts.ready;
+                const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+                for(let y=0;y<document.documentElement.scrollHeight;y+=700){scrollTo(0,y);await sleep(55)}
+                scrollTo(0,0); await sleep(180);
+              });
+              await page.screenshot({path:`qa/current/${name}-${width}.png`,fullPage:true});
+              const metrics=await page.evaluate(()=>({
+                viewport:innerWidth,
+                scrollWidth:document.documentElement.scrollWidth,
+                h1:document.querySelector('h1')?.textContent?.trim(),
+                small:[...document.querySelectorAll('a,button,summary')].filter(e=>{
+                  const r=e.getBoundingClientRect(),cs=getComputedStyle(e);
+                  return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>0&&r.height>0&&(r.width<44||r.height<44)
+                }).map(e=>({text:e.textContent.trim().replace(/\s+/g,' ').slice(0,60),w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height)}))
+              }));
+              report.push({name,width,...metrics,errors,consoleErrors,failed});
+              await ctx.close();
+            }
+          }
+          await browser.close();
+          fs.writeFileSync('qa/current/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          EOF
+          node qa/current/check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: current-visual-audit
+          path: qa/current
+          retention-days: 1
