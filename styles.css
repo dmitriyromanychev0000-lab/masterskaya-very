@@ -3939,3 +3939,27 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
 @media (max-width:980px) {
   .world-cartouche { display:none; }
 }
+
+
+/* World atmosphere — confirmed effects */
+.world-atmosphere {
+  position:fixed;
+  z-index:18;
+  inset:var(--header-h) 0 0;
+  width:100%;
+  height:calc(100dvh - var(--header-h));
+  pointer-events:none;
+  opacity:.68;
+  mix-blend-mode:screen;
+}
+.world-atmosphere[data-effect="fireflies"] { opacity:.78; }
+.world-atmosphere[hidden] { display:none; }
+
+@media (max-width:620px) {
+  .world-atmosphere { opacity:.54; }
+  .world-atmosphere[data-effect="fireflies"] { opacity:.62; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .world-atmosphere { display:none !important; }
+}

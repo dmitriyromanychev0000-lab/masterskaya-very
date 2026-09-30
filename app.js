@@ -863,3 +863,210 @@ const initResidentFilters = () => {
 };
 
 initResidentFilters();
+
+
+const WORLD_EFFECT_BY_SLUG = {
+  winter: 'snow',
+  forest: 'fireflies'
+};
+
+const initWorldAtmosphere = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const fixedWorldRoot = document.querySelector('[data-collection-root][data-world], [data-chronicle-root][data-world]');
+  const residentWorlds = [...document.querySelectorAll('.res-world[data-world]')];
+  if (!fixedWorldRoot && !residentWorlds.length) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'world-atmosphere';
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.dataset.effect = 'none';
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) {
+    canvas.remove();
+    return;
+  }
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let effect = null;
+  let particles = [];
+  let frame = 0;
+  let lastTime = performance.now();
+
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    width = window.innerWidth;
+    height = Math.max(1, window.innerHeight - document.querySelector('.site-header')?.offsetHeight || window.innerHeight);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const makeParticle = (type, initial = false) => {
+    const base = {
+      x: Math.random() * width,
+      y: initial ? Math.random() * height : -12,
+      phase: Math.random() * Math.PI * 2,
+      alpha: .22 + Math.random() * .5
+    };
+
+    if (type === 'snow') {
+      return {
+        ...base,
+        r: .8 + Math.random() * 1.8,
+        vx: -.18 + Math.random() * .36,
+        vy: .28 + Math.random() * .62
+      };
+    }
+
+    if (type === 'fireflies') {
+      return {
+        ...base,
+        y: Math.random() * height,
+        r: 1 + Math.random() * 1.9,
+        vx: -.10 + Math.random() * .20,
+        vy: -.06 + Math.random() * .12,
+        speed: .0008 + Math.random() * .0018
+      };
+    }
+
+    if (type === 'embers') {
+      return {
+        ...base,
+        y: initial ? Math.random() * height : height + 12,
+        r: .8 + Math.random() * 1.6,
+        vx: -.16 + Math.random() * .32,
+        vy: -.35 - Math.random() * .75
+      };
+    }
+
+    return {
+      ...base,
+      y: Math.random() * height,
+      r: .45 + Math.random() * 1.1,
+      vx: -.05 + Math.random() * .10,
+      vy: -.03 + Math.random() * .06
+    };
+  };
+
+  const rebuild = () => {
+    if (!effect) {
+      particles = [];
+      ctx.clearRect(0, 0, width, height);
+      return;
+    }
+
+    const area = width * height;
+    const density = effect === 'snow' ? 36000 : effect === 'fireflies' ? 62000 : 52000;
+    const min = effect === 'snow' ? 28 : 16;
+    const max = effect === 'snow' ? 72 : 44;
+    const count = Math.max(min, Math.min(max, Math.round(area / density)));
+    particles = Array.from({ length: count }, () => makeParticle(effect, true));
+  };
+
+  const setWorld = (world) => {
+    const next = WORLD_EFFECT_BY_SLUG[world] || null;
+    if (next === effect) return;
+    effect = next;
+    canvas.dataset.effect = next || 'none';
+    canvas.hidden = !next;
+    rebuild();
+    if (next && !frame && !document.hidden) {
+      lastTime = performance.now();
+      frame = requestAnimationFrame(tick);
+    }
+  };
+
+  const drawSnow = (particle, dt) => {
+    particle.phase += dt * .0012;
+    particle.x += (particle.vx + Math.sin(particle.phase) * .08) * dt;
+    particle.y += particle.vy * dt;
+    if (particle.y > height + 12 || particle.x < -16 || particle.x > width + 16) {
+      Object.assign(particle, makeParticle('snow', false));
+    }
+    ctx.fillStyle = `rgba(244,248,255,${particle.alpha})`;
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+    ctx.fill();
+  };
+
+  const drawFirefly = (particle, dt, now) => {
+    particle.phase += dt * particle.speed;
+    particle.x += (particle.vx + Math.sin(particle.phase) * .055) * dt;
+    particle.y += (particle.vy + Math.cos(particle.phase * .7) * .03) * dt;
+    if (particle.x < -18) particle.x = width + 18;
+    if (particle.x > width + 18) particle.x = -18;
+    if (particle.y < -18) particle.y = height + 18;
+    if (particle.y > height + 18) particle.y = -18;
+    const pulse = .42 + .58 * Math.sin(now * .0018 + particle.phase) ** 2;
+    ctx.shadowBlur = 9;
+    ctx.shadowColor = 'rgba(233,181,74,.55)';
+    ctx.fillStyle = `rgba(240,196,92,${particle.alpha * pulse})`;
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  };
+
+  function tick(now) {
+    frame = 0;
+    if (!effect || document.hidden) return;
+
+    const dt = Math.min(32, Math.max(8, now - lastTime));
+    lastTime = now;
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach((particle) => {
+      if (effect === 'snow') drawSnow(particle, dt);
+      else if (effect === 'fireflies') drawFirefly(particle, dt, now);
+    });
+
+    frame = requestAnimationFrame(tick);
+  }
+
+  resize();
+  window.addEventListener('resize', () => {
+    resize();
+    rebuild();
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      return;
+    }
+    if (effect && !frame) {
+      lastTime = performance.now();
+      frame = requestAnimationFrame(tick);
+    }
+  });
+
+  if (fixedWorldRoot) {
+    setWorld(fixedWorldRoot.dataset.world);
+    return;
+  }
+
+  const ratios = new Map(residentWorlds.map((section) => [section, 0]));
+  const syncVisibleWorld = () => {
+    const visible = [...ratios.entries()]
+      .filter(([section]) => !section.hidden)
+      .sort((a, b) => b[1] - a[1])[0];
+    setWorld(visible && visible[1] > 0 ? visible[0].dataset.world : null);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => ratios.set(entry.target, entry.intersectionRatio));
+    syncVisibleWorld();
+  }, { threshold: [0, .12, .25, .5, .75], rootMargin: '-12% 0px -38% 0px' });
+
+  residentWorlds.forEach((section) => observer.observe(section));
+};
+
+initWorldAtmosphere();
