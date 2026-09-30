@@ -1229,6 +1229,12 @@ main[data-collection-root][data-world] .collection-lead { margin-left: 0; margin
 .contact-card-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .contact-card--form h2 { margin: 0 0 10px; font: 400 26px/1.1 var(--serif); }
 .contact-card--form .contact-form-note { margin: 0 0 22px; color: #564a37; font-size: 13.5px; line-height: 1.65; }
+.contact-create-link {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  margin-top:10px;
+}
 .contact-brief { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 10px; }
 .contact-brief li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; padding: 14px; border: 1px solid var(--line); border-radius: 4px; background: rgba(246,239,223,.55); }
 .contact-brief li > span { padding-top: 2px; color: var(--gold-ink); font: 400 13px/1 var(--serif); letter-spacing: .06em; }
