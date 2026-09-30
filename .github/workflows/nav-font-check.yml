@@ -1,0 +1,88 @@
+name: One-off nav and font check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/nav-font-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:4173/index.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify nav and font fallback
+        run: |
+          mkdir -p qa/nav-font
+          cat > qa/nav-font/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const ctx=await browser.newContext({viewport:{width:320,height:900},isMobile:true,hasTouch:true});
+          const page=await ctx.newPage();
+          const errors=[],consoleErrors=[];
+          page.on('pageerror',e=>errors.push(String(e)));
+          page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+          await page.route('https://fonts.googleapis.com/**',r=>r.abort());
+          await page.route('https://fonts.gstatic.com/**',r=>r.abort());
+          await page.goto('http://127.0.0.1:4173/index.html',{waitUntil:'domcontentloaded'});
+          await page.waitForTimeout(250);
+          const initial=await page.evaluate(()=>({
+            width:innerWidth,
+            scrollWidth:document.documentElement.scrollWidth,
+            fontLink:Boolean(document.querySelector('link[data-workshop-fonts]')),
+            cssImports:[...document.styleSheets].some(s=>String(s.href||'').includes('fonts.googleapis.com')),
+            h1:document.querySelector('h1')?.textContent?.trim(),
+            bodyFont:getComputedStyle(document.body).fontFamily,
+            h1Font:getComputedStyle(document.querySelector('h1')).fontFamily
+          }));
+          await page.locator('[data-menu-button]').click();
+          const opened=await page.evaluate(()=>({
+            expanded:document.querySelector('[data-menu-button]')?.getAttribute('aria-expanded'),
+            hidden:document.querySelector('[data-mobile-menu]')?.hidden,
+            menuOpen:document.documentElement.classList.contains('menu-open')
+          }));
+          await page.locator('[data-mobile-menu]').click({position:{x:8,y:820}});
+          const closed=await page.evaluate(()=>({
+            expanded:document.querySelector('[data-menu-button]')?.getAttribute('aria-expanded'),
+            hidden:document.querySelector('[data-mobile-menu]')?.hidden,
+            focusReturned:document.activeElement===document.querySelector('[data-menu-button]'),
+            menuOpen:document.documentElement.classList.contains('menu-open')
+          }));
+          const result={initial,opened,closed,errors,consoleErrors};
+          fs.writeFileSync('qa/nav-font/report.json',JSON.stringify(result,null,2));
+          console.log(JSON.stringify(result,null,2));
+          const failed=
+            initial.width!==initial.scrollWidth||
+            !initial.fontLink||
+            !initial.h1||
+            opened.expanded!=='true'||opened.hidden||
+            closed.expanded!=='false'||!closed.hidden||!closed.focusReturned||closed.menuOpen||
+            errors.length;
+          if(failed) process.exit(1);
+          await browser.close();
+          EOF
+          node qa/nav-font/check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nav-font-check
+          path: qa/nav-font
+          retention-days: 1
