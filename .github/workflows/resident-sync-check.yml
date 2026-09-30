@@ -1,0 +1,115 @@
+name: One-off resident data sync check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/resident-sync-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:4173/residents.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify
+        run: |
+          mkdir -p qa/resident-sync
+          cat > qa/resident-sync/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+          for(const width of [320,1440]){
+            const mobile=width<700;
+            const ctx=await browser.newContext({viewport:{width,height:mobile?900:1000},isMobile:mobile,hasTouch:mobile});
+            const page=await ctx.newPage();
+            const errors=[],consoleErrors=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            page.on('console',m=>{ if(m.type()==='error') consoleErrors.push(m.text()); });
+            await page.goto('http://127.0.0.1:4173/residents.html',{waitUntil:'networkidle'});
+            const state=await page.evaluate(()=>{
+              const cards=[...document.querySelectorAll('.resident-card')];
+              const byName=(name)=>cards.find(c=>c.querySelector('h3')?.textContent.trim()===name);
+              const snap=(name)=>{
+                const c=byName(name);
+                return c?{
+                  status:c.querySelector('.resident-status')?.textContent.trim()||null,
+                  price:c.querySelector('.resident-price')?.textContent.trim()||null,
+                  stock:c.querySelector('.resident-stock')?.textContent.trim()||null,
+                  button:c.querySelector('.resident-actions .button')?.textContent.trim()||null,
+                  buttonClass:c.querySelector('.resident-actions .button')?.className||null,
+                  archive:c.classList.contains('resident-card-archive')
+                }:null;
+              };
+              return {
+                viewport:innerWidth,
+                scrollWidth:document.documentElement.scrollWidth,
+                cards:cards.length,
+                mermaid:snap('Русалка'),
+                azimondias:snap('Азимондиас'),
+                nutcracker:snap('Щелкунчик')
+              };
+            });
+
+            const worldButton=page.locator('[data-filter-world="russian"]');
+            const statusButton=page.locator('[data-filter-status="resident-status-progress"]');
+            await worldButton.click();
+            await statusButton.click();
+            const filtered=await page.evaluate(()=>({
+              visibleWorlds:[...document.querySelectorAll('.res-world[data-world]')].filter(x=>!x.hidden).map(x=>x.dataset.world),
+              visibleCards:[...document.querySelectorAll('.res-world[data-world]:not([hidden]) .resident-card')].filter(x=>!x.hidden).map(x=>x.querySelector('h3')?.textContent.trim()),
+              count:document.querySelector('.res-world[data-world="russian"] .res-world-head .eyebrow')?.textContent.trim()
+            }));
+            report.push({width,...state,filtered,errors,consoleErrors});
+            await page.screenshot({path:`qa/resident-sync/residents-${width}.png`,fullPage:true});
+            await ctx.close();
+          }
+          await browser.close();
+          fs.writeFileSync('qa/resident-sync/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+
+          const bad=report.some(r=>
+            r.scrollWidth!==r.viewport ||
+            r.cards!==17 ||
+            r.errors.length || r.consoleErrors.length ||
+            r.mermaid?.status!=='В работе' ||
+            r.mermaid?.price!=='Цена по запросу' ||
+            r.mermaid?.stock!==null ||
+            r.mermaid?.button!=='Написать Вере' ||
+            !r.mermaid?.buttonClass?.includes('button-outline') ||
+            r.azimondias?.price!==null ||
+            r.azimondias?.button!==null ||
+            r.azimondias?.archive!==true ||
+            r.nutcracker?.price!=='3000 ₽' ||
+            !r.nutcracker?.buttonClass?.includes('button-primary') ||
+            r.filtered.visibleWorlds.join(',')!=='russian' ||
+            r.filtered.visibleCards.length!==2 ||
+            !r.filtered.visibleCards.includes('Змей Горыныч') ||
+            !r.filtered.visibleCards.includes('Русалка')
+          );
+          if(bad) process.exit(1);
+          EOF
+          node qa/resident-sync/check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resident-sync-check
+          path: qa/resident-sync
+          retention-days: 1
