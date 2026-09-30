@@ -344,6 +344,14 @@ html.menu-open, body.menu-open { overflow:hidden; overscroll-behavior:none; }
   letter-spacing:-.02em;
 }
 .keeper-summary p { margin:0; color:var(--ink); font:500 18px/1.1 var(--serif); }
+.keeper-blurb {
+  display:block;
+  max-width:210px;
+  margin:0 0 9px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.42;
+}
 .keeper-arrow {
   display:grid;
   place-items:center;
@@ -4319,6 +4327,7 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
 
 /* Home hero mobile — remove inherited desktop minimum */
 @media (max-width:620px) {
+  .keeper-blurb { display:none; }
   .hero-showcase {
     min-height:0;
   }
