@@ -4305,3 +4305,16 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
     min-height:0;
   }
 }
+
+
+/* Home hero desktop — restore two-line headline composition */
+@media (min-width:981px) {
+  .hero-shell {
+    grid-template-columns:minmax(500px,.95fr) minmax(0,1.35fr);
+    gap:clamp(40px,4.6vw,70px);
+  }
+  .hero h1 {
+    max-width:none;
+    font-size:clamp(60px,5.2vw,76px);
+  }
+}
