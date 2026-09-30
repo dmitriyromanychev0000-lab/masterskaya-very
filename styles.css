@@ -3963,3 +3963,65 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
 @media (prefers-reduced-motion:reduce) {
   .world-atmosphere { display:none !important; }
 }
+
+
+/* Home archival handwritten accents */
+.about-teaser-shot--left::after,
+.about-teaser-shot--right::after {
+  position:absolute;
+  z-index:4;
+  bottom:10px;
+  max-width:calc(100% - 20px);
+  padding:5px 8px 6px;
+  border:1px solid rgba(122,93,52,.18);
+  border-radius:3px;
+  background:rgba(251,244,231,.90);
+  color:var(--gold-ink);
+  font:italic 16px/1 var(--serif);
+  letter-spacing:.01em;
+  box-shadow:0 4px 14px rgba(45,31,19,.10);
+  pointer-events:none;
+}
+.about-teaser-shot--left::after {
+  content:"Сначала идея";
+  left:10px;
+  transform:rotate(-4deg);
+}
+.about-teaser-shot--right::after {
+  content:"А потом жизнь";
+  right:10px;
+  transform:rotate(3deg);
+}
+
+.keepers + .keeper-cta::after {
+  content:"Хорошие истории начинаются здесь";
+  position:absolute;
+  z-index:1;
+  left:max(24px,calc((100vw - var(--content))/2));
+  top:24px;
+  max-width:170px;
+  color:rgba(232,201,143,.90);
+  font:italic 18px/1.05 var(--serif);
+  text-align:left;
+  transform:rotate(-5deg);
+  text-shadow:0 2px 12px rgba(0,0,0,.55);
+  pointer-events:none;
+}
+
+@media (max-width:620px) {
+  .about-teaser-shot--left::after,
+  .about-teaser-shot--right::after {
+    bottom:6px;
+    padding:4px 6px 5px;
+    font-size:12px;
+  }
+  .about-teaser-shot--left::after { left:6px; }
+  .about-teaser-shot--right::after { right:6px; }
+
+  .keepers + .keeper-cta::after {
+    left:18px;
+    top:14px;
+    max-width:128px;
+    font-size:14px;
+  }
+}
