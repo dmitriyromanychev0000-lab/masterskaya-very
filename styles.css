@@ -4131,6 +4131,16 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
   aspect-ratio:1;
   object-fit:cover;
 }
+.chronicle-gallery-sprite {
+  display:block;
+  width:100%;
+  aspect-ratio:1;
+  background-image:var(--gallery-sprite);
+  background-size:400% 200%;
+  background-position:var(--gallery-position);
+  background-repeat:no-repeat;
+  background-color:#f4eee3;
+}
 .chronicle-gallery-item span {
   position:absolute;
   right:10px;
@@ -4164,13 +4174,15 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
   background:rgba(5,4,3,.82);
   backdrop-filter:blur(4px);
 }
-.chronicle-lightbox img {
+.chronicle-lightbox-image {
   display:block;
   width:100%;
-  max-height:calc(100vh - 72px);
-  object-fit:contain;
+  max-width:680px;
+  aspect-ratio:1;
+  margin:0 auto;
   border-radius:6px;
-  background:#f4eee3;
+  background-color:#f4eee3;
+  background-position:center;
 }
 .chronicle-lightbox-close {
   position:absolute;
