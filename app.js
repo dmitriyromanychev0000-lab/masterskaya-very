@@ -674,6 +674,7 @@ const initChronicle = () => {
   const resident = slug ? CHRONICLE_RESIDENTS[slug] : null;
 
   if (!resident) {
+    root.removeAttribute('data-world');
     setDynamicPageMeta({
       title: 'Житель не найден — Мастерская Веры',
       description: 'Такого Жителя в Хрониках мастерской пока нет.',
@@ -683,6 +684,8 @@ const initChronicle = () => {
     root.innerHTML = renderChronicleNotFound();
     return;
   }
+
+  root.dataset.world = resident.world;
 
   setDynamicPageMeta({
     title: `${resident.name} — Мастерская Веры`,

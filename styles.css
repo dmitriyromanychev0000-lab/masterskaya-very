@@ -2404,3 +2404,306 @@ main[data-collection-root][data-world] .collection-head {
   .world-resident-meta { font-size:9.5px; }
   .world-resident-arrow { width:40px; height:40px; }
 }
+
+
+/* ===== Chronicle archive restoration — pass 1 ===== */
+main[data-chronicle-root][data-world] {
+  position:relative;
+  isolation:isolate;
+  background-color:var(--night);
+  background-repeat:repeat-y;
+  background-position:center top;
+  background-size:100% auto;
+  color:var(--cream);
+}
+main[data-chronicle-root][data-world="winter"] { background-image:url("assets/worlds/winter-desktop.webp"); }
+main[data-chronicle-root][data-world="forest"] { background-image:url("assets/worlds/forest-desktop.webp"); }
+main[data-chronicle-root][data-world="dragons"] { background-image:url("assets/worlds/dragons-desktop.webp"); }
+main[data-chronicle-root][data-world="russian"] { background-image:url("assets/worlds/russian-desktop.webp"); }
+main[data-chronicle-root][data-world="home"] { background-image:url("assets/worlds/home-desktop.webp"); }
+
+.chronicle-hero {
+  position:relative;
+  padding-top:calc(var(--header-h) + 64px);
+  padding-bottom:70px;
+  background:linear-gradient(90deg,rgba(7,5,4,.86) 0%,rgba(7,5,4,.64) 46%,rgba(7,5,4,.30) 100%);
+  border-bottom:1px solid rgba(232,201,143,.30);
+}
+.chronicle-hero::after {
+  content:"";
+  position:absolute;
+  left:max(24px,calc((100vw - var(--content))/2));
+  right:max(24px,calc((100vw - var(--content))/2));
+  bottom:22px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,201,143,.72) 20%,rgba(232,201,143,.72) 80%,transparent);
+}
+.chronicle-hero-shell {
+  max-width:var(--content);
+  margin:0 auto;
+  grid-template-columns:minmax(330px,.78fr) minmax(0,1.22fr);
+  gap:clamp(44px,6vw,96px);
+}
+.chronicle-hero-inner {
+  padding:34px 0;
+  text-shadow:0 2px 20px rgba(0,0,0,.42);
+}
+.chronicle-hero .collection-back {
+  min-height:44px;
+  margin-bottom:28px;
+}
+.chronicle-hero .collection-eyebrow {
+  flex-wrap:wrap;
+}
+.chronicle-hero h1 {
+  max-width:640px;
+  margin:0;
+  font:500 clamp(58px,6.2vw,88px)/.92 var(--serif);
+  letter-spacing:-.055em;
+  color:var(--cream);
+}
+.chronicle-world {
+  background:rgba(8,6,5,.26);
+  border-color:rgba(232,201,143,.55);
+}
+.chronicle-badges {
+  margin-top:26px;
+  padding-top:22px;
+  border-top:1px solid rgba(232,201,143,.24);
+}
+.chronicle-price {
+  font-size:34px;
+  color:#fff4df;
+}
+.chronicle-actions { margin-top:30px; }
+.chronicle-actions .button {
+  min-width:190px;
+}
+.chronicle-archive-note {
+  border-color:rgba(232,201,143,.28);
+  background:rgba(8,6,5,.34);
+}
+
+.chronicle-hero-visual {
+  aspect-ratio:16/11;
+  border-color:rgba(232,201,143,.78);
+  border-radius:10px;
+  box-shadow:0 32px 72px rgba(0,0,0,.42);
+}
+.chronicle-hero-visual::before {
+  content:"";
+  position:absolute;
+  inset:8px;
+  z-index:2;
+  border:1px solid rgba(232,201,143,.24);
+  border-radius:6px;
+  pointer-events:none;
+}
+.chronicle-hero-visual::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,transparent 64%,rgba(6,4,3,.24));
+  pointer-events:none;
+}
+
+.chronicle-story {
+  position:relative;
+  padding-top:76px;
+  padding-bottom:82px;
+  border-top:0;
+  border-bottom:1px solid rgba(232,201,143,.24);
+  background:rgba(8,6,5,.86);
+  backdrop-filter:blur(1px);
+}
+.chronicle-story::before,
+.chronicle-story::after {
+  content:"";
+  position:absolute;
+  top:34px;
+  width:min(190px,16vw);
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,201,143,.54));
+}
+.chronicle-story::before { left:max(24px,calc((100vw - var(--content))/2)); }
+.chronicle-story::after {
+  right:max(24px,calc((100vw - var(--content))/2));
+  transform:scaleX(-1);
+}
+.chronicle-story-layout {
+  grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);
+  gap:clamp(46px,6vw,96px);
+  align-items:center;
+}
+.chronicle-story-copy {
+  position:relative;
+  max-width:760px;
+  padding:8px 0 8px 28px;
+  border-left:1px solid rgba(232,201,143,.54);
+}
+.chronicle-story .eyebrow {
+  margin-bottom:18px;
+}
+.chronicle-text {
+  font-size:clamp(27px,3vw,38px);
+  line-height:1.42;
+  letter-spacing:-.025em;
+}
+.chronicle-facts {
+  border-color:rgba(232,201,143,.34);
+  background:rgba(246,239,223,.025);
+  box-shadow:0 20px 46px rgba(0,0,0,.14);
+}
+.chronicle-facts > div {
+  min-height:112px;
+  padding:20px 18px;
+  border-color:rgba(232,201,143,.20);
+}
+.chronicle-facts dt {
+  margin-bottom:10px;
+  color:var(--gold-light);
+}
+.chronicle-facts dd {
+  color:#e0d3be;
+  font-size:13px;
+}
+.chronicle-facts a { color:#fff3df; }
+
+.chronicle-next {
+  position:relative;
+  background:rgba(7,5,4,.88);
+  border-top:0;
+  border-bottom:1px solid rgba(232,201,143,.24);
+}
+.chronicle-next::before {
+  background:none;
+}
+.chronicle-next h2 {
+  font-weight:500;
+}
+.chronicle-neighbors {
+  max-width:900px;
+  gap:14px;
+}
+.chronicle-neighbor {
+  min-height:88px;
+  padding:16px 18px;
+  border-color:rgba(232,201,143,.30);
+  border-radius:7px;
+  background:rgba(246,239,223,.045);
+}
+.chronicle-neighbor strong {
+  font-size:21px;
+  color:#fff3df;
+}
+.chronicle-sticky {
+  border-top-color:rgba(232,201,143,.38);
+  background:rgba(10,8,6,.96);
+}
+
+@media (max-width:980px) {
+  .chronicle-hero-shell {
+    grid-template-columns:minmax(280px,.85fr) minmax(0,1.15fr);
+    gap:34px;
+  }
+  .chronicle-story-layout { gap:34px; }
+}
+
+@media (max-width:620px) {
+  main[data-chronicle-root][data-world] {
+    background-size:100% auto;
+  }
+  main[data-chronicle-root][data-world="winter"] { background-image:url("assets/worlds/winter-mobile.webp"); }
+  main[data-chronicle-root][data-world="forest"] { background-image:url("assets/worlds/forest-mobile.webp"); }
+  main[data-chronicle-root][data-world="dragons"] { background-image:url("assets/worlds/dragons-mobile.webp"); }
+  main[data-chronicle-root][data-world="russian"] { background-image:url("assets/worlds/russian-mobile.webp"); }
+  main[data-chronicle-root][data-world="home"] { background-image:url("assets/worlds/home-mobile.webp"); }
+
+  .chronicle-hero {
+    padding:calc(var(--header-h) + 24px) 18px 42px;
+    background:rgba(7,5,4,.60);
+  }
+  .chronicle-hero::after {
+    left:18px;
+    right:18px;
+    bottom:14px;
+  }
+  .chronicle-hero-shell {
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+  .chronicle-hero-inner {
+    padding:0;
+    text-align:left;
+  }
+  .chronicle-hero .collection-back {
+    margin-bottom:18px;
+  }
+  .chronicle-hero .collection-eyebrow {
+    justify-content:flex-start;
+    margin-bottom:14px;
+  }
+  .chronicle-hero h1 {
+    font-size:clamp(44px,13.6vw,58px);
+    line-height:.90;
+  }
+  .chronicle-badges {
+    margin-top:20px;
+    padding-top:16px;
+  }
+  .chronicle-price { font-size:26px; }
+  .chronicle-actions { margin-top:22px; }
+  .chronicle-hero-visual {
+    aspect-ratio:4/3;
+    border-radius:8px;
+  }
+
+  .chronicle-story {
+    padding:54px 18px 58px;
+  }
+  .chronicle-story::before,
+  .chronicle-story::after {
+    top:24px;
+    width:54px;
+  }
+  .chronicle-story::before { left:18px; }
+  .chronicle-story::after { right:18px; }
+  .chronicle-story-layout {
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+  .chronicle-story-copy {
+    padding:0 0 0 18px;
+  }
+  .chronicle-text {
+    font-size:24px;
+    line-height:1.45;
+  }
+  .chronicle-facts {
+    grid-template-columns:1fr 1fr;
+  }
+  .chronicle-facts > div {
+    min-height:96px;
+    padding:15px 12px;
+  }
+  .chronicle-facts dd { font-size:11px; }
+
+  .chronicle-next {
+    padding:64px 18px;
+  }
+  .chronicle-neighbor {
+    min-height:76px;
+    padding:14px;
+  }
+  .chronicle-neighbor strong {
+    font-size:19px;
+    white-space:normal;
+    text-overflow:clip;
+  }
+}
+
+@media (max-width:350px) {
+  .chronicle-facts { grid-template-columns:1fr; }
+  .chronicle-facts > div { min-height:0; }
+}
