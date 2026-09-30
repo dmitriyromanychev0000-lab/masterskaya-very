@@ -1,0 +1,70 @@
+name: One-off hero gap check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/hero-gap-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:4173/index.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify hero
+        run: |
+          mkdir -p qa/hero
+          cat > qa/hero/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+          for(const width of [320,430]){
+            const ctx=await browser.newContext({viewport:{width,height:900},isMobile:true,hasTouch:true});
+            const page=await ctx.newPage();
+            const errors=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            await page.goto('http://127.0.0.1:4173/index.html',{waitUntil:'networkidle'});
+            await page.evaluate(async()=>{if(document.fonts?.ready) await document.fonts.ready});
+            await page.screenshot({path:`qa/hero/home-${width}.png`,fullPage:false});
+            const m=await page.evaluate(()=>{
+              const show=document.querySelector('.hero-showcase')?.getBoundingClientRect();
+              const main=document.querySelector('.hero-showcase-main')?.getBoundingClientRect();
+              const small=[...document.querySelectorAll('.hero-showcase-small')].map(x=>x.getBoundingClientRect());
+              return {
+                viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,
+                showcase:show?{top:show.top,bottom:show.bottom,height:show.height}:null,
+                main:main?{top:main.top,bottom:main.bottom,height:main.height}:null,
+                small:small.map(r=>({top:r.top,bottom:r.bottom,height:r.height}))
+              };
+            });
+            report.push({width,...m,errors});
+            await ctx.close();
+          }
+          await browser.close();
+          fs.writeFileSync('qa/hero/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          EOF
+          node qa/hero/check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hero-gap-check
+          path: qa/hero
+          retention-days: 1
