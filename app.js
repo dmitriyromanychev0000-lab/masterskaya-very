@@ -163,6 +163,7 @@ const COLLECTION_WORLDS = {
     title: 'Древние существа',
     description: 'Чешуя, крылья и память о временах, которых не застал никто. Мир тех, кто старше сказок.',
     tone: 'paper',
+    cartouche: 'assets/worlds/cartouche-dragons.webp',
     residents: [
       { name: 'Азимондиас', status: 'archive', chronicle: 'azimondias' },
       { name: 'Малыш-дракон', status: 'progress', chronicle: 'baby-dragon' },
