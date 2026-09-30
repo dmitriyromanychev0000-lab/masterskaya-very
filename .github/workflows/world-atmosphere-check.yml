@@ -1,0 +1,90 @@
+name: One-off world atmosphere check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/world-atmosphere-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS 'http://127.0.0.1:4173/collection.html?world=winter' >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify atmosphere
+        run: |
+          mkdir -p qa/atmosphere
+          cat > qa/atmosphere/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+
+          const runCase=async({name,url,width=320,reduced=false,scrollToWorld=null})=>{
+            const ctx=await browser.newContext({
+              viewport:{width,height:900},
+              isMobile:width<700,
+              hasTouch:width<700,
+              reducedMotion:reduced?'reduce':'no-preference'
+            });
+            const page=await ctx.newPage();
+            const errors=[],consoleErrors=[],failed=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+            page.on('requestfailed',r=>failed.push(r.url()));
+            await page.goto('http://127.0.0.1:4173/'+url,{waitUntil:'networkidle'});
+            if(scrollToWorld){
+              await page.locator(`.res-world[data-world="${scrollToWorld}"]`).scrollIntoViewIfNeeded();
+              await page.waitForTimeout(350);
+            }
+            const metrics=await page.evaluate(()=>({
+              viewport:innerWidth,
+              scrollWidth:document.documentElement.scrollWidth,
+              canvas:!!document.querySelector('.world-atmosphere'),
+              effect:document.querySelector('.world-atmosphere')?.dataset.effect || null,
+              hidden:document.querySelector('.world-atmosphere')?.hidden ?? null,
+              canvasWidth:document.querySelector('.world-atmosphere')?.width || null
+            }));
+            if(!reduced && ['winter','forest'].includes(name)){
+              await page.screenshot({path:`qa/atmosphere/${name}-${width}.png`,fullPage:true});
+            }
+            report.push({name,width,reduced,scrollToWorld,...metrics,errors,consoleErrors,failed});
+            await ctx.close();
+          };
+
+          await runCase({name:'winter',url:'collection.html?world=winter',width:320});
+          await runCase({name:'forest',url:'collection.html?world=forest',width:320});
+          await runCase({name:'dragons',url:'collection.html?world=dragons',width:320});
+          await runCase({name:'winter-desktop',url:'collection.html?world=winter',width:1440});
+          await runCase({name:'winter-reduced',url:'collection.html?world=winter',width:320,reduced:true});
+          await runCase({name:'residents-winter',url:'residents.html',width:320,scrollToWorld:'winter'});
+          await runCase({name:'residents-forest',url:'residents.html',width:320,scrollToWorld:'forest'});
+          await runCase({name:'residents-home',url:'residents.html',width:320,scrollToWorld:'home'});
+
+          await browser.close();
+          fs.writeFileSync('qa/atmosphere/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          EOF
+          node qa/atmosphere/check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: world-atmosphere-check
+          path: qa/atmosphere
+          retention-days: 1
