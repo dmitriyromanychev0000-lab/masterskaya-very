@@ -168,3 +168,5 @@
 - [x] Studio gallery first sprite QA: найден реальный CSS-cascade баг — общий selector для подписи `span` сбрасывал background-image sprite. Исправлен отдельным `.chronicle-gallery-open-label`; gallery уплотнена до 4 колонок desktop / 3 tablet / 2 mobile, lightbox остаётся крупным просмотром.
 
 - [x] Humpbacked Horse 8-view gallery QA: 320 / 430 / 1440 — 8/8 studio-ракурсов видимы, sprite загружен, первый lightbox crop = 0% 0%, последний = 100% 100%, ширина страницы = viewport, 0 JS/console/request errors; на mobile 0 целей <44 px. Галерея 2 колонки mobile / 4 desktop.
+
+- [x] Русалка: статический каталог синхронизирован с текущими данными — удалены устаревшие 3500 ₽ / «предзаказ», осталось «В работе · Цена по запросу»; повторная сверка 17 карточек не должна иметь рассинхронов.
