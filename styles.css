@@ -3575,3 +3575,17 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
   .contact-card--form::before { inset:8px; }
   .contact-brief li { grid-template-columns:36px 1fr; }
 }
+
+
+/* Secondary pass 2 — intrinsic image width fix */
+.about-story-grid,
+.about-story-figure,
+.about-story-frame {
+  min-width:0;
+}
+.about-story-figure,
+.about-story-frame,
+.about-story-frame img {
+  max-width:100%;
+  width:100%;
+}
