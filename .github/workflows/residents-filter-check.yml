@@ -1,0 +1,86 @@
+name: One-off residents filter check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/residents-filter-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:4173/residents.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify filters
+        run: |
+          mkdir -p qa/residents-filter
+          cat > qa/residents-filter/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+          const cases=[
+            {world:'russian',status:'resident-status-available',expectedWorld:'russian',expectedCards:3},
+            {world:'winter',status:'resident-status-progress',expectedWorld:'winter',expectedCards:2},
+            {world:'dragons',status:'resident-status-archive',expectedWorld:'dragons',expectedCards:1},
+            {world:'forest',status:'',expectedWorld:'forest',expectedCards:2}
+          ];
+          for(const width of [320,430,1440]){
+            const mobile=width<700;
+            const ctx=await browser.newContext({viewport:{width,height:mobile?900:1000},isMobile:mobile,hasTouch:mobile});
+            const page=await ctx.newPage();
+            const errors=[],consoleErrors=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+            await page.goto('http://127.0.0.1:4173/residents.html',{waitUntil:'networkidle'});
+            await page.evaluate(async()=>{if(document.fonts?.ready)await document.fonts.ready});
+            for(const c of cases){
+              await page.locator(`[data-filter-world="${c.world}"]`).click();
+              if(c.status){
+                await page.locator(`[data-filter-status="${c.status}"]`).click();
+              } else {
+                await page.locator('[data-filter-status=""]').click();
+              }
+              const state=await page.evaluate(()=>{
+                const visibleWorlds=[...document.querySelectorAll('.res-world[data-world]')].filter(w=>!w.hidden).map(w=>w.dataset.world);
+                const visibleCards=[...document.querySelectorAll('.resident-card')].filter(c=>!c.hidden && !c.closest('.res-world').hidden).length;
+                const activeWorld=document.querySelector('[data-filter-world].is-active')?.dataset.filterWorld ?? null;
+                const activeStatus=document.querySelector('[data-filter-status].is-active')?.dataset.filterStatus ?? null;
+                const count=document.querySelector('.res-world:not([hidden]) .res-world-head .eyebrow')?.textContent?.trim() ?? null;
+                return {visibleWorlds,visibleCards,activeWorld,activeStatus,count,scrollWidth:document.documentElement.scrollWidth,viewport:innerWidth};
+              });
+              report.push({width,case:c,...state,errors:[...errors],consoleErrors:[...consoleErrors]});
+            }
+            await page.screenshot({path:`qa/residents-filter/residents-filter-${width}.png`,fullPage:true});
+            await ctx.close();
+          }
+          await browser.close();
+          fs.writeFileSync('qa/residents-filter/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          const failed=report.filter(r=>r.visibleWorlds.length!==1||r.visibleWorlds[0]!==r.case.expectedWorld||r.visibleCards!==r.case.expectedCards||r.scrollWidth!==r.viewport||r.errors.length||r.consoleErrors.length);
+          if(failed.length){console.error(JSON.stringify(failed,null,2));process.exit(1)}
+          EOF
+          node qa/residents-filter/check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: residents-filter-check
+          path: qa/residents-filter
+          retention-days: 1
