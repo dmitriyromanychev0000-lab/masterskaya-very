@@ -141,6 +141,7 @@ const COLLECTION_WORLDS = {
     title: 'Зимние легенды',
     description: 'Синий вечер, снег на еловых лапах и тёплый свет в окне. Мир, где ждут чуда и слышат музыку.',
     tone: 'night',
+    cartouche: 'assets/worlds/cartouche-winter.webp',
     residents: [
       { name: 'Щелкунчик', status: 'available', price: '3000 ₽', stock: 'готово: 1', chronicle: 'nutcracker' },
       { name: 'Мари (девочка с Щелкунчиком)', status: 'progress', chronicle: 'mari' },
@@ -152,6 +153,7 @@ const COLLECTION_WORLDS = {
     title: 'Тайны древнего леса',
     description: 'Сумрак между корнями, мох, папоротник и огоньки, которые зажигаются сами. Здесь говорят вполголоса.',
     tone: 'night',
+    cartouche: 'assets/worlds/cartouche-forest.webp',
     residents: [
       { name: 'Лесной дракон', status: 'available', price: '13100 ₽', chronicle: 'forest-dragon' },
       { name: 'Лесные грибы (набор)', status: 'available', price: '1500 ₽ за штуку', chronicle: 'mushrooms' }
@@ -171,6 +173,7 @@ const COLLECTION_WORLDS = {
     title: 'Русские сказки',
     description: 'Резной терем, синие цветы по золоту и вязь до самого вечера. Мир, где сказку рассказывают на ночь.',
     tone: 'night',
+    cartouche: 'assets/worlds/cartouche-russian.webp',
     residents: [
       { name: 'Змей Горыныч II', status: 'available', price: '6500 ₽', chronicle: 'gorynych-2' },
       { name: 'Змей Горыныч', status: 'progress', chronicle: 'gorynych' },
@@ -329,6 +332,7 @@ const initCollection = () => {
           </div>
           <h1>${escapeHtml(world.title)}</h1>
           <p class="collection-lead">${escapeHtml(world.description)}</p>
+          ${world.cartouche ? `<img class="world-cartouche" src="${escapeHtml(world.cartouche)}" alt="" aria-hidden="true" width="1100" height="688" decoding="async">` : ''}
         </div>
 
         <a class="world-feature" href="chronicle.html?resident=${escapeHtml(featured.chronicle)}" aria-label="Открыть Хронику: ${escapeHtml(featured.name)}">
