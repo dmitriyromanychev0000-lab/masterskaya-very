@@ -57,6 +57,12 @@ mobileMenu?.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', () => setMenuState(false));
 });
 
+mobileMenu?.addEventListener('click', (event) => {
+  if (event.target === mobileMenu) {
+    setMenuState(false, { restoreFocus: true });
+  }
+});
+
 document.addEventListener('keydown', (event) => {
   const menuOpen = menuButton?.getAttribute('aria-expanded') === 'true';
   if (!menuOpen) return;
