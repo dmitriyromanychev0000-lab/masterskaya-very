@@ -2395,6 +2395,8 @@ main[data-collection-root][data-world] .collection-head {
 }
 
 @media (max-width:350px) {
+  .collection-world-residents-head::before,
+  .collection-world-residents-head::after { display:none; }
   .collection-world-residents { padding-left:14px; padding-right:14px; }
   .world-resident-row {
     grid-template-columns:82px minmax(0,1fr) 40px;
