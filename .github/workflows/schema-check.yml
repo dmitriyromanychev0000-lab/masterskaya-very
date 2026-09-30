@@ -1,0 +1,131 @@
+name: One-off structured data check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/schema-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:4173/residents.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify schemas
+        run: |
+          mkdir -p qa/schema
+          cat > qa/schema/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+
+          const browser=await chromium.launch({headless:true});
+          const ctx=await browser.newContext({viewport:{width:320,height:900},isMobile:true,hasTouch:true});
+          const page=await ctx.newPage();
+          const errors=[];
+          page.on('pageerror',e=>errors.push(String(e)));
+
+          await page.goto('http://127.0.0.1:4173/residents.html',{waitUntil:'networkidle'});
+          const residents=await page.evaluate(()=>{
+            const node=document.head.querySelector('script[data-schema="residents"]');
+            return node?JSON.parse(node.textContent):null;
+          });
+
+          const cases={};
+          for(const slug of ['nutcracker','mermaid','azimondias']){
+            await page.goto('http://127.0.0.1:4173/chronicle.html?resident='+slug,{waitUntil:'networkidle'});
+            cases[slug]=await page.evaluate(()=>{
+              const node=document.head.querySelector('script[data-schema="product"]');
+              return {
+                schema:node?JSON.parse(node.textContent):null,
+                text:document.body.innerText,
+                scrollWidth:document.documentElement.scrollWidth,
+                viewport:innerWidth
+              };
+            });
+          }
+
+          const russianPage=await page.goto('http://127.0.0.1:4173/collection.html?world=russian',{waitUntil:'networkidle'}).then(()=>page.evaluate(()=>({
+            text:document.body.innerText,
+            scrollWidth:document.documentElement.scrollWidth,
+            viewport:innerWidth
+          })));
+
+          const report={
+            errors,
+            itemListType:residents?.['@type'],
+            itemCount:residents?.numberOfItems,
+            listEntries:residents?.itemListElement?.length,
+            nutcracker:{
+              type:cases.nutcracker.schema?.['@type'],
+              price:cases.nutcracker.schema?.offers?.price,
+              currency:cases.nutcracker.schema?.offers?.priceCurrency,
+              availability:cases.nutcracker.schema?.offers?.availability,
+              image:cases.nutcracker.schema?.image,
+              exactWidth:cases.nutcracker.scrollWidth===cases.nutcracker.viewport
+            },
+            mermaid:{
+              type:cases.mermaid.schema?.['@type'],
+              hasOffers:Boolean(cases.mermaid.schema?.offers),
+              leaks3500:cases.mermaid.text.includes('3500'),
+              leaksPreorder:cases.mermaid.text.toLowerCase().includes('предзаказ'),
+              exactWidth:cases.mermaid.scrollWidth===cases.mermaid.viewport
+            },
+            azimondias:{
+              type:cases.azimondias.schema?.['@type'],
+              hasOffers:Boolean(cases.azimondias.schema?.offers),
+              exactWidth:cases.azimondias.scrollWidth===cases.azimondias.viewport
+            },
+            russianWorld:{
+              leaksMermaid3500:russianPage.text.includes('Русалка') && russianPage.text.includes('3500'),
+              exactWidth:russianPage.scrollWidth===russianPage.viewport
+            }
+          };
+          fs.writeFileSync('qa/schema/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+
+          const ok=
+            errors.length===0 &&
+            report.itemListType==='ItemList' &&
+            report.itemCount===17 &&
+            report.listEntries===17 &&
+            report.nutcracker.type==='Product' &&
+            report.nutcracker.price==='3000' &&
+            report.nutcracker.currency==='RUB' &&
+            report.nutcracker.availability==='https://schema.org/InStock' &&
+            report.nutcracker.exactWidth &&
+            report.mermaid.type==='Product' &&
+            !report.mermaid.hasOffers &&
+            !report.mermaid.leaks3500 &&
+            !report.mermaid.leaksPreorder &&
+            report.mermaid.exactWidth &&
+            report.azimondias.type==='Product' &&
+            !report.azimondias.hasOffers &&
+            report.azimondias.exactWidth &&
+            report.russianWorld.exactWidth;
+          await browser.close();
+          if(!ok) process.exit(1);
+          EOF
+          node qa/schema/check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: schema-check
+          path: qa/schema
+          retention-days: 1
