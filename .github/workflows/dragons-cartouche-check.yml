@@ -42,7 +42,7 @@ jobs:
           page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
           page.on('pageerror',e=>pageErrors.push(String(e)));
           await page.goto('http://127.0.0.1:4173/collection.html?world=dragons',{waitUntil:'networkidle'});
-          if(document.fonts?.ready) await page.evaluate(()=>document.fonts.ready);
+          await page.evaluate(async()=>{ if(document.fonts?.ready) await document.fonts.ready; });
           await page.screenshot({path:'qa/dragons-cartouche/dragons-1440.png',fullPage:false});
           const report=await page.evaluate(()=>({
             viewport:innerWidth,
