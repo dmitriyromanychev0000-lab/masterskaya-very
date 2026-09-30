@@ -3241,3 +3241,30 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
     margin-bottom:8px;
   }
 }
+
+
+/* ===== Residents archive restoration — pass 2 ===== */
+/* In the archived mobile World bands, entering a World was a primary visible action, not a tiny text link. */
+@media (max-width:620px) {
+  .res-world-link,
+  .res-world--night .res-world-link {
+    display:flex;
+    width:100%;
+    min-height:48px;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    margin-top:18px;
+    padding:0 16px;
+    border:1px solid rgba(232,201,143,.58);
+    border-radius:24px;
+    background:rgba(8,6,5,.30);
+    color:var(--cream);
+    font-size:11px;
+    letter-spacing:.10em;
+    text-decoration:none;
+  }
+  .res-world-link span {
+    font-size:16px;
+  }
+}
