@@ -972,7 +972,10 @@ const initWorldAtmosphere = () => {
 
   const setWorld = (world) => {
     const next = WORLD_EFFECT_BY_SLUG[world] || null;
-    if (next === effect) return;
+    if (next === effect) {
+      canvas.hidden = !next;
+      return;
+    }
     effect = next;
     canvas.dataset.effect = next || 'none';
     canvas.hidden = !next;
