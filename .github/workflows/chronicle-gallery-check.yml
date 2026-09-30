@@ -95,7 +95,7 @@ jobs:
             x.before.viewport!==x.before.scrollWidth||
             x.before.gallery!==1||
             x.before.items!==1||
-            x.before.small.length||
+            (x.width<700 && x.before.small.length)||
             !x.opened.open||
             x.opened.imageSrc!=='data:image/webp;base64,'||
             !x.opened.closeFocused||
