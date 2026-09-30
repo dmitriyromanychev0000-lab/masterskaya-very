@@ -1,0 +1,115 @@
+name: One-off chronicle gallery check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/chronicle-gallery-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS 'http://127.0.0.1:4173/chronicle.html?resident=humpbacked-horse' >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify gallery
+        run: |
+          mkdir -p qa/gallery
+          cat > qa/gallery/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+
+          for(const width of [320,430,1440]){
+            const mobile=width<700;
+            const ctx=await browser.newContext({viewport:{width,height:mobile?900:1000},isMobile:mobile,hasTouch:mobile});
+            const page=await ctx.newPage();
+            const errors=[],consoleErrors=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+            await page.goto('http://127.0.0.1:4173/chronicle.html?resident=humpbacked-horse',{waitUntil:'networkidle'});
+            await page.evaluate(async()=>{if(document.fonts?.ready)await document.fonts.ready});
+            const button=page.locator('[data-chronicle-gallery-item]').first();
+            const before=await page.evaluate(()=>({
+              viewport:innerWidth,
+              scrollWidth:document.documentElement.scrollWidth,
+              gallery:document.querySelectorAll('.chronicle-gallery').length,
+              items:document.querySelectorAll('[data-chronicle-gallery-item]').length,
+              small:[...document.querySelectorAll('a,button,summary')].filter(e=>{const r=e.getBoundingClientRect(),cs=getComputedStyle(e);return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>0&&r.height>0&&(r.width<44||r.height<44)}).map(e=>({text:e.textContent.trim().replace(/\s+/g,' ').slice(0,50),w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height)}))
+            }));
+            await button.click();
+            const opened=await page.evaluate(()=>({
+              open:document.querySelector('[data-chronicle-lightbox]')?.open,
+              imageSrc:document.querySelector('[data-chronicle-lightbox-image]')?.getAttribute('src')?.slice(0,23),
+              closeFocused:document.activeElement===document.querySelector('[data-chronicle-lightbox-close]')
+            }));
+            await page.keyboard.press('Escape');
+            const closed=await page.evaluate(()=>({
+              open:document.querySelector('[data-chronicle-lightbox]')?.open,
+              focusReturned:document.activeElement===document.querySelector('[data-chronicle-gallery-item]')
+            }));
+            await page.screenshot({path:`qa/gallery/horse-${width}.png`,fullPage:true});
+            report.push({width,before,opened,closed,errors,consoleErrors});
+            await ctx.close();
+          }
+
+          {
+            const ctx=await browser.newContext({viewport:{width:320,height:900},isMobile:true,hasTouch:true});
+            const page=await ctx.newPage();
+            await page.goto('http://127.0.0.1:4173/chronicle.html?resident=nutcracker',{waitUntil:'networkidle'});
+            report.push({
+              resident:'nutcracker',
+              gallery:await page.locator('.chronicle-gallery').count(),
+              items:await page.locator('[data-chronicle-gallery-item]').count(),
+              viewport:await page.evaluate(()=>innerWidth),
+              scrollWidth:await page.evaluate(()=>document.documentElement.scrollWidth)
+            });
+            await ctx.close();
+          }
+
+          await browser.close();
+          fs.writeFileSync('qa/gallery/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+
+          const horse=report.filter(x=>x.width);
+          const other=report.find(x=>x.resident==='nutcracker');
+          const failed=horse.some(x=>
+            x.before.viewport!==x.before.scrollWidth||
+            x.before.gallery!==1||
+            x.before.items!==1||
+            x.before.small.length||
+            !x.opened.open||
+            x.opened.imageSrc!=='data:image/webp;base64,'||
+            !x.opened.closeFocused||
+            x.closed.open||
+            !x.closed.focusReturned||
+            x.errors.length||
+            x.consoleErrors.length
+          ) || other.gallery!==0 || other.items!==0 || other.viewport!==other.scrollWidth;
+          if(failed) process.exit(1);
+          EOF
+          node qa/gallery/check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: chronicle-gallery-check
+          path: qa/gallery
+          retention-days: 1
