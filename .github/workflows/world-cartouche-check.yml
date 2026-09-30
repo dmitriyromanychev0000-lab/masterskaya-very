@@ -1,0 +1,80 @@
+name: One-off world cartouche check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/world-cartouche-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS 'http://127.0.0.1:4173/collection.html?world=winter' >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Capture
+        run: |
+          mkdir -p qa/cartouches
+          cat > qa/cartouches/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+          for(const world of ['winter','forest','russian','dragons']){
+            const ctx=await browser.newContext({viewport:{width:1440,height:1000}});
+            const page=await ctx.newPage();
+            const errors=[],failed=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            page.on('requestfailed',r=>failed.push(r.url()));
+            await page.goto(`http://127.0.0.1:4173/collection.html?world=${world}`,{waitUntil:'networkidle'});
+            await page.evaluate(async()=>{if(document.fonts?.ready)await document.fonts.ready});
+            await page.screenshot({path:`qa/cartouches/${world}-1440.png`,fullPage:true});
+            const m=await page.evaluate(()=>({
+              scrollWidth:document.documentElement.scrollWidth,
+              viewport:innerWidth,
+              cartouches:document.querySelectorAll('.world-cartouche').length,
+              visibleCartouches:[...document.querySelectorAll('.world-cartouche')].filter(e=>getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0).length,
+              cartoucheComplete:[...document.querySelectorAll('.world-cartouche')].every(e=>e.complete&&e.naturalWidth>0)
+            }));
+            report.push({world,width:1440,...m,errors,failed});
+            await ctx.close();
+          }
+          for(const world of ['winter','russian']){
+            const ctx=await browser.newContext({viewport:{width:320,height:900},isMobile:true,hasTouch:true});
+            const page=await ctx.newPage();
+            await page.goto(`http://127.0.0.1:4173/collection.html?world=${world}`,{waitUntil:'networkidle'});
+            const m=await page.evaluate(()=>({
+              scrollWidth:document.documentElement.scrollWidth,
+              viewport:innerWidth,
+              cartouches:document.querySelectorAll('.world-cartouche').length,
+              visibleCartouches:[...document.querySelectorAll('.world-cartouche')].filter(e=>getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0).length
+            }));
+            report.push({world,width:320,...m});
+            await ctx.close();
+          }
+          await browser.close();
+          fs.writeFileSync('qa/cartouches/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          EOF
+          node qa/cartouches/check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: world-cartouche-check
+          path: qa/cartouches
+          retention-days: 1
