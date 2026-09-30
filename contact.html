@@ -80,14 +80,25 @@
         </div>
 
         <div class="contact-card contact-card--form">
-          <h2>Чтобы Вера ответила быстрее</h2>
-          <p class="contact-form-note">Можно написать свободно. Если вопрос о конкретной работе, достаточно трёх вещей:</p>
-          <ol class="contact-brief">
-            <li><span>01</span><div><strong>Кто понравился</strong><p>Имя Жителя или ссылка на его Хронику.</p></div></li>
-            <li><span>02</span><div><strong>Что хотите узнать</strong><p>Цена, размер, срок, бронь или индивидуальный заказ.</p></div></li>
-            <li><span>03</span><div><strong>Куда доставлять</strong><p>Город или страна — чтобы сразу понять вариант отправки.</p></div></li>
-          </ol>
-          <a class="button button-primary" href="https://t.me/masterskayaver">Написать Вере в Telegram</a>
+          <p class="eyebrow">Если удобнее письмом</p>
+          <h2>Оставьте сообщение</h2>
+          <p class="contact-form-note">Вера прочитает его сама. Форма подготовит текст, скопирует его и откроет Telegram — ничего не отправляется в пустоту.</p>
+          <form class="contact-message-form" data-contact-message-form>
+            <label class="contact-field">
+              <span>Как вас зовут</span>
+              <input type="text" name="name" autocomplete="name" placeholder="Имя" required>
+            </label>
+            <label class="contact-field">
+              <span>Как ответить</span>
+              <input type="text" name="reply" autocomplete="email" placeholder="Telegram, почта или телефон" required>
+            </label>
+            <label class="contact-field">
+              <span>О ком или о чём речь</span>
+              <textarea name="message" rows="5" placeholder="Расскажите, кто понравился или кого хотите создать" required></textarea>
+            </label>
+            <button class="button button-primary" type="submit">Скопировать и открыть Telegram</button>
+            <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite"></p>
+          </form>
           <a class="contact-create-link text-link" href="create.html">Обсудить индивидуальную идею <span aria-hidden="true">→</span></a>
         </div>
       </div>

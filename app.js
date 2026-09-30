@@ -895,6 +895,72 @@ const initChronicle = () => {
 
 initChronicle();
 
+const initContactMessageForm = () => {
+  const form = document.querySelector('[data-contact-message-form]');
+  if (!form) return;
+
+  const status = form.querySelector('[data-contact-form-status]');
+
+  const fallbackCopy = (text) => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    const copied = document.execCommand('copy');
+    textarea.remove();
+    return copied;
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const reply = String(data.get('reply') || '').trim();
+    const message = String(data.get('message') || '').trim();
+    const text = [
+      'Здравствуйте! Пишу с сайта Мастерской Веры.',
+      '',
+      `Меня зовут: ${name}`,
+      `Как ответить: ${reply}`,
+      '',
+      message
+    ].join('\n');
+
+    const telegramWindow = window.open('https://t.me/masterskayaver', '_blank', 'noopener');
+
+    let copied = false;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      } else {
+        copied = fallbackCopy(text);
+      }
+    } catch {
+      copied = fallbackCopy(text);
+    }
+
+    if (status) {
+      status.textContent = copied
+        ? 'Текст скопирован. Вставьте его в открывшийся Telegram.'
+        : 'Telegram открыт. Скопируйте текст из полей формы вручную.';
+    }
+
+    if (!telegramWindow && status) {
+      status.textContent += ' Если вкладка не открылась, используйте кнопку Telegram слева.';
+    }
+  });
+};
+
+initContactMessageForm();
+
+
+
 const RESIDENT_SLUG_BY_NAME = Object.fromEntries(
   Object.entries(CHRONICLE_RESIDENTS).map(([slug, resident]) => [resident.name, slug])
 );
