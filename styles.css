@@ -4297,3 +4297,11 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
   .contact-field input { min-height:50px; }
   .contact-field textarea { min-height:118px; }
 }
+
+
+/* Home hero mobile — remove inherited desktop minimum */
+@media (max-width:620px) {
+  .hero-showcase {
+    min-height:0;
+  }
+}
