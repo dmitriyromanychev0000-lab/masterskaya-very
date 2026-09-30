@@ -51,7 +51,7 @@ jobs:
                 const c=byName(name);
                 return c?{
                   status:c.querySelector('.resident-status')?.textContent.trim()||null,
-                  price:c.querySelector('.resident-price')?.textContent.trim()||null,
+                  price:c.querySelector('.resident-price')?.textContent.trim().replace(/\s+/g,' ')||null,
                   stock:c.querySelector('.resident-stock')?.textContent.trim()||null,
                   button:c.querySelector('.resident-actions .button')?.textContent.trim()||null,
                   buttonClass:c.querySelector('.resident-actions .button')?.className||null,
