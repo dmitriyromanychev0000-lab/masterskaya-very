@@ -1183,6 +1183,7 @@ const initWorldAtmosphere = () => {
   let effect = null;
   let particles = [];
   let frame = 0;
+  const frameInterval = 1000 / 36;
   let lastTime = performance.now();
 
   const resize = () => {
@@ -1309,7 +1310,13 @@ const initWorldAtmosphere = () => {
     frame = 0;
     if (!effect || document.hidden) return;
 
-    const dt = Math.min(32, Math.max(8, now - lastTime));
+    const elapsed = now - lastTime;
+    if (elapsed < frameInterval) {
+      frame = requestAnimationFrame(tick);
+      return;
+    }
+
+    const dt = Math.min(36, Math.max(frameInterval, elapsed));
     lastTime = now;
     ctx.clearRect(0, 0, width, height);
 
