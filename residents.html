@@ -81,13 +81,26 @@
         </a>
       </div>
 
-      <div class="residents-filter-row">
-        <p class="eyebrow">Показать</p>
-        <div class="filters" role="group" aria-label="Фильтр Жителей">
-          <button class="chip is-active" type="button">Все</button>
-          <button class="chip" type="button">Можно приобрести</button>
-          <button class="chip" type="button">В работе</button>
-          <button class="chip" type="button">Нашёл Хранителя</button>
+      <div class="residents-filter-row" aria-label="Фильтры Жителей">
+        <div class="resident-filter-group">
+          <p class="resident-filter-label">Мир</p>
+          <div class="filters" role="group" aria-label="Фильтр по Миру">
+            <button class="chip is-active" type="button" data-filter-world="" aria-pressed="true">Все Миры</button>
+            <button class="chip" type="button" data-filter-world="winter" aria-pressed="false">Зимние легенды</button>
+            <button class="chip" type="button" data-filter-world="forest" aria-pressed="false">Тайны древнего леса</button>
+            <button class="chip" type="button" data-filter-world="dragons" aria-pressed="false">Древние существа</button>
+            <button class="chip" type="button" data-filter-world="russian" aria-pressed="false">Русские сказки</button>
+            <button class="chip" type="button" data-filter-world="home" aria-pressed="false">Домашние легенды</button>
+          </div>
+        </div>
+        <div class="resident-filter-group">
+          <p class="resident-filter-label">Статус</p>
+          <div class="filters" role="group" aria-label="Фильтр по статусу">
+            <button class="chip is-active" type="button" data-filter-status="" aria-pressed="true">Все статусы</button>
+            <button class="chip" type="button" data-filter-status="resident-status-available" aria-pressed="false">Можно приобрести</button>
+            <button class="chip" type="button" data-filter-status="resident-status-progress" aria-pressed="false">В работе</button>
+            <button class="chip" type="button" data-filter-status="resident-status-archive" aria-pressed="false">Нашёл Хранителя</button>
+          </div>
         </div>
       </div>
     </section>

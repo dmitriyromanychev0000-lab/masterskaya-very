@@ -816,50 +816,65 @@ const RESIDENT_FILTER_CLASS = {
 };
 
 const initResidentFilters = () => {
-  const filters = document.querySelector('.filters');
-  if (!filters) return;
+  const filterRoot = document.querySelector('.residents-filter-row');
+  if (!filterRoot) return;
 
-  const buttons = [...filters.querySelectorAll('.chip')];
-  const worlds = [...document.querySelectorAll('.res-world')];
+  const worldButtons = [...filterRoot.querySelectorAll('[data-filter-world]')];
+  const statusButtons = [...filterRoot.querySelectorAll('[data-filter-status]')];
+  const worlds = [...document.querySelectorAll('.res-world[data-world]')];
 
-  const applyFilter = (statusClass) => {
+  let activeWorld = '';
+  let activeStatus = '';
+
+  const setPressed = (buttons, activeButton) => {
+    buttons.forEach((button) => {
+      const active = button === activeButton;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+  };
+
+  const applyFilters = () => {
     worlds.forEach((world) => {
+      const worldMatches = !activeWorld || world.dataset.world === activeWorld;
       const cards = [...world.querySelectorAll('.resident-card')];
       let visibleCount = 0;
 
       cards.forEach((card) => {
         const status = card.querySelector('.resident-status');
-        const visible = !statusClass || status?.classList.contains(statusClass);
+        const statusMatches = !activeStatus || status?.classList.contains(activeStatus);
+        const visible = worldMatches && statusMatches;
         card.hidden = !visible;
         if (visible) visibleCount += 1;
       });
 
-      world.hidden = visibleCount === 0;
+      world.hidden = !worldMatches || visibleCount === 0;
 
       const count = world.querySelector('.res-world-head .eyebrow');
       if (count) {
-        const shown = statusClass ? visibleCount : cards.length;
+        const shown = worldMatches ? visibleCount : 0;
         count.textContent = `${shown} ${residentsWord(shown)}`;
       }
     });
   };
 
-  buttons.forEach((button, index) => {
-    button.setAttribute('aria-pressed', String(index === 0));
-
+  worldButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const label = button.textContent.trim();
-      const statusClass = RESIDENT_FILTER_CLASS[label] ?? null;
-
-      buttons.forEach((item) => {
-        const active = item === button;
-        item.classList.toggle('is-active', active);
-        item.setAttribute('aria-pressed', String(active));
-      });
-
-      applyFilter(statusClass);
+      activeWorld = button.dataset.filterWorld || '';
+      setPressed(worldButtons, button);
+      applyFilters();
     });
   });
+
+  statusButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeStatus = button.dataset.filterStatus || '';
+      setPressed(statusButtons, button);
+      applyFilters();
+    });
+  });
+
+  applyFilters();
 };
 
 initResidentFilters();
