@@ -272,6 +272,12 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => (
 
 const formatPrice = (value = '') => escapeHtml(value).replace(/ (?=₽)/g, '&nbsp;');
 
+const COLLECTION_RESIDENT_BY_SLUG = new Map(
+  Object.values(COLLECTION_WORLDS)
+    .flatMap((world) => world.residents)
+    .map((resident) => [resident.chronicle, resident])
+);
+
 const parseSchemaPrice = (value = '') => {
   const match = String(value).replace(/\s/g, '').match(/\d+(?:[.,]\d+)?/);
   return match ? match[0].replace(',', '.') : null;
@@ -1003,18 +1009,12 @@ const syncStaticResidentCards = () => {
   const cards = [...document.querySelectorAll('.resident-card')];
   if (!cards.length) return;
 
-  const residents = new Map(
-    Object.values(COLLECTION_WORLDS)
-      .flatMap((world) => world.residents)
-      .map((resident) => [resident.chronicle, resident])
-  );
-
   cards.forEach((card) => {
     const chronicleLink = card.querySelector('.resident-actions .text-link[href*="chronicle.html?resident="]');
     if (!chronicleLink) return;
 
     const slug = new URL(chronicleLink.href, window.location.href).searchParams.get('resident');
-    const resident = slug ? residents.get(slug) : null;
+    const resident = slug ? COLLECTION_RESIDENT_BY_SLUG.get(slug) : null;
     if (!resident) return;
 
     const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
@@ -1061,6 +1061,25 @@ const syncStaticResidentCards = () => {
 };
 
 syncStaticResidentCards();
+
+const syncKeeperCardsFromData = () => {
+  document.querySelectorAll('.keeper-card').forEach((card) => {
+    const link = card.querySelector('.keeper-card-link[href*="chronicle.html?resident="]');
+    const value = card.querySelector('.keeper-summary p');
+    if (!link || !value) return;
+
+    const slug = new URL(link.href, window.location.href).searchParams.get('resident');
+    const resident = slug ? COLLECTION_RESIDENT_BY_SLUG.get(slug) : null;
+    if (!resident) return;
+
+    const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
+    value.textContent = resident.status === 'available' && resident.price
+      ? resident.price
+      : status.label;
+  });
+};
+
+syncKeeperCardsFromData();
 
 const RESIDENT_FILTER_CLASS = {
   'Все': null,
