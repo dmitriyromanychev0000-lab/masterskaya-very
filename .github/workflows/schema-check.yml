@@ -61,11 +61,15 @@ jobs:
             });
           }
 
-          const russianPage=await page.goto('http://127.0.0.1:4173/collection.html?world=russian',{waitUntil:'networkidle'}).then(()=>page.evaluate(()=>({
-            text:document.body.innerText,
-            scrollWidth:document.documentElement.scrollWidth,
-            viewport:innerWidth
-          })));
+          const russianPage=await page.goto('http://127.0.0.1:4173/collection.html?world=russian',{waitUntil:'networkidle'}).then(()=>page.evaluate(()=>{
+            const row=[...document.querySelectorAll('.world-resident-row')].find((item)=>item.querySelector('h3')?.textContent?.trim()==='Русалка');
+            const mermaidText=row?.innerText || '';
+            return {
+              mermaidText,
+              scrollWidth:document.documentElement.scrollWidth,
+              viewport:innerWidth
+            };
+          }));
 
           const report={
             errors,
@@ -93,7 +97,9 @@ jobs:
               exactWidth:cases.azimondias.scrollWidth===cases.azimondias.viewport
             },
             russianWorld:{
-              leaksMermaid3500:russianPage.text.includes('Русалка') && russianPage.text.includes('3500'),
+              mermaidText:russianPage.mermaidText,
+              leaksMermaid3500:russianPage.mermaidText.includes('3500'),
+              leaksMermaidPreorder:russianPage.mermaidText.toLowerCase().includes('предзаказ'),
               exactWidth:russianPage.scrollWidth===russianPage.viewport
             }
           };
@@ -118,6 +124,8 @@ jobs:
             report.azimondias.type==='Product' &&
             !report.azimondias.hasOffers &&
             report.azimondias.exactWidth &&
+            !report.russianWorld.leaksMermaid3500 &&
+            !report.russianWorld.leaksMermaidPreorder &&
             report.russianWorld.exactWidth;
           await browser.close();
           if(!ok) process.exit(1);
