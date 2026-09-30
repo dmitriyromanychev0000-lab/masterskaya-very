@@ -999,6 +999,69 @@ const hydrateStaticResidentMedia = () => {
 
 hydrateStaticResidentMedia();
 
+const syncStaticResidentCards = () => {
+  const cards = [...document.querySelectorAll('.resident-card')];
+  if (!cards.length) return;
+
+  const residents = new Map(
+    Object.values(COLLECTION_WORLDS)
+      .flatMap((world) => world.residents)
+      .map((resident) => [resident.chronicle, resident])
+  );
+
+  cards.forEach((card) => {
+    const chronicleLink = card.querySelector('.resident-actions .text-link[href*="chronicle.html?resident="]');
+    if (!chronicleLink) return;
+
+    const slug = new URL(chronicleLink.href, window.location.href).searchParams.get('resident');
+    const resident = slug ? residents.get(slug) : null;
+    if (!resident) return;
+
+    const status = COLLECTION_STATUS[resident.status] || COLLECTION_STATUS.progress;
+    const statusNode = card.querySelector('.resident-status');
+    if (statusNode) {
+      statusNode.className = `resident-status ${status.modifier}`;
+      statusNode.textContent = status.label;
+    }
+
+    const isArchive = resident.status === 'archive';
+    card.classList.toggle('resident-card-archive', isArchive);
+
+    let meta = card.querySelector('.resident-meta');
+    if (isArchive) {
+      meta?.remove();
+    } else {
+      if (!meta) {
+        meta = document.createElement('p');
+        meta.className = 'resident-meta';
+        card.querySelector('.resident-actions')?.before(meta);
+      }
+      if (meta) {
+        meta.innerHTML = `<span class="resident-price">${formatPrice(resident.price || 'Цена по запросу')}</span>${resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : ''}`;
+      }
+    }
+
+    const actions = card.querySelector('.resident-actions');
+    if (!actions) return;
+
+    let orderButton = actions.querySelector('.button');
+    if (isArchive) {
+      orderButton?.remove();
+      return;
+    }
+
+    if (!orderButton) {
+      orderButton = document.createElement('a');
+      orderButton.href = 'https://t.me/masterskayaver';
+      orderButton.textContent = 'Написать Вере';
+      actions.appendChild(orderButton);
+    }
+    orderButton.className = `button button-${status.button || 'primary'} button-small`;
+  });
+};
+
+syncStaticResidentCards();
+
 const RESIDENT_FILTER_CLASS = {
   'Все': null,
   'Можно приобрести': 'resident-status-available',
