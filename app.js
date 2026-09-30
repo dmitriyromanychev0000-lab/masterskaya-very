@@ -1,3 +1,31 @@
+const loadWorkshopFonts = () => {
+  if (document.querySelector('link[data-workshop-fonts]')) return;
+
+  const addPreconnect = (href, crossOrigin = false) => {
+    if (document.querySelector(`link[rel="preconnect"][href="${href}"]`)) return;
+    const link = document.createElement('link');
+    link.rel = 'preconnect';
+    link.href = href;
+    if (crossOrigin) link.crossOrigin = 'anonymous';
+    document.head.appendChild(link);
+  };
+
+  addPreconnect('https://fonts.googleapis.com');
+  addPreconnect('https://fonts.gstatic.com', true);
+
+  const stylesheet = document.createElement('link');
+  stylesheet.rel = 'stylesheet';
+  stylesheet.href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap';
+  stylesheet.media = 'print';
+  stylesheet.dataset.workshopFonts = 'true';
+  stylesheet.addEventListener('load', () => {
+    stylesheet.media = 'all';
+  }, { once: true });
+  document.head.appendChild(stylesheet);
+};
+
+loadWorkshopFonts();
+
 const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('[data-menu-button]');
 const mobileMenu = document.querySelector('[data-mobile-menu]');
