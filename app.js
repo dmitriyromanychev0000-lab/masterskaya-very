@@ -535,7 +535,13 @@ const CHRONICLE_RESIDENTS = {
     status: 'available',
     price: '4000 ₽',
     stock: 'готово: 2',
-    story: 'Верный спутник из старой сказки — маленький, горбатый и по-настоящему сказочный.'
+    story: 'Верный спутник из старой сказки — маленький, горбатый и по-настоящему сказочный.',
+    gallery: [
+      {
+        src: 'data:image/webp;base64,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',
+        alt: 'Конёк-Горбунок — студийный вид спереди на нейтральном фоне'
+      }
+    ]
   },
   'hen': {
     name: 'Курочка',
@@ -619,6 +625,32 @@ const renderChronicleNeighbors = (slug, resident) => {
           <strong>${escapeHtml(item.name)}</strong>
         </a>`).join('')}
     </nav>`;
+};
+
+const renderChronicleGallery = (resident) => {
+  if (!resident.gallery?.length) return '';
+
+  const items = resident.gallery.map((image, index) => `
+          <button class="chronicle-gallery-item" type="button" data-chronicle-gallery-item="${index}" aria-label="Открыть студийный ракурс: ${escapeHtml(resident.name)}">
+            <img src="${image.src}" alt="${escapeHtml(image.alt)}" width="320" height="320" loading="lazy" decoding="async">
+            <span>Открыть крупнее</span>
+          </button>`).join('');
+
+  return `
+    <section class="chronicle-gallery" aria-labelledby="chronicle-gallery-title">
+      <div class="chronicle-gallery-shell">
+        <div class="chronicle-gallery-head">
+          <p class="eyebrow">Без декораций</p>
+          <h2 id="chronicle-gallery-title">Рассмотреть ближе</h2>
+          <p>Студийный кадр показывает саму работу без постановочного Мира.</p>
+        </div>
+        <div class="chronicle-gallery-grid">${items}</div>
+      </div>
+      <dialog class="chronicle-lightbox" data-chronicle-lightbox aria-label="Увеличенный студийный ракурс">
+        <button class="chronicle-lightbox-close" type="button" data-chronicle-lightbox-close aria-label="Закрыть изображение">×</button>
+        <img data-chronicle-lightbox-image alt="">
+      </dialog>
+    </section>`;
 };
 
 const renderChronicleNext = (slug, resident) => {
@@ -714,8 +746,49 @@ const renderChronicle = (slug, resident) => {
       </div>
     </section>
 
+    ${renderChronicleGallery(resident)}
     ${renderChronicleNext(slug, resident)}
     ${sticky}`;
+};
+
+const initChronicleGallery = (resident) => {
+  if (!resident.gallery?.length) return;
+
+  const dialog = document.querySelector('[data-chronicle-lightbox]');
+  const image = dialog?.querySelector('[data-chronicle-lightbox-image]');
+  const closeButton = dialog?.querySelector('[data-chronicle-lightbox-close]');
+  const buttons = [...document.querySelectorAll('[data-chronicle-gallery-item]')];
+  if (!dialog || !image || !closeButton || !buttons.length) return;
+
+  let trigger = null;
+
+  const close = () => {
+    if (dialog.open) dialog.close();
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const index = Number(button.dataset.chronicleGalleryItem);
+      const item = resident.gallery[index];
+      if (!item) return;
+      trigger = button;
+      image.src = item.src;
+      image.alt = item.alt;
+      dialog.showModal();
+      closeButton.focus();
+    });
+  });
+
+  closeButton.addEventListener('click', close);
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) close();
+  });
+  dialog.addEventListener('close', () => {
+    image.removeAttribute('src');
+    image.alt = '';
+    trigger?.focus();
+    trigger = null;
+  });
 };
 
 const initChronicleSticky = () => {
@@ -816,6 +889,7 @@ const initChronicle = () => {
 
   setStructuredData('product', product);
   root.innerHTML = renderChronicle(slug, resident);
+  initChronicleGallery(resident);
   initChronicleSticky();
 };
 
