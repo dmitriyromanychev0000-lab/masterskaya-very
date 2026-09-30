@@ -4345,3 +4345,21 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
     font-size:clamp(60px,5.2vw,76px);
   }
 }
+
+
+/* Archive brand lockup — desktop tagline */
+@media (min-width:1180px) {
+  .brand-copy::after {
+    content:"Уникальные фигурки с характером";
+    display:block;
+    margin-top:7px;
+    color:var(--muted);
+    font-family:var(--sans);
+    font-size:7px;
+    font-weight:600;
+    line-height:1.2;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+}
