@@ -190,3 +190,5 @@
 - [x] Dragons cartouche: прозрачность восстановлена из архивного WebP с запечённой шахматкой, края проверены на тёмном и кремовом фоне; рабочий WebP 720×450 ~115 KB подключён только на desktop.
 
 - [x] Атмосфера Миров: canvas ограничен до ~36 fps, как в финальной старой версии; hidden-tab stop / reduced-motion / IntersectionObserver сохранены. Snow/Fireflies остаются только на подтверждённых Winter/Forest — Embers/Dust не распределяются без точного старого мэппинга.
+
+- [x] Dragons cartouche QA: 1440/1440, 1 картуш, natural 720×450, 0 failed requests, 0 console/page errors; восстановленная прозрачность визуально чистая на реальном фоне Мира.
