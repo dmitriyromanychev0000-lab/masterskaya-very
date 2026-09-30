@@ -1,0 +1,84 @@
+name: Restore dragons cartouche
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/restore-dragons-cartouche.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: pip install pillow
+
+      - name: Remove baked checkerboard and wire cartouche
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageFilter
+          import numpy as np
+
+          source = Path(".tmp/cartouche-dragons-source.webp")
+          target = Path("assets/worlds/cartouche-dragons.webp")
+
+          im = Image.open(source).convert("RGB")
+          arr = np.asarray(im).astype(np.float32)
+          chroma = arr.max(axis=2) - arr.min(axis=2)
+          warm = arr[:, :, 0] - arr[:, :, 2]
+
+          alpha = np.clip((chroma - 4.0) / 20.0 * 255.0, 0, 255)
+          alpha = np.maximum(alpha, np.clip((warm - 8.0) / 28.0 * 255.0, 0, 255))
+          alpha_im = Image.fromarray(alpha.astype("uint8"), "L").filter(ImageFilter.GaussianBlur(0.45))
+
+          rgba = im.convert("RGBA")
+          rgba.putalpha(alpha_im)
+          target.parent.mkdir(parents=True, exist_ok=True)
+          rgba.save(target, "WEBP", quality=85, method=6)
+
+          app = Path("app.js")
+          text = app.read_text(encoding="utf-8")
+          anchor = """  dragons: {
+    title: 'Древние существа',
+    description: 'Чешуя, крылья и память о временах, которых не застал никто. Мир тех, кто старше сказок.',
+    tone: 'paper',"""
+          replacement = anchor + """
+    cartouche: 'assets/worlds/cartouche-dragons.webp',"""
+          if "cartouche: 'assets/worlds/cartouche-dragons.webp'" not in text:
+              if anchor not in text:
+                  raise SystemExit("dragons world anchor not found")
+              text = text.replace(anchor, replacement)
+              app.write_text(text, encoding="utf-8")
+
+          progress = Path("PROGRESS.md")
+          p = progress.read_text(encoding="utf-8")
+          line = "- [x] Древние существа: восстановлен четвёртый desktop-картуш из старого исходника; запечённая шахматка очищена до прозрачности без генерации нового рисунка.\n"
+          if line not in p:
+              progress.write_text(p + "\n" + line, encoding="utf-8")
+          PY
+
+      - name: Remove one-off inputs
+        run: |
+          rm -f .tmp/cartouche-dragons-source.webp
+          rm -f .github/workflows/restore-dragons-cartouche.yml
+
+      - name: Commit restored cartouche
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "style(worlds): restore dragons cartouche"
+          git push
