@@ -1,0 +1,66 @@
+name: One-off dragons cartouche check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/dragons-cartouche-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Start site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for i in {1..20}; do curl -fsS 'http://127.0.0.1:4173/collection.html?world=dragons' >/dev/null && exit 0; sleep 1; done
+          cat /tmp/site.log; exit 1
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify
+        run: |
+          mkdir -p qa/dragons-cartouche
+          cat > qa/dragons-cartouche/check.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true});
+          const ctx=await browser.newContext({viewport:{width:1440,height:1000}});
+          const page=await ctx.newPage();
+          const failed=[],consoleErrors=[],pageErrors=[];
+          page.on('requestfailed',r=>failed.push(r.url()));
+          page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+          page.on('pageerror',e=>pageErrors.push(String(e)));
+          await page.goto('http://127.0.0.1:4173/collection.html?world=dragons',{waitUntil:'networkidle'});
+          if(document.fonts?.ready) await page.evaluate(()=>document.fonts.ready);
+          await page.screenshot({path:'qa/dragons-cartouche/dragons-1440.png',fullPage:false});
+          const report=await page.evaluate(()=>({
+            viewport:innerWidth,
+            scrollWidth:document.documentElement.scrollWidth,
+            cartoucheCount:document.querySelectorAll('.world-cartouche').length,
+            src:document.querySelector('.world-cartouche')?.getAttribute('src')||null,
+            naturalWidth:document.querySelector('.world-cartouche')?.naturalWidth||0,
+            naturalHeight:document.querySelector('.world-cartouche')?.naturalHeight||0,
+            display:getComputedStyle(document.querySelector('.world-cartouche')).display
+          }));
+          report.failed=failed; report.consoleErrors=consoleErrors; report.pageErrors=pageErrors;
+          fs.writeFileSync('qa/dragons-cartouche/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          await browser.close();
+          EOF
+          node qa/dragons-cartouche/check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dragons-cartouche-check
+          path: qa/dragons-cartouche
+          retention-days: 1
