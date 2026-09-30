@@ -642,7 +642,7 @@ const renderChronicleGallery = (resident) => {
     return `
           <button class="chronicle-gallery-item" type="button" data-chronicle-gallery-item="${index}" aria-label="Открыть студийный ракурс: ${escapeHtml(resident.name)}">
             ${visual}
-            <span>Открыть крупнее</span>
+            <span class="chronicle-gallery-open-label">Открыть крупнее</span>
           </button>`;
   }).join('');
 
