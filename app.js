@@ -26,6 +26,39 @@ const loadWorkshopFonts = () => {
 
 loadWorkshopFonts();
 
+
+const initBackTop = () => {
+  if (document.querySelector('[data-back-top]')) return;
+
+  const button = document.createElement('button');
+  button.className = 'back-top';
+  button.type = 'button';
+  button.setAttribute('aria-label', 'Наверх');
+  button.setAttribute('data-back-top', '');
+  button.innerHTML = '<span aria-hidden="true">↑</span>';
+  document.body.appendChild(button);
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const sync = () => {
+    const threshold = Math.max(560, window.innerHeight * 0.8);
+    button.classList.toggle('is-visible', window.scrollY > threshold);
+  };
+
+  button.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: reduceMotion.matches ? 'auto' : 'smooth'
+    });
+  });
+
+  window.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync, { passive: true });
+  sync();
+};
+
+initBackTop();
+
 const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('[data-menu-button]');
 const mobileMenu = document.querySelector('[data-mobile-menu]');
