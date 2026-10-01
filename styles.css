@@ -4518,3 +4518,37 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
 @media (prefers-reduced-motion:reduce) {
   .back-top { transition:none; }
 }
+
+
+/* Confirmed archive principle vignettes */
+.about-principle {
+  overflow:hidden;
+  padding-right:112px;
+}
+.about-principle::before {
+  content:"";
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:74px;
+  height:74px;
+  background:center/contain no-repeat;
+  opacity:.88;
+  pointer-events:none;
+  filter:drop-shadow(0 8px 14px rgba(72,48,27,.10));
+}
+.about-principle:nth-child(1)::before { background-image:url("assets/decor/icon-sculpt.webp"); }
+.about-principle:nth-child(2)::before { background-image:url("assets/decor/icon-paint.webp"); }
+.about-principle:nth-child(3)::before { background-image:url("assets/decor/icon-unique.webp"); }
+.about-principle h3,
+.about-principle p { position:relative; z-index:1; }
+
+@media (max-width:620px) {
+  .about-principle { padding-right:88px; }
+  .about-principle::before {
+    top:16px;
+    right:16px;
+    width:58px;
+    height:58px;
+  }
+}
