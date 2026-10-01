@@ -1679,7 +1679,7 @@ h1, h2, h3, h4 {
   pointer-events:none;
 }
 .world-card::after {
-  background:linear-gradient(0deg,rgba(8,6,5,.96) 0%,rgba(8,6,5,.63) 46%,rgba(8,6,5,.12) 78%);
+  background:linear-gradient(0deg,rgba(8,6,5,.88) 0%,rgba(8,6,5,.43) 46%,rgba(8,6,5,.04) 80%);
 }
 .world-card-copy { min-height:350px; padding:28px 22px 24px; }
 .world-card-copy::before {
