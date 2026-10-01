@@ -211,4 +211,6 @@
 
 - [x] Typography QA: Cormorant / Manrope / Marck Script подтверждены через document.fonts на главной и Жителях, 320 / 1440; scrollWidth = viewport, 0 failed requests, 0 page errors. Цветовое разделение 5 Миров визуально проверено на свежем 1440.
 
-- [ ] Process workbench: по подтверждённому старому экрану восстановлен тёмный обзор I–IV из четырёх реальных стадий процесса; подробные 5 шагов сохранены ниже. Требуется свежая проверка 320 / 430 / 1440.
+- [x] Process workbench: по подтверждённому старому экрану восстановлен тёмный обзор I–IV из четырёх реальных стадий процесса; проверено на 320 / 430 / 1440 — 4 карточки, scrollWidth = viewport, на mobile 0 целей <44 px, 0 failed requests/page errors. Подробные 5 шагов сохранены ниже.
+
+- [x] Current archive sweep: 10 ключевых экранов × 320 / 360 / 390 / 430 / 1440 = 50 состояний; 0 global overflow, на mobile 0 целей <44 px, 0 JS/console/request errors. После sweep отдельно усилен Process workbench.
