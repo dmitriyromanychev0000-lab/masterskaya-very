@@ -4363,3 +4363,105 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
     white-space:nowrap;
   }
 }
+
+
+/* Chronicle archive chapters — restored from Vera's old mobile screen */
+.chronicle-archive-chapters {
+  padding:72px max(24px,calc((100vw - var(--content))/2)) 78px;
+  border-bottom:1px solid rgba(232,201,143,.22);
+  background:rgba(11,8,7,.91);
+  color:var(--cream);
+}
+.chronicle-archive-chapters-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  max-width:var(--content);
+  margin:0 auto;
+}
+.chronicle-archive-card {
+  position:relative;
+  min-height:300px;
+  padding:30px 30px 34px;
+  border:1px solid rgba(232,201,143,.30);
+  border-radius:18px;
+  background:rgba(33,20,15,.62);
+  box-shadow:0 22px 46px rgba(0,0,0,.16);
+}
+.chronicle-archive-card::after {
+  content:"";
+  position:absolute;
+  left:30px;
+  bottom:26px;
+  width:108px;
+  height:1px;
+  background:var(--gold-light);
+  opacity:.76;
+}
+.chronicle-archive-card .eyebrow {
+  margin-bottom:16px;
+  color:var(--gold-light);
+}
+.chronicle-archive-card h2 {
+  max-width:620px;
+  margin:0 0 16px;
+  color:#fff3df;
+  font:500 clamp(28px,3vw,42px)/1.05 var(--serif);
+  letter-spacing:-.035em;
+}
+.chronicle-archive-card p:not(.eyebrow) {
+  max-width:650px;
+  margin:0 0 56px;
+  color:#d1c0a9;
+  font-size:14px;
+  line-height:1.68;
+}
+.chronicle-archive-link {
+  position:absolute;
+  left:30px;
+  bottom:42px;
+  display:inline-flex;
+  min-height:44px;
+  align-items:center;
+  gap:8px;
+  color:var(--gold-light);
+  font-size:13px;
+  font-weight:700;
+}
+.chronicle-archive-memory {
+  max-width:900px;
+  margin:28px auto 0;
+  color:#b7a58d;
+  font-size:13px;
+  line-height:1.65;
+}
+@media (max-width:760px) {
+  .chronicle-archive-chapters {
+    padding:48px 18px 54px;
+  }
+  .chronicle-archive-chapters-grid {
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .chronicle-archive-card {
+    min-height:270px;
+    padding:24px 22px 28px;
+    border-radius:14px;
+  }
+  .chronicle-archive-card h2 {
+    font-size:clamp(28px,9vw,38px);
+  }
+  .chronicle-archive-card p:not(.eyebrow) {
+    margin-bottom:54px;
+    font-size:13px;
+  }
+  .chronicle-archive-link {
+    left:22px;
+    bottom:34px;
+  }
+  .chronicle-archive-card::after {
+    left:22px;
+    bottom:24px;
+    width:96px;
+  }
+}

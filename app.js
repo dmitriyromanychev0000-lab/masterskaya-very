@@ -762,6 +762,26 @@ const renderChronicle = (slug, resident) => {
       </div>
     </section>
 
+    <section class="chronicle-archive-chapters" aria-label="Из Хроник мастерской">
+      <div class="chronicle-archive-chapters-grid">
+        <article class="chronicle-archive-card">
+          <p class="eyebrow">Из процесса</p>
+          <h2>Когда работа берёт власть в свои лапы</h2>
+          <p>Иногда Житель рождается не по плану: пока Вера прорабатывает мелочи, форма сама меняет направление.</p>
+          <a class="chronicle-archive-link" href="process.html">Как это было <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="chronicle-archive-card">
+          <p class="eyebrow">Встреча</p>
+          <h2>Житель приезжает как маленькая церемония встречи</h2>
+          <p>Коробка, наполнитель, открытка и Свиток Жителя делают встречу частью истории, а не просто доставкой.</p>
+          <a class="chronicle-archive-link" href="about.html#faq-delivery">О доставке <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+      ${isArchive ? `
+      <p class="chronicle-archive-memory">Каждого Жителя, который уехал к своему Хранителю, Мастерская запоминает: точной копии не будет, но история остаётся здесь.</p>
+      ` : ''}
+    </section>
+
     ${renderChronicleGallery(resident)}
     ${renderChronicleNext(slug, resident)}
     ${sticky}`;
