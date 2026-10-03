@@ -452,7 +452,10 @@ const initCollection = () => {
           </div>
           <h1>${escapeHtml(world.title)}</h1>
           <p class="collection-lead">${escapeHtml(world.description)}</p>
-          ${world.cartouche ? `<img class="world-cartouche" src="${escapeHtml(world.cartouche)}" alt="" aria-hidden="true" width="1100" height="688" decoding="async">` : ''}
+          ${world.cartouche ? `<div class="world-cartouche-wrap" aria-hidden="true">
+            <img class="world-cartouche" src="${escapeHtml(world.cartouche)}" alt="" width="1100" height="688" decoding="async">
+            <span class="world-cartouche-text"><strong>${world.residents.length}</strong>${residentsWord(world.residents.length)} в этом Мире</span>
+          </div>` : ''}
         </div>
 
         <a class="world-feature" href="chronicle.html?resident=${escapeHtml(featured.chronicle)}" aria-label="Открыть Хронику: ${escapeHtml(featured.name)}">
