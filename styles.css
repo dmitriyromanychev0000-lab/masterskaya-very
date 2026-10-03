@@ -4885,3 +4885,67 @@ main[data-collection-root][data-world] .collection-back:hover { color:var(--gold
 @media (max-width:620px) {
   .world-resident-sep { display:none; }
 }
+
+/* ===== Secondary pages polish — unified premium pass ===== */
+/* FAQ (about) — centered accordion in the page's gold-hairline night language. */
+.about-materials + .faq { padding-top:84px; padding-bottom:84px; }
+.about-materials + .faq h2 {
+  margin-bottom:36px;
+  font-size:clamp(38px,4vw,54px);
+}
+.about-materials + .faq .faq-list {
+  gap:14px;
+  margin:0 auto;
+}
+.about-materials + .faq .faq-item {
+  padding:0;
+  overflow:hidden;
+  border-color:rgba(232,201,143,.24);
+  border-radius:7px;
+  background:rgba(246,239,223,.045);
+  transition:border-color .18s ease,background .18s ease;
+}
+.about-materials + .faq .faq-item:hover { border-color:rgba(232,201,143,.45); }
+.about-materials + .faq .faq-item summary {
+  min-height:56px;
+  padding:0 22px;
+  font-size:15.5px;
+}
+.about-materials + .faq .faq-item p {
+  padding:0 22px 18px;
+  color:#cbbda8;
+}
+.about-materials + .faq .faq-item[open] { background:rgba(246,239,223,.07); }
+
+@media (max-width:620px) {
+  .about-materials + .faq { padding:52px 18px; }
+  .about-materials + .faq .faq-list { gap:10px; }
+  .about-materials + .faq .faq-item summary { min-height:48px; padding:0 16px; }
+  .about-materials + .faq .faq-item p { padding:0 16px 14px; }
+}
+
+/* Process — one h2 scale across the page. */
+.process-steps-head h2 { font-size:clamp(38px,4vw,54px); }
+
+/* Contact — matched card titles, full-width mobile CTA, 44px text links. */
+.contact-card--form h2 { font-size:36px; }
+.contact-create-link {
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+}
+@media (max-width:620px) {
+  .contact-card--telegram .button { width:100%; }
+  .contact-create-link { display:flex; }
+}
+
+/* Contact final CTA — stacked full-width actions on mobile, like other pages. */
+@media (max-width:620px) {
+  .contact-locations + .keeper-cta .collection-cta-actions {
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .contact-locations + .keeper-cta .collection-cta-actions .button {
+    width:100%;
+  }
+}
