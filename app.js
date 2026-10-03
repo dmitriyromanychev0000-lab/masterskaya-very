@@ -229,7 +229,7 @@ const COLLECTION_WORLDS = {
   dragons: {
     title: 'Древние существа',
     description: 'Чешуя, крылья и память о временах, которых не застал никто. Мир тех, кто старше сказок.',
-    tone: 'paper',
+    tone: 'night',
     cartouche: 'assets/worlds/cartouche-dragons.webp',
     residents: [
       { name: 'Азимондиас', status: 'archive', chronicle: 'azimondias' },
@@ -253,7 +253,8 @@ const COLLECTION_WORLDS = {
   home: {
     title: 'Домашние легенды',
     description: 'Солнце на деревянном полу, лён и тишина. Не каждая легенда должна рычать.',
-    tone: 'paper',
+    tone: 'night',
+    cartouche: 'assets/worlds/cartouche-home.webp',
     residents: [
       { name: 'Курочка', status: 'available', price: '2000 ₽', chronicle: 'hen' },
       { name: 'Солнечная лошадка-качалка', status: 'available', price: '3500 ₽', chronicle: 'rocking-horse' },
@@ -303,7 +304,7 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => (
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[char]));
 
-const formatPrice = (value = '') => escapeHtml(value).replace(/ (?=₽)/g, '&nbsp;');
+const formatPrice = (value = '') => escapeHtml(value).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1&nbsp;').replace(/ (?=₽)/g, '&nbsp;');
 
 const COLLECTION_RESIDENT_BY_SLUG = new Map(
   Object.values(COLLECTION_WORLDS)
@@ -470,6 +471,7 @@ const initCollection = () => {
       <div class="collection-world-residents-head">
         <p class="eyebrow">Все Жители этого Мира</p>
         <h2>${escapeHtml(world.title)}</h2>
+        <img class="world-divider" src="assets/worlds/divider-${escapeHtml(slug)}.webp" alt="" aria-hidden="true" width="2380" height="170" decoding="async" loading="lazy">
       </div>
       <div class="world-resident-list">
 ${world.residents.map(renderWorldResidentRow).join('')}

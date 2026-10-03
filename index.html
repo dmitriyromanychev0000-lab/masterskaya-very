@@ -63,185 +63,213 @@
   </div>
 
   <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-shell">
-        <div class="hero-copy">
-          <p class="eyebrow">Ручная лепка · Авторская роспись</p>
-          <h1 id="hero-title">Создано руками.<br>Выбрано сердцем.</h1>
-          <p class="hero-lead">Уникальные фигурки Веры — с именем, характером и собственной историей.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="residents.html">Найти своего Жителя <span aria-hidden="true">→</span></a>
-            <a class="hero-order-link" href="create.html">Обсудить идею</a>
-          </div>
-          <p class="hero-handmade"><span aria-hidden="true">⌁</span> Каждая работа создаётся и расписывается вручную</p>
-        </div>
-
-        <div class="hero-showcase" aria-label="Жители мастерской">
-          <a class="hero-showcase-main" href="chronicle.html?resident=forest-dragon" aria-label="Лесной дракон — открыть Хронику">
-            <img class="hero-resident-image" src="assets/residents/peaceful/forest-dragon.webp" alt="" fetchpriority="high" decoding="async">
-            <span class="hero-photo-note">Больше чем фигурка.<br>Это живая история.</span>
-          </a>
-          <a class="hero-showcase-small hero-showcase-small--winter" href="chronicle.html?resident=nutcracker" aria-label="Щелкунчик — открыть Хронику">
-            <img class="hero-resident-image" src="assets/residents/peaceful/nutcracker.webp" alt="" decoding="async">
-          </a>
-          <a class="hero-showcase-small hero-showcase-small--russian" href="chronicle.html?resident=gorynych" aria-label="Змей Горыныч — открыть Хронику">
-            <img class="hero-resident-image" src="assets/residents/peaceful/gorynych.webp" alt="" decoding="async">
-          </a>
+    <section class="home-hero" aria-labelledby="hero-title">
+      <picture class="home-hero-media">
+        <source media="(max-width: 700px)" srcset="assets/home/hero-workshop-mobile.webp">
+        <img src="assets/home/hero-workshop-desktop.webp" alt="Жители мастерской на рабочем столе: лесной дракон, Щелкунчик, мышиные короли и курочка" fetchpriority="high" decoding="async" width="1600" height="750">
+      </picture>
+      <div class="home-hero-copy">
+        <p class="eyebrow">Ручная лепка · Авторская роспись</p>
+        <h1 id="hero-title">Создано руками.<br>Выбрано сердцем.</h1>
+        <p class="hero-lead">Уникальные фигурки Веры — с именем, характером и собственной историей.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#worlds">Войти в миры <span aria-hidden="true">↓</span></a>
+          <a class="hero-order-link" href="create.html">Обсудить идею</a>
         </div>
       </div>
     </section>
 
-    <section class="about-teaser" id="about">
-      <div class="about-teaser-layout">
-        <div class="about-teaser-head">
-          <p class="eyebrow">Познакомьтесь с мастерской</p>
-          <h2>Здесь у вещей<br>свои имена</h2>
-          <p class="about-lead">Вера создаёт каждого Жителя вручную — от каркаса до последнего мазка. У каждой работы есть имя, характер и собственная история.</p>
-          <a class="button button-primary button-small" href="about.html">О мастерской <span aria-hidden="true">→</span></a>
-        </div>
-
-        <div class="about-teaser-gallery" aria-label="Как рождаются Жители">
-          <figure class="about-teaser-shot about-teaser-shot--left">
-            <img src="assets/process/01-foil-armature.jpg" alt="Каркас фигурки в процессе работы" loading="lazy" decoding="async" width="1124" height="749">
-          </figure>
-          <figure class="about-teaser-shot about-teaser-shot--middle">
-            <span class="resident-photo resident-photo-direct" role="img" aria-label="Малыш-дракон" style="background-image:url('assets/residents/peaceful/baby-dragon.webp')"></span>
-          </figure>
-          <figure class="about-teaser-shot about-teaser-shot--right">
-            <span class="resident-photo resident-photo-direct" role="img" aria-label="Азимондиас" style="background-image:url('assets/residents/peaceful/azimondias.webp')"></span>
-          </figure>
-        </div>
+    <section class="home-steps" id="about" aria-labelledby="steps-title">
+      <div class="home-steps-head">
+        <p class="eyebrow">Как это делается</p>
+        <h2 id="steps-title">Здесь у вещей свои имена</h2>
+        <p class="about-lead">Вера создаёт каждого Жителя вручную — от каркаса до последнего мазка.</p>
       </div>
-
-      <ul class="about-facts about-teaser-facts" aria-label="Особенности мастерской">
-        <li>
-          <span class="about-fact-icon" aria-hidden="true"><img src="assets/decor/icon-sculpt.webp" alt="" loading="lazy" decoding="async" width="360" height="360"></span>
-          <span class="about-fact-copy"><strong>Ручная лепка</strong><span>Каждая фигурка создаётся вручную, без форм.</span></span>
-        </li>
-        <li>
-          <span class="about-fact-icon" aria-hidden="true"><img src="assets/decor/icon-paint.webp" alt="" loading="lazy" decoding="async" width="360" height="360"></span>
-          <span class="about-fact-copy"><strong>Авторская роспись</strong><span>Уникальные цвета и характер для каждого Жителя.</span></span>
-        </li>
-        <li>
-          <span class="about-fact-icon" aria-hidden="true"><img src="assets/decor/icon-unique.webp" alt="" loading="lazy" decoding="async" width="360" height="360"></span>
-          <span class="about-fact-copy"><strong>Без точных копий</strong><span>Даже один образ в каждом экземпляре получается немного другим.</span></span>
-        </li>
-      </ul>
+      <ol class="home-steps-list">
+        <li><figure><img src="assets/process/01-foil-armature.jpg" alt="Каркас из фольги" loading="lazy" decoding="async" width="1124" height="749"></figure><span class="step-no">01</span><h3>Каркас</h3><p>Из фольги и проволоки рождается скелет будущего Жителя — поза и характер появляются ещё до глины.</p></li>
+        <li><figure><img src="assets/process/03-clay-detailed.jpg" alt="Фигурка из полимерной глины с проработанными деталями" loading="lazy" decoding="async" width="1124" height="749"></figure><span class="step-no">02</span><h3>Лепка</h3><p>Слой за слоем глина становится чешуёй, тканью и мехом. Формы не используются — всё вручную.</p></li>
+        <li><figure><img src="assets/residents/peaceful/baby-dragon.webp" alt="Расписанный Малыш-дракон" loading="lazy" decoding="async"></figure><span class="step-no">03</span><h3>Роспись</h3><p>Акрил, тонкие кисти и последний мазок. Так Житель получает имя — и становится единственным.</p></li>
+      </ol>
+      <a class="text-link home-steps-link" href="process.html">Подробнее о процессе <span aria-hidden="true">→</span></a>
     </section>
 
-    <section class="worlds" id="worlds" aria-labelledby="worlds-title">
-      <div class="worlds-head">
-        <p class="eyebrow">Миры мастерской</p>
-        <h2 id="worlds-title">Пять миров — пять разных историй</h2>
-      </div>
-      <div class="worlds-grid">
-        <article class="world-card" data-world="winter">
-                  <div class="world-card-copy">
-                    <h3>Зимние легенды</h3>
-                    <p>Синий вечер, снег на еловых лапах и тёплый свет в окне. Мир, где ждут чуда и слышат музыку.</p>
-                    <a class="text-link" href="collection.html?world=winter">Войти в мир <span aria-hidden="true">→</span></a>
-                  </div>
-                </article>
-        <article class="world-card" data-world="forest">
-                  <div class="world-card-copy">
-                    <h3>Тайны древнего леса</h3>
-                    <p>Сумрак между корнями, мох, папоротник и огоньки, которые зажигаются сами. Здесь говорят вполголоса.</p>
-                    <a class="text-link" href="collection.html?world=forest">Войти в мир <span aria-hidden="true">→</span></a>
-                  </div>
-                </article>
-        <article class="world-card" data-world="dragons">
-                  <div class="world-card-copy">
-                    <h3>Древние существа</h3>
-                    <p>Чешуя, крылья и память о временах, которых не застал никто. Мир тех, кто старше сказок.</p>
-                    <a class="text-link" href="collection.html?world=dragons">Войти в мир <span aria-hidden="true">→</span></a>
-                  </div>
-                </article>
-        <article class="world-card" data-world="russian">
-                  <div class="world-card-copy">
-                    <h3>Русские сказки</h3>
-                    <p>Резной терем, синие цветы по золоту и вязь до самого вечера. Мир, где сказку рассказывают на ночь.</p>
-                    <a class="text-link" href="collection.html?world=russian">Войти в мир <span aria-hidden="true">→</span></a>
-                  </div>
-                </article>
-        <article class="world-card" data-world="home">
-                  <div class="world-card-copy">
-                    <h3>Домашние легенды</h3>
-                    <p>Солнце на деревянном полу, лён и тишина. Не каждая легенда должна рычать.</p>
-                    <a class="text-link" href="collection.html?world=home">Войти в мир <span aria-hidden="true">→</span></a>
-                  </div>
-                </article>
-      </div>
-    </section>
+    <div class="worlds-intro">
+      <p class="eyebrow">Миры мастерской</p>
+      <h2>Пять миров — пять разных историй</h2>
+    </div>
 
-    <section class="keepers" id="keepers" aria-labelledby="keepers-title">
-      <div class="keepers-head">
-        <h2 id="keepers-title">Кто ждёт своего Хранителя</h2>
-        <a class="text-link keepers-all" href="residents.html">Смотреть всех Жителей <span aria-hidden="true">→</span></a>
-      </div>
-
-      <div class="keepers-layout">
-        <div class="keepers-grid">
-          <article class="keeper-card">
-            <a class="keeper-card-link" href="chronicle.html?resident=forest-dragon">
-              <div class="keeper-media">
-                <span class="resident-photo resident-photo-direct" role="img" aria-label="Лесной дракон — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/forest-dragon.webp')"></span>
-              </div>
-              <div class="keeper-summary">
-                <div><h3>Лесной дракон</h3><span class="keeper-blurb">Хранитель тишины и старых лесов.</span><p>13 100 ₽</p></div>
-                <span class="keeper-arrow" aria-hidden="true">→</span>
-              </div>
+    <section class="world-scene" data-world="winter" id="worlds" aria-labelledby="scene-winter">
+      <div class="world-scene-inner">
+        <div class="world-scene-copy">
+          <p class="eyebrow">Мир 01 · 4 Жителя</p>
+          <h2 id="scene-winter">Зимние легенды</h2>
+          <p class="world-scene-lead">Синий вечер, снег на еловых лапах и тёплый свет в окне. Мир, где ждут чуда и слышат музыку.</p>
+          <p class="world-scene-meta">Можно забрать домой: 2</p>
+          <a class="button button-primary button-small" href="collection.html?world=winter">Войти в мир <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="world-scene-grid">
+            <a class="scene-card" href="chronicle.html?resident=nutcracker">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/nutcracker.webp" alt="Щелкунчик — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Щелкунчик</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">3&nbsp;000&nbsp;₽</span></span>
             </a>
-          </article>
-
-          <article class="keeper-card">
-            <a class="keeper-card-link" href="chronicle.html?resident=nutcracker">
-              <div class="keeper-media">
-                <span class="resident-photo resident-photo-direct" role="img" aria-label="Щелкунчик — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/nutcracker.webp')"></span>
-              </div>
-              <div class="keeper-summary">
-                <div><h3>Щелкунчик</h3><span class="keeper-blurb">Отважное сердце в любом сезоне.</span><p>3 000 ₽</p></div>
-                <span class="keeper-arrow" aria-hidden="true">→</span>
-              </div>
+            <a class="scene-card" href="chronicle.html?resident=mouse-king">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/mouse-king.webp" alt="Мышиный Король — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Мышиный Король</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">4&nbsp;500&nbsp;₽</span></span>
             </a>
-          </article>
-
-          <article class="keeper-card">
-            <a class="keeper-card-link" href="chronicle.html?resident=gorynych">
-              <div class="keeper-media">
-                <span class="resident-photo resident-photo-direct" role="img" aria-label="Змей Горыныч — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/gorynych.webp')"></span>
-              </div>
-              <div class="keeper-summary">
-                <div><h3>Змей Горыныч</h3><span class="keeper-blurb">Три взгляда — одна легенда.</span><p>В работе</p></div>
-                <span class="keeper-arrow" aria-hidden="true">→</span>
-              </div>
+            <a class="scene-card" href="chronicle.html?resident=mari">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/mari.webp" alt="Мари (девочка с Щелкунчиком) — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Мари (девочка с Щелкунчиком)</span><span class="scene-status scene-status--progress">В работе</span></span>
             </a>
-          </article>
+            <a class="scene-card" href="chronicle.html?resident=mouse-queen">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/mouse-queen.webp" alt="Мышиная Королева — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Мышиная Королева</span><span class="scene-status scene-status--progress">В работе</span></span>
+            </a>
+          
         </div>
-        <aside class="keepers-note" aria-label="О Жителях">
-          <span>Больше, чем декор — это истории, которые остаются</span>
-        </aside>
       </div>
-
-      <a class="button button-primary keepers-mobile-all" href="residents.html">Смотреть всех Жителей <span aria-hidden="true">→</span></a>
     </section>
+
+    <section class="world-scene world-scene--flip" data-world="forest" aria-labelledby="scene-forest">
+      <div class="world-scene-inner">
+        <div class="world-scene-copy">
+          <p class="eyebrow">Мир 02 · 2 Жителя</p>
+          <h2 id="scene-forest">Тайны древнего леса</h2>
+          <p class="world-scene-lead">Сумрак между корнями, мох, папоротник и огоньки, которые зажигаются сами. Здесь говорят вполголоса.</p>
+          <p class="world-scene-meta">Можно забрать домой: 2</p>
+          <a class="button button-primary button-small" href="collection.html?world=forest">Войти в мир <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="world-scene-grid">
+            <a class="scene-card" href="chronicle.html?resident=forest-dragon">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/forest-dragon.webp" alt="Лесной дракон — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Лесной дракон</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">13&nbsp;100&nbsp;₽</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=mushrooms">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/mushrooms.webp" alt="Лесные грибы (набор) — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Лесные грибы (набор)</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">1&nbsp;500&nbsp;₽ за штуку</span></span>
+            </a>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="world-scene" data-world="dragons" aria-labelledby="scene-dragons">
+      <div class="world-scene-inner">
+        <div class="world-scene-copy">
+          <p class="eyebrow">Мир 03 · 3 Жителя</p>
+          <h2 id="scene-dragons">Древние существа</h2>
+          <p class="world-scene-lead">Чешуя, крылья и память о временах, которых не застал никто. Мир тех, кто старше сказок.</p>
+          <p class="world-scene-meta">Жители пока в работе</p>
+          <a class="button button-primary button-small" href="collection.html?world=dragons">Войти в мир <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="world-scene-grid">
+            <a class="scene-card" href="chronicle.html?resident=baby-dragon">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/baby-dragon.webp" alt="Малыш-дракон — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Малыш-дракон</span><span class="scene-status scene-status--progress">В работе</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=soul-regan">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/soul-regan.webp" alt="Соул Реган — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Соул Реган</span><span class="scene-status scene-status--progress">В работе</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=azimondias">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/azimondias.webp" alt="Азимондиас — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Азимондиас</span><span class="scene-status scene-status--archive">Нашёл Хранителя</span></span>
+            </a>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="world-scene world-scene--flip" data-world="russian" aria-labelledby="scene-russian">
+      <div class="world-scene-inner">
+        <div class="world-scene-copy">
+          <p class="eyebrow">Мир 04 · 5 Жителей</p>
+          <h2 id="scene-russian">Русские сказки</h2>
+          <p class="world-scene-lead">Резной терем, синие цветы по золоту и вязь до самого вечера. Мир, где сказку рассказывают на ночь.</p>
+          <p class="world-scene-meta">Можно забрать домой: 3</p>
+          <a class="button button-primary button-small" href="collection.html?world=russian">Войти в мир <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="world-scene-grid">
+            <a class="scene-card" href="chronicle.html?resident=gorynych-2">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/gorynych-2.webp" alt="Змей Горыныч II — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Змей Горыныч II</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">6&nbsp;500&nbsp;₽</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=sirin">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/sirin.webp" alt="Птица Сирин — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Птица Сирин</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">3&nbsp;500&nbsp;₽</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=humpbacked-horse">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/humpbacked-horse.webp" alt="Конёк-Горбунок — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Конёк-Горбунок</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">4&nbsp;000&nbsp;₽</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=gorynych">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/gorynych.webp" alt="Змей Горыныч — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Змей Горыныч</span><span class="scene-status scene-status--progress">В работе</span></span>
+            </a>
+          <a class="scene-more" href="collection.html?world=russian">Ещё 1 в этом мире <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="world-scene" data-world="home" aria-labelledby="scene-home">
+      <div class="world-scene-inner">
+        <div class="world-scene-copy">
+          <p class="eyebrow">Мир 05 · 3 Жителя</p>
+          <h2 id="scene-home">Домашние легенды</h2>
+          <p class="world-scene-lead">Солнце на деревянном полу, лён и тишина. Не каждая легенда должна рычать.</p>
+          <p class="world-scene-meta">Можно забрать домой: 3</p>
+          <a class="button button-primary button-small" href="collection.html?world=home">Войти в мир <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="world-scene-grid">
+            <a class="scene-card" href="chronicle.html?resident=hen">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/hen.webp" alt="Курочка — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Курочка</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">2&nbsp;000&nbsp;₽</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=rocking-horse">
+              <span class="scene-card-photo"><img src="assets/residents/peaceful/rocking-horse.webp" alt="Солнечная лошадка-качалка — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Солнечная лошадка-качалка</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">3&nbsp;500&nbsp;₽</span></span>
+            </a>
+            <a class="scene-card" href="chronicle.html?resident=puss-in-boots">
+              <span class="scene-card-photo"><img src="assets/process/05-compare-side.jpg" alt="Кот в сапогах — фигурка ручной работы" loading="lazy" decoding="async"></span>
+              <span class="scene-card-body"><span class="scene-card-name">Кот в сапогах</span><span class="scene-status scene-status--available">Можно приобрести</span><span class="scene-price">5&nbsp;500&nbsp;₽</span></span>
+            </a>
+          
+        </div>
+      </div>
+    </section>
+
+    <div class="home-faq">
+<section class="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Частые вопросы</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Можно ли заказать фигурку, которой ещё нет в списке?<span>+</span></summary>
+          <p>Да. Напишите Вере, расскажите, кого вы хотите. Если идея совпадает с текущей работой — возможно, Житель уже рождается. Если нет — обсудим, будет ли он рождаться в мастерской.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Какой срок изготовления?<span>+</span></summary>
+          <p>Срок зависит от размера, сложности и текущей загрузки мастерской. Вера подскажет ориентир по конкретной работе в переписке.</p>
+        </details>
+        <details class="faq-item" id="faq-delivery">
+          <summary>Есть ли доставка?<span>+</span></summary>
+          <p>Да, доставка по России. Каждый Житель упаковывается вручную: крепкая коробка, надёжная обёртка, лента. Стоимость и сроки уточняются в переписке.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Можно ли повторить того Жителя, который уже уехал?<span>+</span></summary>
+          <p>Некоторые образы Вера делает в нескольких экземплярах — это видно по карточке. Но точной копии не будет: каждую фигурку лепят и расписывают вручную. Возможность нового экземпляра лучше уточнить у Веры.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Из чего сделаны фигурки?<span>+</span></summary>
+          <p>Полимерная глина, каркас из фольги и акриловые краски. По уходу за конкретной фигуркой Вера подскажет отдельно.</p>
+        </details>
+      </div>
+    </section>
+    </div>
 
     <section class="keeper-cta">
       <h2>Найти своего Жителя</h2>
       <p>Возможно, он уже ждёт вас в Мастерской.</p>
       <a class="button button-primary" href="https://t.me/masterskayaver">Написать Вере</a>
     </section>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
   </main>
 
   <footer class="site-footer">
