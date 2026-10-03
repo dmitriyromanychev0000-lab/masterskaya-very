@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="Мастерская Веры — авторские фигурки ручной работы">
   <meta name="twitter:description" content="Авторские фигурки ручной работы. Сказки, которые можно взять в руки.">
   <link rel="canonical" href="https://dmitriyromanychev0000-lab.github.io/masterskaya-very/">
-  <link rel="preload" as="image" href="assets/residents/peaceful/forest-dragon.webp">
+  <link rel="preload" as="image" href="assets/home/hero-workshop-desktop.webp">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Organization","name":"Мастерская Веры","url":"https://dmitriyromanychev0000-lab.github.io/masterskaya-very/","description":"Авторские фигурки ручной работы","sameAs":["https://t.me/masterskayaver"]}
   </script>
@@ -64,33 +64,73 @@
 
   <main id="top">
     <section class="home-hero" aria-labelledby="hero-title">
+      <div class="home-hero-intro">
+        <p class="eyebrow">Мастерская Веры</p>
+        <h1 id="hero-title">Сказки, которые<br>можно взять в руки</h1>
+        <p class="hero-lead">Авторские фигурки ручной работы</p>
+      </div>
       <picture class="home-hero-media">
         <source media="(max-width: 700px)" srcset="assets/home/hero-workshop-mobile.webp">
-        <img src="assets/home/hero-workshop-desktop.webp" alt="Жители мастерской на рабочем столе: лесной дракон, Щелкунчик, мышиные короли и курочка" fetchpriority="high" decoding="async" width="1600" height="750">
+        <img src="assets/home/hero-workshop-desktop.webp" alt="Жители мастерской: драконы, Щелкунчик, мышиные короли и курочка" fetchpriority="high" decoding="async" width="1600" height="750">
       </picture>
-      <div class="home-hero-copy">
-        <p class="eyebrow">Ручная лепка · Авторская роспись</p>
-        <h1 id="hero-title">Создано руками.<br>Выбрано сердцем.</h1>
-        <p class="hero-lead">Уникальные фигурки Веры — с именем, характером и собственной историей.</p>
+      <p class="home-hero-aside" aria-hidden="true">Сказки<br>живут<br>здесь</p>
+      <div class="home-hero-bottom">
         <div class="hero-actions">
-          <a class="button button-primary" href="#worlds">Войти в миры <span aria-hidden="true">↓</span></a>
-          <a class="hero-order-link" href="create.html">Обсудить идею</a>
+          <a class="button button-primary" href="residents.html">Смотреть готовые работы <span aria-hidden="true">→</span></a>
+          <a class="button button-outline" href="create.html">Заказать свою фигурку</a>
+        </div>
+        <p>Вера создаёт каждого Жителя — от идеи до последнего штриха.</p>
+      </div>
+    </section>
+
+    <section class="home-story" id="about" aria-labelledby="home-story-title">
+      <figure class="home-story-visual">
+        <img src="assets/residents/studio/humpbacked-horse.webp" alt="Конёк-Горбунок — настоящая фигурка Веры без сказочной подложки" loading="lazy" decoding="async">
+        <figcaption>Житель мастерской — ручная лепка и роспись</figcaption>
+      </figure>
+      <div class="home-story-copy">
+        <p class="eyebrow">Руки и материал</p>
+        <h2 id="home-story-title">Работа начинается не с витрины, а с идеи и формы</h2>
+        <p>Полимерная глина, каркас из фольги и проволоки, ручная обработка, акриловая роспись, защитное покрытие и маленькие детали — путь каждого Жителя зависит от его характера.</p>
+        <div class="home-story-details">
+          <div><strong>Вручную</strong><span>каждый этап проходит через руки Веры</span></div>
+          <div><strong>Лично</strong><span>идея и эскиз обсуждаются напрямую</span></div>
+          <div><strong>Без копий</strong><span>повторить работу один в один нельзя</span></div>
+        </div>
+        <div class="home-story-actions">
+          <a class="button button-primary button-small" href="create.html">Написать Вере</a>
+          <a class="button button-outline button-small" href="process.html">Посмотреть процесс</a>
         </div>
       </div>
     </section>
 
-    <section class="home-steps" id="about" aria-labelledby="steps-title">
-      <div class="home-steps-head">
-        <p class="eyebrow">Как это делается</p>
-        <h2 id="steps-title">Здесь у вещей свои имена</h2>
-        <p class="about-lead">Вера создаёт каждого Жителя вручную — от каркаса до последнего мазка.</p>
+    <section class="home-today" aria-labelledby="home-today-title">
+      <div class="home-section-inner">
+        <p class="eyebrow">Мастерская сегодня</p>
+        <h2 id="home-today-title">Из чего она состоит</h2>
+        <div class="home-today-grid">
+          <div><strong data-about-stat="residents">17</strong><span>Жителей уже рождены и описаны в Хрониках</span></div>
+          <div><strong data-about-stat="worlds">5</strong><span>Миров — у каждого свой воздух и свои истории</span></div>
+          <div><strong data-about-stat="available">10</strong><span>свободны сейчас и ждут своего Хранителя</span></div>
+          <div><strong data-about-stat="archive">1</strong><span>уже уехал к Хранителю — повторить их нельзя</span></div>
+        </div>
       </div>
-      <ol class="home-steps-list">
-        <li><figure><img src="assets/process/01-foil-armature.jpg" alt="Каркас из фольги" loading="lazy" decoding="async" width="1124" height="749"></figure><span class="step-no">01</span><h3>Каркас</h3><p>Из фольги и проволоки рождается скелет будущего Жителя — поза и характер появляются ещё до глины.</p></li>
-        <li><figure><img src="assets/process/03-clay-detailed.jpg" alt="Фигурка из полимерной глины с проработанными деталями" loading="lazy" decoding="async" width="1124" height="749"></figure><span class="step-no">02</span><h3>Лепка</h3><p>Слой за слоем глина становится чешуёй, тканью и мехом. Формы не используются — всё вручную.</p></li>
-        <li><figure><img src="assets/residents/peaceful/baby-dragon.webp" alt="Расписанный Малыш-дракон" loading="lazy" decoding="async"></figure><span class="step-no">03</span><h3>Роспись</h3><p>Акрил, тонкие кисти и последний мазок. Так Житель получает имя — и становится единственным.</p></li>
-      </ol>
-      <a class="text-link home-steps-link" href="process.html">Подробнее о процессе <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="home-principles" aria-labelledby="home-principles-title">
+      <div class="home-section-inner">
+        <p class="eyebrow">Как здесь работают</p>
+        <h2 id="home-principles-title">Три вещи, которые не меняются</h2>
+        <div class="home-principles-grid">
+          <div><span>01</span><h3>Никаких форм и тиражей</h3><p>Каждый Житель лепится заново, поэтому двух одинаковых не бывает: даже у одного персонажа поза, взгляд и оттенки всегда получаются своими.</p></div>
+          <div><span>02</span><h3>Разговор вместо конструктора</h3><p>Вера отвечает сама — без менеджеров и анкет. Будущего Жителя обсуждают словами: характер, настроение, цвет, повод.</p></div>
+          <div><span>03</span><h3>У работы есть история</h3><p>Каждый Житель получает имя, характер и Хронику. Она остаётся на сайте и после того, как он уедет к своему Хранителю.</p></div>
+        </div>
+        <div class="home-principles-actions">
+          <a class="button button-primary button-small" href="residents.html">Посмотреть Жителей <span aria-hidden="true">→</span></a>
+          <a class="button button-outline button-small" href="create.html">Обсудить будущего Жителя</a>
+        </div>
+      </div>
     </section>
 
     <div class="worlds-intro">
