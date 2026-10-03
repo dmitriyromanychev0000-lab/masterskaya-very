@@ -639,7 +639,7 @@ const renderChronicleHero = (resident, slug, worldTitle) => {
           </div>
           <h1>${escapeHtml(resident.name)}</h1>
           <div class="chronicle-badges">
-            <span class="resident-status ${status.modifier}">${status.label}</span>
+            <span class="world-resident-status world-resident-status--${escapeHtml(resident.status || 'progress')}">${status.label}</span>
             ${priceMarkup}
           </div>
           ${action}

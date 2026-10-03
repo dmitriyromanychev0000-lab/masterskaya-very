@@ -4839,6 +4839,49 @@ main[data-collection-root][data-world] .collection-back:hover { color:var(--gold
 @media (max-width:620px) {
   .world-resident-status { display:flex; margin-bottom:2px; }
 }
+
+/* ===== Resident pages polish — chronicle hero & residents grid ===== */
+
+/* Chronicle hero: bigger photo, anchored right — sources carry a dark left field */
+.chronicle-hero-shell { grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr); }
+.chronicle-hero-visual { aspect-ratio:3/2; }
+.chronicle-hero-visual .resident-photo-direct { background-size:128% auto; background-position:100% 32%; }
+.chronicle-hero-visual::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  box-shadow:inset 0 0 0 1px rgba(246,239,223,.08), inset 0 -90px 120px rgba(0,0,0,.16);
+  pointer-events:none;
+}
+
+/* Same right-anchor crop for the residents intro visual */
+.residents-intro-visual .resident-photo-direct { background-size:128% auto; background-position:100% 32%; }
+
+/* Hero status reads like the World's resident list: dot + label */
+.chronicle-badges .world-resident-status { font-size:12.5px; letter-spacing:.02em; color:var(--cream); }
+.chronicle-badges .world-resident-status--available { color:var(--gold-light); }
+.chronicle-badges .world-resident-status--progress { color:#d6c9b3; }
+.chronicle-badges .world-resident-status--archive { color:#b9ad97; }
+
+/* Residents grid: photo zoom stays inside the frame, card lifts quietly */
+.resident-media { overflow:hidden; }
+.resident-card .resident-photo { transition:transform .3s ease; }
+@media (hover:hover) {
+  .resident-card { transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .resident-card:hover {
+    transform:translateY(-3px);
+    border-color:rgba(232,201,143,.85);
+    box-shadow:0 30px 60px rgba(0,0,0,.28);
+  }
+  .resident-card:hover .resident-photo { transform:scale(1.04); }
+}
+
+@media (max-width:620px) {
+  .chronicle-hero-visual { aspect-ratio:4/3; }
+  .resident-status { padding:4px 8px; font-size:9px; }
+  .resident-media::before { font-size:8px; }
+  .resident-actions .text-link { font-size:11.5px; }
+}
 @media (max-width:620px) {
   .world-resident-sep { display:none; }
 }
