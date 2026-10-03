@@ -371,9 +371,10 @@ const renderWorldResidentRow = (resident) => {
   const isArchive = resident.status === 'archive';
   const price = resident.price || 'Цена по запросу';
   const stock = resident.stock ? ` · ${escapeHtml(resident.stock)}` : '';
+  const statusMark = `<span class="world-resident-status world-resident-status--${escapeHtml(resident.status || 'progress')}">${escapeHtml(status.label)}</span>`;
   const meta = isArchive
-    ? escapeHtml(status.label)
-    : `${escapeHtml(status.label)} · ${formatPrice(price)}${stock}`;
+    ? statusMark
+    : `${statusMark}<span class="world-resident-sep"> · </span>${formatPrice(price)}${stock}`;
 
   return `
         <a class="world-resident-row" href="chronicle.html?resident=${escapeHtml(resident.chronicle)}">

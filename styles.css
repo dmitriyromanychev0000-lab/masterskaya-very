@@ -4822,3 +4822,23 @@ main[data-collection-root][data-world] .collection-back:hover { color:var(--gold
 @media (max-width:620px) {
   main[data-collection-root][data-world] .collection-back { margin:-6px 0 16px; min-height:44px; }
 }
+
+/* Resident status in World list: available reads first */
+.world-resident-status { display:inline-flex; align-items:center; gap:6px; }
+.world-resident-status::before {
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  border:1px solid currentColor;
+  flex:none;
+}
+.world-resident-status--available { color:var(--gold-light); font-weight:600; }
+.world-resident-status--available::before { background:currentColor; box-shadow:0 0 8px rgba(232,201,143,.55); }
+.world-resident-status--archive::before { opacity:.6; }
+@media (max-width:620px) {
+  .world-resident-status { display:flex; margin-bottom:2px; }
+}
+@media (max-width:620px) {
+  .world-resident-sep { display:none; }
+}
