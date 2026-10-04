@@ -5443,6 +5443,9 @@ main[data-collection-root][data-world] .collection-back:hover { color:var(--gold
   .contact-details + .keeper-cta .collection-cta-actions .button { width:100%; }
 }
 
+/* Headings linked from the catalogue and world pages stay below the sticky header. */
+:is(.world-scene h2[id], .res-world h2[id], #world-residents) { scroll-margin-top:calc(var(--header-h) + 24px); }
+
 /* The idea page can lead directly to the prepared message section. */
 .create-form-link { display:inline-flex; align-items:center; min-height:44px; margin-top:8px; color:var(--gold-ink); font-size:13px; }
 #contact-letter { scroll-margin-top:calc(var(--header-h) + 16px); }
