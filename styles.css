@@ -2383,7 +2383,7 @@ main[data-chronicle-root][data-world] {
   position:relative;
   isolation:isolate;
   background-color:var(--night);
-  background-repeat:repeat-y;
+  background-repeat:no-repeat;
   background-position:center top;
   background-size:100% auto;
   color:var(--cream);
