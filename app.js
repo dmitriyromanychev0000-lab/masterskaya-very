@@ -212,7 +212,7 @@ const COLLECTION_WORLDS = {
     residents: [
       { name: 'Щелкунчик', status: 'available', price: '3000 ₽', stock: 'готово: 1', chronicle: 'nutcracker' },
       { name: 'Мышиный Король', status: 'available', price: '4500 ₽', stock: 'готово: 4', chronicle: 'mouse-king' },
-      { name: 'Мари (девочка с Щелкунчиком)', status: 'progress', chronicle: 'mari' },
+      { name: 'Девочка с Щелкунчиком', status: 'progress', chronicle: 'mari' },
       { name: 'Мышиная Королева', status: 'progress', chronicle: 'mouse-queen' }
     ]
   },
@@ -518,7 +518,7 @@ const CHRONICLE_RESIDENTS = {
     story: 'Корона, мундир и трое внимательных голов — королевство в ладони.'
   },
   'mari': {
-    name: 'Мари (девочка с Щелкунчиком)',
+    name: 'Девочка с Щелкунчиком',
     world: 'winter',
     status: 'progress',
     story: 'Тихая зимняя сцена: девочка прижимает к себе Щелкунчика, будто уже знает, чем закончится сказка.'
@@ -547,7 +547,7 @@ const CHRONICLE_RESIDENTS = {
     name: 'Азимондиас',
     world: 'dragons',
     status: 'archive',
-    story: 'Первый Житель, который уехал к своему Хранителю. Этот экземпляр уже дома и остаётся в Хрониках мастерской.'
+    story: 'Смотрит внимательно и предпочитает сначала познакомиться, а уже потом лететь навстречу приключению.'
   },
   'baby-dragon': {
     name: 'Малыш-дракон',
@@ -1106,7 +1106,9 @@ const syncStaticResidentCards = () => {
       if (!meta) {
         meta = document.createElement('p');
         meta.className = 'resident-meta';
-        card.querySelector('.resident-actions')?.before(meta);
+        const facts = card.querySelector('.resident-facts');
+        if (facts) facts.append(meta);
+        else card.querySelector('.resident-actions')?.before(meta);
       }
       if (meta) {
         meta.innerHTML = `<span class="resident-price">${formatPrice(resident.price || 'Цена по запросу')}</span>${resident.stock ? `<span class="resident-stock">${escapeHtml(resident.stock)}</span>` : ''}`;
@@ -1129,6 +1131,11 @@ const syncStaticResidentCards = () => {
       actions.appendChild(orderButton);
     }
     orderButton.className = `button button-${status.button || 'primary'} button-small`;
+    orderButton.textContent = resident.status === 'progress' ? 'Следить за работой' : 'Написать Вере';
+
+    const teaser = card.querySelector('.resident-teaser');
+    const story = CHRONICLE_RESIDENTS[slug]?.story;
+    if (teaser && story) teaser.textContent = story;
   });
 };
 
