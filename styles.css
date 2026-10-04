@@ -761,7 +761,7 @@ html.menu-open, body.menu-open { overflow:hidden; overscroll-behavior:none; }
 /* Collection page */
 main[data-collection-root][data-world] {
   background-color: var(--night);
-  background-repeat: repeat-y;
+  background-repeat: no-repeat;
   background-position: center top;
   background-size: 100% auto;
   color: var(--cream);
