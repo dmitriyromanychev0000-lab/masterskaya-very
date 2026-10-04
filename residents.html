@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="Жители — Мастерская Веры">
   <meta name="twitter:description" content="Все Жители Мастерской Веры: свободные работы, будущие фигурки в работе и проданные истории в Хрониках.">
   <link rel="canonical" href="https://dmitriyromanychev0000-lab.github.io/masterskaya-very/residents.html">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=residents-restore-2">
 </head>
 <body>
   <header class="site-header" data-header>
@@ -60,25 +60,14 @@
 
   <main id="top">
     <section class="residents-intro" aria-labelledby="residents-title">
-      <div class="residents-intro-shell">
-        <div class="residents-intro-copy">
-          <p class="eyebrow">Авторские фигурки из полимерной глины</p>
+      <div class="residents-heading-row">
+        <div>
           <h1 id="residents-title">Кто ждёт своего Хранителя</h1>
-          <p class="residents-lead">Больше, чем декор — это истории, которые остаются. Свободных Жителей можно забрать сейчас, а тех, кто уже нашёл Хранителя, встретить в Хрониках.</p>
-
-          <div class="residents-intro-actions">
-            <a class="button button-primary" href="#world-winter">Выбрать Жителя <span aria-hidden="true">→</span></a>
-            <a class="button button-outline" href="create.html">Создать на заказ</a>
-          </div>
-
-          <p class="residents-intro-stat"><strong data-residents-available>10</strong> можно приобрести сейчас</p>
+          <p class="residents-lead">Больше, чем декор — это истории, которые остаются</p>
         </div>
-
-        <a class="residents-intro-visual" href="chronicle.html?resident=forest-dragon" aria-label="Открыть Хронику Лесного дракона">
-          <span class="resident-photo resident-photo-direct" role="img" aria-label="Лесной дракон — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/forest-dragon.webp')"></span>
-          <span class="residents-intro-note">Не просто фигурки.<br>Настоящие Жители миров.</span>
-        </a>
+        <a class="residents-view-all" href="#world-winter">Смотреть всех Жителей <span aria-hidden="true">→</span></a>
       </div>
+      <p class="residents-summary">Свободны сейчас: <strong data-residents-available>10</strong><span aria-hidden="true"> · </span>Рождаются: <strong data-residents-progress>6</strong><span aria-hidden="true"> · </span>Цены от <strong data-residents-min-price>1 500 ₽</strong></p>
 
       <div class="residents-filter-row" aria-label="Фильтры Жителей">
         <div class="resident-filter-group">
@@ -108,7 +97,7 @@
       <div class="res-world-head">
         <p class="eyebrow">4 Жителя</p>
         <h2 id="world-winter">Зимние легенды</h2>
-        <p>Синий вечер, снег на еловых лапах и тёплый свет в окне. Мир, где ждут чуда и слышат музыку.</p>
+        <p>Щелкунчики, мышиные короли и другие Жители, в которых живут зимние истории, музыка и ожидание чуда.</p>
         <a class="res-world-link" href="collection.html?world=winter">Войти в Мир <span aria-hidden="true">→</span></a>
       </div>
 
@@ -118,11 +107,32 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Щелкунчик — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/nutcracker.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">3000 ₽</span><span class="resident-stock">готово: 1</span></p></div>
             <h3>Щелкунчик</h3>
-            <p class="resident-meta"><span class="resident-price">3000 ₽</span><span class="resident-stock">готово: 1</span></p>
+            <p class="resident-teaser">Зимняя история с ровной осанкой, мундиром и очень серьёзной задачей — беречь чудо.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=nutcracker">Открыть Хронику</a>
+              <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="resident-card">
+          <div class="resident-media">
+              <span class="resident-photo resident-photo-direct" role="img" aria-label="Мышиный Король — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/mouse-king.webp')"></span>
+            </div>
+          <div class="resident-copy">
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">4500 ₽</span><span class="resident-stock">готово: 4</span></p></div>
+            <h3>Мышиный Король</h3>
+            <p class="resident-teaser">Корона, мундир и трое внимательных голов — королевство в ладони.</p>
+            
+            
+            
+            <div class="resident-actions">
+              <a class="text-link" href="chronicle.html?resident=mouse-king">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
             </div>
           </div>
@@ -133,9 +143,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Мари (девочка с Щелкунчиком) — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/mari.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-progress">В работе</span>
+            <div class="resident-facts"><span class="resident-status resident-status-progress">В работе</span><p class="resident-meta"><span class="resident-price">Цена по запросу</span></p></div>
             <h3>Мари (девочка с Щелкунчиком)</h3>
-            <p class="resident-meta"><span class="resident-price">Цена по запросу</span></p>
+            <p class="resident-teaser">Тихая зимняя сцена: девочка прижимает к себе Щелкунчика, будто уже знает, чем закончится сказка.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=mari">Открыть Хронику</a>
               <a class="button button-outline button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -148,27 +161,15 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Мышиная Королева — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/mouse-queen.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-progress">В работе</span>
+            <div class="resident-facts"><span class="resident-status resident-status-progress">В работе</span><p class="resident-meta"><span class="resident-price">Цена по запросу</span></p></div>
             <h3>Мышиная Королева</h3>
-            <p class="resident-meta"><span class="resident-price">Цена по запросу</span></p>
+            <p class="resident-teaser">Три взгляда, чёрно-фиолетовое платье и корона — всё в ней говорит без спешки.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=mouse-queen">Открыть Хронику</a>
               <a class="button button-outline button-small" href="https://t.me/masterskayaver">Написать Вере</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="resident-card">
-          <div class="resident-media">
-              <span class="resident-photo resident-photo-direct" role="img" aria-label="Мышиный Король — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/mouse-king.webp')"></span>
-            </div>
-          <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
-            <h3>Мышиный Король</h3>
-            <p class="resident-meta"><span class="resident-price">4500 ₽</span><span class="resident-stock">готово: 4</span></p>
-            <div class="resident-actions">
-              <a class="text-link" href="chronicle.html?resident=mouse-king">Открыть Хронику</a>
-              <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
             </div>
           </div>
         </article>
@@ -179,7 +180,7 @@
       <div class="res-world-head">
         <p class="eyebrow">2 Жителя</p>
         <h2 id="world-forest">Тайны древнего леса</h2>
-        <p>Сумрак между корнями, мох, папоротник и огоньки, которые зажигаются сами. Здесь говорят вполголоса.</p>
+        <p>Лесные драконы, грибы, гномы и существа, которые не любят шум, но знают много старых историй.</p>
         <a class="res-world-link" href="collection.html?world=forest">Войти в Мир <span aria-hidden="true">→</span></a>
       </div>
 
@@ -189,9 +190,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Лесной дракон — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/forest-dragon.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">13100 ₽</span></p></div>
             <h3>Лесной дракон</h3>
-            <p class="resident-meta"><span class="resident-price">13100 ₽</span></p>
+            <p class="resident-teaser">Зелёный дракон с природной палитрой и множеством деталей, которые открываются при близком взгляде.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=forest-dragon">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -204,9 +208,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Лесные грибы (набор) — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/mushrooms.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">1500 ₽ за штуку</span></p></div>
             <h3>Лесные грибы (набор)</h3>
-            <p class="resident-meta"><span class="resident-price">1500 ₽ за штуку</span></p>
+            <p class="resident-teaser">Мухоморы, лисички, белые и другие грибы — небольшие ручные миниатюры с живой фактурой.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=mushrooms">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -231,8 +238,11 @@
               <span class="resident-archive-tag">В Хрониках</span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-archive">Нашёл Хранителя</span>
+            <div class="resident-facts"><span class="resident-status resident-status-archive">Нашёл Хранителя</span></div>
             <h3>Азимондиас</h3>
+            <p class="resident-teaser">Первый Житель, который уехал к своему Хранителю. Этот экземпляр уже дома и остаётся в Хрониках мастерской.</p>
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=azimondias">Открыть Хронику</a>
             </div>
@@ -244,9 +254,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Малыш-дракон — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/baby-dragon.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-progress">В работе</span>
+            <div class="resident-facts"><span class="resident-status resident-status-progress">В работе</span><p class="resident-meta"><span class="resident-price">Цена по запросу</span></p></div>
             <h3>Малыш-дракон</h3>
-            <p class="resident-meta"><span class="resident-price">Цена по запросу</span></p>
+            <p class="resident-teaser">Маленький дракон только рождается — крылья ещё сложены, а характер уже виден.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=baby-dragon">Открыть Хронику</a>
               <a class="button button-outline button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -259,9 +272,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Соул Реган — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/soul-regan.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-progress">В работе</span>
+            <div class="resident-facts"><span class="resident-status resident-status-progress">В работе</span><p class="resident-meta"><span class="resident-price">Цена по запросу</span></p></div>
             <h3>Соул Реган</h3>
-            <p class="resident-meta"><span class="resident-price">Цена по запросу</span></p>
+            <p class="resident-teaser">Древнее существо со своим именем и своей тишиной — то, что помнит больше, чем говорит.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=soul-regan">Открыть Хронику</a>
               <a class="button button-outline button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -285,9 +301,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Змей Горыныч II — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/gorynych-2.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">6500 ₽</span></p></div>
             <h3>Змей Горыныч II</h3>
-            <p class="resident-meta"><span class="resident-price">6500 ₽</span></p>
+            <p class="resident-teaser">Второе воплощение старой сказки — та же легенда, новый характер.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=gorynych-2">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -300,9 +319,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Змей Горыныч — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/gorynych.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-progress">В работе</span>
+            <div class="resident-facts"><span class="resident-status resident-status-progress">В работе</span><p class="resident-meta"><span class="resident-price">Цена по запросу</span></p></div>
             <h3>Змей Горыныч</h3>
-            <p class="resident-meta"><span class="resident-price">Цена по запросу</span></p>
+            <p class="resident-teaser">Трёхглавый герой русских сказок рождается заново — со своим нравом и своей историей.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=gorynych">Открыть Хронику</a>
               <a class="button button-outline button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -315,9 +337,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Птица Сирин — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/sirin.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">3500 ₽</span></p></div>
             <h3>Птица Сирин</h3>
-            <p class="resident-meta"><span class="resident-price">3500 ₽</span></p>
+            <p class="resident-teaser">Райская птица из старых сказаний — тихая, яркая, неспешная.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=sirin">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -330,9 +355,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Русалка — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/mermaid.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-progress">В работе</span>
+            <div class="resident-facts"><span class="resident-status resident-status-progress">В работе</span><p class="resident-meta"><span class="resident-price">Цена по запросу</span></p></div>
             <h3>Русалка</h3>
-            <p class="resident-meta"><span class="resident-price">Цена по запросу</span></p>
+            <p class="resident-teaser">Русалка из русских сказок — ждёт своего часа, чтобы показаться во всей красе.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=mermaid">Открыть Хронику</a>
               <a class="button button-outline button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -345,9 +373,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Конёк-Горбунок — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/humpbacked-horse.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">4000 ₽</span><span class="resident-stock">готово: 2</span></p></div>
             <h3>Конёк-Горбунок</h3>
-            <p class="resident-meta"><span class="resident-price">4000 ₽</span><span class="resident-stock">готово: 2</span></p>
+            <p class="resident-teaser">Верный спутник из старой сказки — маленький, горбатый и по-настоящему сказочный.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=humpbacked-horse">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -371,9 +402,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Курочка — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/hen.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">2000 ₽</span></p></div>
             <h3>Курочка</h3>
-            <p class="resident-meta"><span class="resident-price">2000 ₽</span></p>
+            <p class="resident-teaser">Не всякая легенда должна рычать: некоторые просто выходят на свет и смотрят прямо.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=hen">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -386,9 +420,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Солнечная лошадка-качалка — фигурка ручной работы" style="background-image:url('assets/residents/peaceful/rocking-horse.webp')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">3500 ₽</span></p></div>
             <h3>Солнечная лошадка-качалка</h3>
-            <p class="resident-meta"><span class="resident-price">3500 ₽</span></p>
+            <p class="resident-teaser">Белая лошадка с золотой гривой и яркой росписью — маленькая домашняя история о движении и детстве.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=rocking-horse">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -401,9 +438,12 @@
               <span class="resident-photo resident-photo-direct" role="img" aria-label="Кот в сапогах — фигурка ручной работы" style="background-image:url('assets/process/05-compare-side.jpg')"></span>
             </div>
           <div class="resident-copy">
-            <span class="resident-status resident-status-available">Можно приобрести</span>
+            <div class="resident-facts"><span class="resident-status resident-status-available">Можно приобрести</span><p class="resident-meta"><span class="resident-price">5500 ₽</span></p></div>
             <h3>Кот в сапогах</h3>
-            <p class="resident-meta"><span class="resident-price">5500 ₽</span></p>
+            <p class="resident-teaser">Рыжий, в плаще и сапогах, с воротником по моде своего века — тот самый кот, который выигрывает не силой, а хитростью.</p>
+            
+            
+            
             <div class="resident-actions">
               <a class="text-link" href="chronicle.html?resident=puss-in-boots">Открыть Хронику</a>
               <a class="button button-primary button-small" href="https://t.me/masterskayaver">Написать Вере</a>
@@ -443,6 +483,6 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=residents-restore-2"></script>
 </body>
 </html>
