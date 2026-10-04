@@ -218,7 +218,7 @@ const COLLECTION_WORLDS = {
   },
   forest: {
     title: 'Тайны древнего леса',
-    description: 'Сумрак между корнями, мох, папоротник и огоньки, которые зажигаются сами. Здесь говорят вполголоса.',
+    description: 'Лесные драконы, грибы, гномы и существа, которые не любят шум, но знают много старых историй.',
     tone: 'night',
     cartouche: 'assets/worlds/cartouche-forest.webp',
     residents: [
