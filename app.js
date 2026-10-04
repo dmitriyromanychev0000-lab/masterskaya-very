@@ -211,9 +211,9 @@ const COLLECTION_WORLDS = {
     cartouche: 'assets/worlds/cartouche-winter.webp',
     residents: [
       { name: 'Щелкунчик', status: 'available', price: '3000 ₽', stock: 'готово: 1', chronicle: 'nutcracker' },
+      { name: 'Мышиный Король', status: 'available', price: '4500 ₽', stock: 'готово: 4', chronicle: 'mouse-king' },
       { name: 'Мари (девочка с Щелкунчиком)', status: 'progress', chronicle: 'mari' },
-      { name: 'Мышиная Королева', status: 'progress', chronicle: 'mouse-queen' },
-      { name: 'Мышиный Король', status: 'available', price: '4500 ₽', stock: 'готово: 4', chronicle: 'mouse-king' }
+      { name: 'Мышиная Королева', status: 'progress', chronicle: 'mouse-queen' }
     ]
   },
   forest: {
@@ -291,11 +291,23 @@ const syncAboutStats = () => {
 syncAboutStats();
 
 const syncResidentsAvailable = () => {
-  const node = document.querySelector('[data-residents-available]');
-  if (!node) return;
+  const availableNode = document.querySelector('[data-residents-available]');
+  if (!availableNode) return;
 
   const residents = Object.values(COLLECTION_WORLDS).flatMap((world) => world.residents);
-  node.textContent = String(residents.filter((resident) => resident.status === 'available').length);
+  availableNode.textContent = String(residents.filter((resident) => resident.status === 'available').length);
+
+  const progressNode = document.querySelector('[data-residents-progress]');
+  if (progressNode) progressNode.textContent = String(residents.filter((resident) => resident.status === 'progress').length);
+
+  const minPriceNode = document.querySelector('[data-residents-min-price]');
+  const prices = residents
+    .filter((resident) => resident.status === 'available' && resident.price)
+    .map((resident) => Number(resident.price.replace(/[^\d]/g, '')))
+    .filter(Number.isFinite);
+  if (minPriceNode && prices.length) {
+    minPriceNode.textContent = `${Math.min(...prices).toLocaleString('ru-RU')} ₽`;
+  }
 };
 
 syncResidentsAvailable();
