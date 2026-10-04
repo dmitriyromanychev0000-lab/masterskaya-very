@@ -5287,3 +5287,43 @@ main[data-collection-root][data-world] .collection-back:hover { color:var(--gold
   .resident-teaser { min-height:0; margin-bottom:10px; font-size:10.5px; line-height:1.4; }
   .resident-actions .button { display:inline-flex; }
 }
+
+/* About page: archived story, material notes and clear routes. */
+.about-story-traits {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  padding:22px 0;
+  margin:20px 0 22px;
+  border-top:1px solid rgba(122,93,52,.28);
+  border-bottom:1px solid rgba(122,93,52,.28);
+}
+.about-story-traits strong,
+.about-story-traits span { display:block; }
+.about-story-traits strong { font:400 21px/1.15 var(--serif); color:var(--ink); }
+.about-story-traits span { margin-top:7px; color:#625347; font-size:11px; line-height:1.45; }
+.about-story-actions,
+.about-principles-actions { display:flex; flex-wrap:wrap; gap:16px 22px; align-items:center; }
+.about-story-actions .button,
+.about-principles-actions .button { width:auto; }
+.about-story-process-link,
+.about-principles-link {
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  color:var(--ink);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.03em;
+  text-decoration:none;
+  border-bottom:1px solid var(--gold-ink);
+  padding:7px 0;
+}
+.about-principles-actions { margin-top:32px; }
+@media (max-width:620px) {
+  .about-story-traits { grid-template-columns:1fr; gap:12px; }
+  .about-story-traits div { display:grid; grid-template-columns:minmax(80px,1fr) 2fr; gap:12px; align-items:baseline; }
+  .about-story-traits span { margin-top:0; }
+  .about-story-actions .button,
+  .about-principles-actions .button { width:100%; }
+}
