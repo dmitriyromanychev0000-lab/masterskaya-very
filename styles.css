@@ -1870,9 +1870,9 @@ h1, h2, h3, h4 {
   border-top:1px solid rgba(232,201,143,.28);
   border-bottom:1px solid rgba(232,201,143,.18);
   background-color:var(--night);
-  background-repeat:repeat-y;
+  background-repeat:no-repeat;
   background-position:center top;
-  background-size:100% auto;
+  background-size:cover;
   color:var(--cream);
 }
 .res-world::before {
@@ -2001,7 +2001,7 @@ h1, h2, h3, h4 {
 
   .res-world {
     padding:54px 18px 60px;
-    background-size:auto 760px;
+    background-size:cover;
   }
   .res-world[data-world="winter"] { background-image:url("assets/worlds/winter-mobile.webp"); }
   .res-world[data-world="forest"] { background-image:url("assets/worlds/forest-mobile.webp"); }
@@ -4681,12 +4681,11 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
 .home-hero-media, .home-hero-media img { position:absolute; inset:0; width:100%; height:100%; }
 .home-hero-media { z-index:-2; }
 .home-hero-media img { object-fit:cover; object-position:center 55%; }
-.home-hero::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,rgba(15,10,8,.9),rgba(15,10,8,.42) 36%,transparent 62%,rgba(15,10,8,.78)); pointer-events:none; }
-.home-hero-intro { max-width:890px; }
+.home-hero::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(15,10,8,.9),rgba(15,10,8,.62) 34%,transparent 65%),linear-gradient(180deg,rgba(15,10,8,.55),transparent 48%,rgba(15,10,8,.78)); pointer-events:none; }
+.home-hero-intro { position:relative; z-index:1; max-width:min(510px,48vw); }
 .home-hero .eyebrow { color:var(--gold-light); }
-.home-hero h1 { margin:0; font:500 clamp(54px,6.8vw,100px)/.91 var(--serif); letter-spacing:-.045em; text-wrap:balance; }
+.home-hero h1 { margin:0; font:500 clamp(52px,5.4vw,78px)/.96 var(--serif); letter-spacing:-.045em; text-wrap:balance; }
 .home-hero .hero-lead { margin:22px 0 0; color:#f1e5d0; font-size:clamp(17px,1.7vw,23px); line-height:1.35; }
-.home-hero-aside { position:absolute; top:43%; right:max(24px,calc((100vw - var(--content))/2)); margin:0; color:#f3d9aa; text-align:center; font:italic 500 clamp(22px,2.8vw,40px)/.95 var(--serif); text-shadow:0 2px 16px #130d0b; transform:rotate(-8deg); }
 .home-hero-bottom { max-width:630px; }
 .home-hero .hero-actions { display:flex; flex-wrap:wrap; gap:14px; margin:0; }
 .home-hero-bottom p { margin:16px 0 0; color:#e4d5bd; font-size:15px; line-height:1.5; }
@@ -4773,13 +4772,12 @@ main[data-chronicle-root][data-world="home"] { background-image:url("assets/worl
 @media (max-width:700px) {
   .home-hero { display:block; min-height:0; padding:calc(var(--header-h) + 28px) 0 32px; }
   .home-hero::after { display:none; }
-  .home-hero-intro { padding:0 20px; }
+  .home-hero-intro { max-width:none; padding:0 20px; }
   .home-hero .eyebrow { margin-bottom:14px; }
   .home-hero h1 { font-size:clamp(39px,10.6vw,55px); line-height:.96; }
   .home-hero .hero-lead { margin-top:18px; font-size:17px; }
   .home-hero-media { position:relative; z-index:0; display:block; width:100%; height:auto; aspect-ratio:1 / 1.02; margin:20px 0 0; overflow:hidden; }
   .home-hero-media img { object-position:center 54%; }
-  .home-hero-aside { top:auto; bottom:35%; right:24px; font-size:24px; }
   .home-hero-bottom { padding:0 20px; }
   .home-hero .hero-actions { display:grid; grid-template-columns:1fr; gap:10px; }
   .home-hero .hero-actions .button { display:flex; width:100%; min-height:54px; justify-content:center; text-align:center; }
@@ -5002,6 +5000,7 @@ main[data-collection-root][data-world] .collection-back:hover { color:var(--gold
 }
 
 /* Forest scene: archival mobile composition and its confirmed ornament. */
+.world-scene[data-world="forest"] { padding-top:90px; padding-bottom:90px; }
 .world-scene[data-world="forest"] .forest-scene-divider {
   position:absolute;
   z-index:2;
@@ -5013,8 +5012,8 @@ main[data-collection-root][data-world] .collection-back:hover { color:var(--gold
   pointer-events:none;
   user-select:none;
 }
-.world-scene[data-world="forest"] .forest-scene-divider--top { top:-18px; }
-.world-scene[data-world="forest"] .forest-scene-divider--bottom { bottom:-18px; }
+.world-scene[data-world="forest"] .forest-scene-divider--top { top:0; }
+.world-scene[data-world="forest"] .forest-scene-divider--bottom { bottom:0; }
 .world-scene[data-world="forest"] .scene-card-photo { position:relative; }
 .world-scene[data-world="forest"] .forest-scene-card-world {
   position:absolute;
