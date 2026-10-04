@@ -252,7 +252,7 @@ const COLLECTION_WORLDS = {
   },
   home: {
     title: 'Домашние легенды',
-    description: 'Солнце на деревянном полу, лён и тишина. Не каждая легенда должна рычать.',
+    description: 'Не каждая легенда должна быть грозной: здесь появляются тихие, солнечные и очень домашние Жители.',
     tone: 'night',
     cartouche: 'assets/worlds/cartouche-home.webp',
     residents: [
@@ -453,7 +453,7 @@ const initCollection = () => {
           </div>
           <h1>${escapeHtml(world.title)}</h1>
           <p class="collection-lead">${escapeHtml(world.description)}</p>
-          ${slug === 'russian' ? `<p class="collection-available-note">${world.residents.filter((resident) => resident.status === 'available').length} можно забрать домой</p>` : ''}
+          ${['russian', 'home'].includes(slug) ? `<p class="collection-available-note">${world.residents.filter((resident) => resident.status === 'available').length} можно забрать домой</p>` : ''}
           ${world.cartouche ? `<div class="world-cartouche-wrap" aria-hidden="true">
             <img class="world-cartouche" src="${escapeHtml(world.cartouche)}" alt="" width="1100" height="688" decoding="async">
             <span class="world-cartouche-text"><strong>${world.residents.length}</strong>${residentsWord(world.residents.length)} в этом Мире</span>
