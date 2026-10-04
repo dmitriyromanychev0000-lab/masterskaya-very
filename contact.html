@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="Контакты — Мастерская Веры">
   <meta name="twitter:description" content="Контакты мастерской Веры: написать в Telegram, заказать фигурку, узнать о доставке и сроках изготовления.">
   <link rel="canonical" href="https://dmitriyromanychev0000-lab.github.io/masterskaya-very/contact.html">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=contact-restored-1">
 </head>
 <body>
   <header class="site-header" data-header>
@@ -60,78 +60,82 @@
 
   <main id="top">
     <section class="contact-intro" aria-labelledby="contact-title">
-      <p class="eyebrow">Контакты</p>
+      <p class="eyebrow">Связь с мастерской</p>
       <h1 id="contact-title">Написать Вере</h1>
-      <p class="contact-intro-lead">О готовой работе, будущем Жителе, доставке или сроках — пишите напрямую. Без посредников, без ботов, без очереди.</p>
+      <p class="contact-intro-lead">О готовой работе, будущем Жителе или доставке — без посредников.</p>
     </section>
 
-    <section class="contact-main">
+    <section class="contact-main" aria-label="Способы связи">
       <div class="contact-grid">
         <div class="contact-card contact-card--telegram">
-          <div class="contact-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" focusable="false">
-              <path d="M21 3 9.7 14.3M21 3l-7.2 18-4.1-6.7L3 10.2 21 3Z"></path>
-            </svg>
+          <p class="eyebrow">Telegram</p>
+          <h2>Самый<br>быстрый способ</h2>
+          <p>В канале — готовые работы и процесс. Если хотите обсудить Жителя, начните с Telegram мастерской.</p>
+          <div class="contact-telegram-actions">
+            <a class="button button-primary" href="https://t.me/masterskayaver">Открыть Telegram</a>
           </div>
-          <h2>Telegram</h2>
-          <p>Самый быстрый способ связи. Пишите напрямую — Вера отвечает лично.</p>
-          <a class="button button-primary" href="https://t.me/masterskayaver">Открыть Telegram</a>
-          <span class="contact-card-handle">@masterskayaver</span>
+          <span class="contact-card-handle">t.me/masterskayaver</span>
         </div>
 
-        <div class="contact-card contact-card--form">
-          <p class="eyebrow">Если удобнее письмом</p>
-          <h2>Оставьте сообщение</h2>
-          <p class="contact-form-note">Вера прочитает его сама. Форма подготовит текст, скопирует его и откроет Telegram — ничего не отправляется в пустоту.</p>
-          <form class="contact-message-form" data-contact-message-form>
-            <label class="contact-field">
-              <span>Как вас зовут</span>
-              <input type="text" name="name" autocomplete="name" placeholder="Имя" required>
-            </label>
-            <label class="contact-field">
-              <span>Как ответить</span>
-              <input type="text" name="reply" autocomplete="email" placeholder="Telegram, почта или телефон" required>
-            </label>
-            <label class="contact-field">
-              <span>О ком или о чём речь</span>
-              <textarea name="message" rows="5" placeholder="Расскажите, кто понравился или кого хотите создать" required></textarea>
-            </label>
-            <button class="button button-primary" type="submit">Скопировать и открыть Telegram</button>
-            <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite"></p>
-          </form>
-          <a class="contact-create-link text-link" href="create.html">Обсудить индивидуальную идею <span aria-hidden="true">→</span></a>
+        <div class="contact-questions">
+          <p class="eyebrow">Что можно уточнить</p>
+          <ol>
+            <li><span>01</span>Есть ли Житель в наличии</li>
+            <li><span>02</span>Стоимость и доставка</li>
+            <li><span>03</span>Идея индивидуальной работы</li>
+            <li><span>04</span>Подарочный набор</li>
+          </ol>
         </div>
       </div>
+    </section>
+
+    <section class="contact-letter" aria-labelledby="contact-letter-title">
+      <div class="contact-letter-intro">
+        <p class="eyebrow">Если удобнее сначала набросать текст</p>
+        <h2 id="contact-letter-title">Оставьте сообщение</h2>
+        <p>Форма поможет собрать обращение. После нажатия текст скопируется, а Telegram откроется в новой вкладке: вставьте сообщение и отправьте его там.</p>
+      </div>
+      <form class="contact-message-form" data-contact-message-form>
+        <div class="contact-fields-row">
+          <label class="contact-field">
+            <span>Как вас зовут</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Имя" required>
+          </label>
+          <label class="contact-field">
+            <span>Как ответить</span>
+            <input type="text" name="reply" autocomplete="email" placeholder="Telegram, почта или телефон" required>
+          </label>
+        </div>
+        <label class="contact-field">
+          <span>О ком или о чём речь</span>
+          <textarea name="message" rows="5" placeholder="Расскажите, кто приглянулся или кого хочется создать" required></textarea>
+        </label>
+        <button class="button button-primary" type="submit">Скопировать и открыть Telegram</button>
+        <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite"></p>
+      </form>
     </section>
 
     <section class="contact-details" aria-labelledby="contact-details-title">
-      <h2 id="contact-details-title">О связи</h2>
+      <div class="contact-details-head">
+        <p class="eyebrow">Прежде чем писать</p>
+        <h2 id="contact-details-title">Доставка и оплата</h2>
+      </div>
       <div class="contact-details-grid">
         <div class="contact-detail">
-          <h3>Ответ</h3>
-          <p>Вера отвечает лично, поэтому время ответа зависит от загрузки мастерской. Сообщение не потеряется — ответит, когда освободится от работы.</p>
+          <h3>География</h3>
+          <p>По всей России; возможность отправки в другую страну обсуждается отдельно.</p>
         </div>
         <div class="contact-detail">
-          <h3>Языки</h3>
-          <p>Русский. Если пишете на другом — напишите, Вера попробует ответить.</p>
+          <h3>Доставка</h3>
+          <p>Способ отправки, стоимость и упаковку Вера уточнит вместе с вами до отправки Жителя.</p>
         </div>
         <div class="contact-detail">
-          <h3>Чем помочь</h3>
-          <p>О готовой работе, сроках изготовления, доставке, размерах, цене, заказе — всё в одном месте.</p>
+          <h3>Сроки и стоимость</h3>
+          <p>Зависят от конкретной работы, региона и способа доставки — точные цифры лучше уточнить в переписке.</p>
         </div>
-      </div>
-    </section>
-
-    <section class="contact-locations" aria-labelledby="contact-locations-title">
-      <h2 id="contact-locations-title">Доставка</h2>
-      <div class="contact-locations-grid">
-        <div class="contact-location">
-          <strong>По России</strong>
-          <p>Отправка транспортными компаниями. Упаковка — вручную: крепкая коробка, надёжная обёртка, лента.</p>
-        </div>
-        <div class="contact-location">
-          <strong>По миру</strong>
-          <p>Напишите — обсудим доставку. Стоимость и сроки зависят от расстояния.</p>
+        <div class="contact-detail">
+          <h3>Оплата</h3>
+          <p>Способ оплаты и итоговую сумму обсудите с Верой перед заказом.</p>
         </div>
       </div>
     </section>
